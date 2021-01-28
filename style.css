@@ -4,7 +4,7 @@ body{
 }
 .logo{
   position: absolute;
-  max-height: 20px;
+  max-height: 50px;
 }
 .navbar{
   z-index: 50;
@@ -34,11 +34,11 @@ body{
 .card-img-overlay{
   padding-top: 10%;
   padding-left: 5%;
-  color: #fff;
 }
 .main-card-title,.page-title{
   font-family: waffle;
   font-size: 300%;
+  color: #205bba;
 }
 .card-img-overlay > .card-text{
   width: 50%;
@@ -55,7 +55,7 @@ body{
   position: absolute;
   display: inline-block;
   width: 40%;
-  top: 45%;
+  top: 65%;
   left: 5%;
 }
 .btn{
@@ -67,8 +67,9 @@ body{
   font-size: 150%;
 }
 .btn-primary{
-  background-color: #0094FF;
-  border-color: #0094FF;
+  /*background-color: #0094FF;*/
+  background-color: #205bba;
+  border-color: #205bba;
 }
 .btn-primary.disabled, .btn-primary:disabled {
   color: #fff;
@@ -132,6 +133,45 @@ body{
   margin-left: auto;
   margin-right: auto;
   width: 50%;
+}
+footer{
+  margin-top: 5%;
+  display: inline-block;
+  height: 100px;
+  width: 100%;
+  color: white;
+}
+footer p{
+  display: inline;
+  padding: 20px;
+  margin-left: 10%;
+  margin-top: 10%;
+}
+.fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  text-decoration: none;
+  display: inline;
+}
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+.fa-twitter {
+  background: #55ACEE;
+  color: white;
+}
+.fa-instagram {
+  background: #125688;
+  color: white;
+}
+.fa-snapchat-ghost {
+  background: #fffc00;
+  color: white;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 @font-face {
   font-family: waffle;

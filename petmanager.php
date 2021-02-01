@@ -153,6 +153,7 @@
           <input type="submit" id="newpetsubmit" class="btn btn-success">
         </fieldset>
         <h4>Need to add a new Treatment, Diet Plan, Exercise Plan or Diagnosis? Click the link below.</h4>
+        <a href="petinforetriever.php">Here</a>
       </form>
       <script>
         $("#newpetadd").submit(function(event) {
@@ -304,6 +305,7 @@
           <button type="submit" id="updsubmit" class="btn btn-success">Submit</button>
         </fieldset>
         <h4>Need to add a new Treatment, Diet Plan, Exercise Plan or Diagnosis? Click the link below.</h4>
+        <a href="petinforetriever.php">Here</a>
       </form>
       <script>
         $("#petmodify").submit(function(event) {
@@ -329,125 +331,6 @@
           });
         });
       </script>
-      <form id="treatadd" action="treatmentadd.php" method="post">
-        <div class="main-card-title">Add Treatment</div>
-        <fieldset>
-          <legend>Treatment Name<legend>
-          <input type="text" class="form-control" id="treatmentname" name="treatmentname">
-          <br>
-          <br>
-          <legend>Treatment Date<legend>
-          <input type="date" class="form-control" id="treatdate" name="treatdate">
-          <br>
-          <br>
-          <legend>Treatment Notes<legend>
-          <input type="text" class="form-control" id="treatmentnotes" name="treatmentnotes">
-          <br>
-          <br>
-          <legend>Treatment Type<legend>
-          <select id="treatmenttype" name="treatmenttype">
-            <option value="Follow up">Follow-up</option>
-            <option value="Surgery">Surgery</option>
-            <option value="Blood test">Blood test</option>
-            <option value="Blood test">Other</option>
-          </select>
-          <br>
-          <br>
-          <legend>Treatment Cost<legend>
-          <select id="treatmentcost" name="treatmentcost">
-            <?php
-              $sql = "SELECT * FROM Treatment_Cost";
-              $result = mysqli_query($conn, $sql);
-              $resultnum = mysqli_num_rows($result);
-              if ($resultnum > 0){
-                while ($row = mysqli_fetch_assoc($result)){
-                echo "<option value=",$row['Treatment_Cost_ID'],">" . $row['Treatment_Cost'] . "</option>";
-                }
-              }
-              ?>
-          </select>
-          <br>
-          <br>
-          <button type="submit" id="submit" class="btn btn-success">Submit</button>
-        </fieldset>
-      </form>
-      <form id="dietadd" action="dietadd.php" method="post">
-        <div class="main-card-title">Add Diet Prescription</div>
-        <fieldset>
-          <legend>Diet Name<legend>
-          <input type="text" class="form-control" id="dietname" name="dietname">
-          <br>
-          <br>
-          <legend>Diet Start Date<legend>
-          <input type="date" class="form-control" id="dietstartdate" name="dietstartdate">
-          <br>
-          <br>
-          <legend>Diet End Date<legend>
-          <input type="date" class="form-control" id="dietenddate" name="dietenddate">
-          <br>
-          <br>
-          <legend>Diet Notes<legend>
-          <input type="text" class="form-control" id="dietnotes" name="dietnotes">
-          <br>
-          <br>
-          <button type="submit" id="submit" class="btn btn-success">Submit</button>
-        </fieldset>
-      </form>
-      <form id="exerciseadd" action="exerciseadd.php" method="post">
-        <div class="main-card-title">Add Exercise Plan</div>
-        <fieldset>
-          <legend>Exercise Name<legend>
-          <input type="text" class="form-control" id="exercisename" name="exercisename">
-          <br>
-          <br>
-          <legend>Exercise Start Date<legend>
-          <input type="date" class="form-control" id="exercisestartdate" name="exercisestartdate">
-          <br>
-          <br>
-          <legend>Exercise End Date<legend>
-          <input type="date" class="form-control" id="exerciseenddate" name="exerciseenddate">
-          <br>
-          <br>
-          <legend>Exercise Notes<legend>
-          <input type="text" class="form-control" id="exercisenotes" name="exercisenotes">
-          <br>
-          <br>
-          <button type="submit" id="submit" class="btn btn-success">Submit</button>
-        </fieldset>
-      </form>
-      <form id="diagnosisadd" action="diagnosisadd.php" method="post">
-        <div class="main-card-title">Add Diagnosis</div>
-        <fieldset>
-          <legend>Diagnosis Name<legend>
-          <input type="text" class="form-control" id="diagnosisname" name="diagnosisname">
-          <br>
-          <br>
-          <legend>Diagnosis Type<legend>
-          <input type="text" class="form-control" id="diagnosistype" name="diagnosistype">
-          <br>
-          <br>
-          <legend>Diagnosis Date<legend>
-          <input type="date" class="form-control" id="diagnosisdate" name="diagnosisdate">
-          <br>
-          <br>
-          <legend>Diagnosed By (Vet)<legend>
-          <select id="diagnosisvet" name="diagnosisvet">
-            <?php
-              $sql = "SELECT * FROM Vet";
-              $result = mysqli_query($conn, $sql);
-              $resultnum = mysqli_num_rows($result);
-              if ($resultnum > 0){
-                while ($row = mysqli_fetch_assoc($result)){
-                echo "<option value=",$row['Vet_ID'],">" . $row['Vet_FName'] . " " . $row['Vet_LName'] . "</option>";
-                }
-              }
-              ?>
-          </select>
-          <br>
-          <br>
-          <button type="submit" id="submit" class="btn btn-success">Submit</button>
-        </fieldset>
-      </form>
    </div>
   </div>
 </div>

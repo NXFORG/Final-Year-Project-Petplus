@@ -1,0 +1,118 @@
+body{
+  background-color: #1c1e21;
+  margin: 0;
+}
+.logo{
+  position: absolute;
+  max-height: 50px;
+}
+.navbar{
+  z-index: 50;
+  padding: 10;
+}
+/*CSS for navbar item container*/
+.navbar-nav {
+  margin:0 auto;
+  text-align: center;
+}
+/*CSS for hover effect on the navbar items*/
+#homebg{
+  width: 100%;
+}
+#form-container{
+  display: block;
+  width: 70%;
+  margin-top: 10%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #fff;
+  text-align: center;
+}
+
+.main-card-title{
+  font-size: 200%;
+  margin-bottom: 3%;
+}
+form{
+  margin-top: 5%;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 5%;
+}
+.hvr-fade{
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  overflow: hidden;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: color, background-color;
+  transition-property: color, background-color;
+}
+.btn{
+  color: #fff;
+  width: 40%;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-right: 10px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 150%;
+  border-radius: 0;
+}
+.btn:focus, .btn.focus {
+  color: #fff;
+  background-color: #1c1e21;
+  border-color: #1c1e21;
+  box-shadow: 0 0 0 0.2rem rgba(0,0,0,0);
+}
+.formBtnContainerLogin{
+  z-index: 0;
+  position: absolute;
+  display: inline-block;
+  width: 100%;
+  top: 20%;
+  text-align: center;
+}
+
+footer{
+  margin-top: 55%;
+  display: inline-block;
+  height: 100px;
+  width: 100%;
+  color: white;
+}
+footer p{
+  display: inline;
+  padding: 20px;
+  margin-left: 10%;
+  margin-top: 10%;
+}
+.fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  text-decoration: none;
+  display: inline;
+}
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+.fa-twitter {
+  background: #55ACEE;
+  color: white;
+}
+.fa-instagram {
+  background: #125688;
+  color: white;
+}
+.fa-snapchat-ghost {
+  background: #fffc00;
+  color: white;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}

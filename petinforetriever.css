@@ -1,8 +1,5 @@
 body{
   background-color: #1c1e21;
-  background-image: url(images/dogcliffs.jpg);
-  background-attachment: fixed;
-  background-size: cover;
   margin: 0;
 }
 .logo{
@@ -24,42 +21,26 @@ body{
 }
 #form-container{
   display: block;
-  width: 30%;
+  width: 70%;
   margin-top: 10%;
   margin-left: auto;
   margin-right: auto;
   background-color: #fff;
   text-align: center;
-  border-radius: 10px;
 }
+#form-container > .container{
 
+}
 .main-card-title{
   font-size: 200%;
   margin-bottom: 3%;
-  color: #205bba;
-  font-family: waffle;
-  width: 100%;
 }
 form{
   margin-top: 5%;
+  width: 60%;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 20%;
-  width: 70%;
-}
-input{
-  width: 100%;
-  height: 15%;
-  border-radius: 5px;
-  border: 0;
-  background-color: #d5d6e0;
-  padding-left: 5%;
-}
-.form-label{
-  float: left;
-}
-#vetregister > .main-card-title{
-  color: #39a342;
+  margin-bottom: 5%;
 }
 .hvr-fade{
   display: inline-block;
@@ -73,36 +54,20 @@ input{
   -webkit-transition-property: color, background-color;
   transition-property: color, background-color;
 }
-#vetbtn{
+.btn{
   color: #fff;
-  width: 100%;
+  width: 40%;
   padding-left: 20px;
   padding-right: 20px;
-  margin-top: 10%;
+  margin-right: 10px;
   font-family: 'Roboto', sans-serif;
   font-size: 150%;
-  border-radius: 5px;
-  background-color: #205bba;
+  border-radius: 0;
 }
-#regbtn{
+.btn:focus, .btn.focus {
   color: #fff;
-  width: 100%;
-  padding-left: 20px;
-  padding-right: 20px;
-  margin-top: 10%;
-  font-family: 'Roboto', sans-serif;
-  font-size: 150%;
-  border-radius: 5px;
-  background-color: #39a342;
-}
-#vetbtn:focus, #vetbtn.focus, #vetbtn:hover {
-  color: #fff;
-  background-color: #326fa8;
-  box-shadow: 0 0 0 0.2rem rgba(0,0,0,0);
-}
-#regbtn:focus, #regbtn.focus, #regbtn:hover {
-  color: #fff;
-  background-color: #1f6e25;
+  background-color: #1c1e21;
+  border-color: #1c1e21;
   box-shadow: 0 0 0 0.2rem rgba(0,0,0,0);
 }
 .formBtnContainerLogin{
@@ -113,9 +78,29 @@ input{
   top: 20%;
   text-align: center;
 }
-
+#loginform > h1{
+  margin-top: 5%;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  color: #fff;
+}
+#billContainer{
+  width: 20%;
+  margin-left: auto;
+  margin-right: auto;
+  height: auto;
+  background-color: rgba(255,255,255,0.5);
+  border-radius: 10px;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+#quickChoice h3{
+    font-family: 'waffle';
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
 footer{
-  margin-top: 70%;
+  margin-top: 55%;
   display: inline-block;
   height: 100px;
   width: 100%;
@@ -152,8 +137,4 @@ footer p{
   background: #fffc00;
   color: white;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-}
-@font-face {
-  font-family: waffle;
-  src: url(fonts/waffle.otf);
 }

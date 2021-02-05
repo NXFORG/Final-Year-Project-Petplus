@@ -1,5 +1,6 @@
 <?php
   include_once 'petplus.php';
+  include('loggedin.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -22,15 +23,16 @@
     <div class="collapse navbar-collapse" id="navbarNav">
      <ul class="navbar-nav">
       <li class="nav-item active">
-       <a class="nav-link hvr-fade" href="index.html">HOME</a>
+       <a class="nav-link hvr-fade" href="petmanager.php">PET MANAGER<span class="sr-only ">(current)</span></a>
       </li>
       <li class="nav-item">
-       <a class="nav-link hvr-fade" href="about.html">ABOUT</a>
+       <a class="nav-link hvr-fade" href="petinforetriever.php">ADD NEW</a>
       </li>
       <li class="nav-item">
-       <a class="nav-link hvr-fade" href="petmanager.html">PET MANAGER<span class="sr-only ">(current)</span></a>
+       <a class="nav-link hvr-fade" href="viewpet.php">VIEW PET</a>
       </li>
      </ul>
+     <a href = "logout.php">Logout</a>
     </div>
    </nav>
 <div id="homeimage">

@@ -24,9 +24,9 @@
       <li class="nav-item">
        <a class="nav-link hvr-fade" href="index.html">HOME</a>
       </li>
-      <li class="nav-item">
+      <!--<li class="nav-item">
        <a class="nav-link hvr-fade" href="about.html">ABOUT</a>
-      </li>
+     </li>-->
       <li class="nav-item active">
        <a class="nav-link hvr-fade" href="login.php">VETS<span class="sr-only ">(current)</span></a>
       </li>

@@ -24,9 +24,9 @@
       <li class="nav-item">
        <a class="nav-link hvr-fade" href="index.html">HOME</a>
       </li>
-      <li class="nav-item">
+      <!--<li class="nav-item">
        <a class="nav-link hvr-fade" href="about.html">ABOUT</a>
-      </li>
+     </li>-->
       <li class="nav-item">
        <a class="nav-link hvr-fade" href="login.php">VETS</a>
       </li>
@@ -84,7 +84,7 @@
   </form>
   <script>
     $("#vetregister").submit(function(event) {
-      event.preventDefault(); 
+      event.preventDefault();
       var $form = $(this),
       url = $form.attr('action');
       var posting = $.post(url, {

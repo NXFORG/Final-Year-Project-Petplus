@@ -34,6 +34,8 @@ body{
 .card-img-overlay{
   padding-top: 10%;
   padding-left: 5%;
+  width: 60%;
+  background-color: rgba(255, 255, 255, 0.3);
 }
 .main-card-title,.page-title{
   font-family: waffle;
@@ -41,7 +43,7 @@ body{
   color: #205bba;
 }
 .card-img-overlay > .card-text{
-  width: 50%;
+  width: 70%;
   font-family: 'Roboto', sans-serif;
   font-size: 130%;
 }
@@ -54,7 +56,7 @@ body{
   z-index: 0;
   position: absolute;
   display: inline-block;
-  width: 40%;
+  width: 50%;
   top: 65%;
   left: 5%;
 }

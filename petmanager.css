@@ -1,6 +1,10 @@
 body{
+  background-image: url(images/dogcliffs.jpg);
+  background-attachment: fixed;
+  background-size: cover;
   background-color: #1c1e21;
   margin: 0;
+  margin-bottom: 180%;
 }
 .logo{
   position: absolute;
@@ -15,23 +19,26 @@ body{
   margin:0 auto;
   text-align: center;
 }
-/*CSS for hover effect on the navbar items*/
-#homebg{
-  width: 100%;
-}
 #form-container{
   display: block;
-  width: 70%;
+  width: 50%;
   margin-top: 10%;
   margin-left: auto;
   margin-right: auto;
   background-color: #fff;
   text-align: center;
+  border-radius: 10px;
 }
 
 .main-card-title{
-  font-size: 200%;
+  font-size: 250%;
+  color: #205bba;
+  font-family: waffle;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: 3%;
+  margin-top: 3%;
 }
 form{
   margin-top: 5%;
@@ -39,6 +46,28 @@ form{
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 5%;
+}
+.form-label{
+  float: left;
+}
+input{
+  width: 100%;
+  padding-bottom: 3%;
+  padding-top: 3%;
+  border-radius: 5px;
+  border: 0;
+  background-color: #d5d6e0;
+  padding-left: 5%;
+}
+
+select{
+  width: 100%;
+  padding-bottom: 3%;
+  padding-top: 3%;
+  border-radius: 5px;
+  border: 0;
+  background-color: #d5d6e0;
+  padding-left: 5%;
 }
 .hvr-fade{
   display: inline-block;
@@ -54,13 +83,14 @@ form{
 }
 .btn{
   color: #fff;
-  width: 40%;
+  width: 100%;
   padding-left: 20px;
   padding-right: 20px;
-  margin-right: 10px;
+  margin-top: 10%;
+  margin-bottom: 10%;
   font-family: 'Roboto', sans-serif;
   font-size: 150%;
-  border-radius: 0;
+  border-radius: 10px;
 }
 .btn:focus, .btn.focus {
   color: #fff;
@@ -78,23 +108,26 @@ form{
 }
 
 footer{
-  margin-top: 55%;
+  position: fixed;
+  bottom: 0;
   display: inline-block;
-  height: 100px;
+  height: 6%;
   width: 100%;
   color: white;
+  padding-top: 1%;
+  padding-bottom: 1%;
 }
 footer p{
   display: inline;
   padding: 20px;
-  margin-left: 10%;
+  margin-left: 5%;
   margin-top: 10%;
 }
 .fa {
-  padding: 20px;
-  font-size: 30px;
-  width: 50px;
-  height: 50px;
+  padding: 5px;
+  font-size: 20px;
+  width: 30px;
+  height: 30px;
   text-align: center;
   text-decoration: none;
   display: inline;
@@ -115,4 +148,8 @@ footer p{
   background: #fffc00;
   color: white;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+@font-face {
+  font-family: waffle;
+  src: url(fonts/waffle.otf);
 }

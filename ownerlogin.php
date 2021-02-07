@@ -51,7 +51,7 @@
           $count = mysqli_num_rows($result);
           if($count == 1) {
             $_SESSION['login_user'] = $user;
-            header("location: petmanager.php");
+            header("location: ownerviewpet.php");
           }else{
             echo "<script>alert(\"Your email or password wasn't recognised, please try again.\")</script>";
           }
@@ -84,7 +84,7 @@
   </form>
   <script>
     $("#vetregister").submit(function(event) {
-      event.preventDefault(); /*Stops redirect*/
+      event.preventDefault(); 
       var $form = $(this),
       url = $form.attr('action');
       var posting = $.post(url, {

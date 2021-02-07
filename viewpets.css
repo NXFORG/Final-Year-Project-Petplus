@@ -74,9 +74,6 @@ input{
   list-style: none;
   margin-bottom: 10%;
 }
-#break{
-  margin-bottom: 3000%;
-}
 .hvr-fade{
   display: inline-block;
   vertical-align: middle;
@@ -95,7 +92,6 @@ input{
   padding-left: 20px;
   padding-right: 20px;
   margin-top: 10%;
-  margin-right: 10px;
   font-family: 'Roboto', sans-serif;
   font-size: 150%;
   border-radius: 10px;
@@ -121,7 +117,6 @@ footer{
   height: 6%;
   width: 100%;
   color: white;
-  background-color: #1c1e21;
   padding-top: 1%;
   padding-bottom: 1%;
 }

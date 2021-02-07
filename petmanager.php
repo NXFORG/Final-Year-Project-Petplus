@@ -36,7 +36,6 @@
     </div>
    </nav>
 <div id="homeimage">
- <img id="homebg" src="images/dogcliffs.jpg" alt="">
   <div class="card-img-overlay">
     <div id="form-container">
     <div class="container">
@@ -44,14 +43,17 @@
       <form id="newpetadd" action="petadd.php" method="post">
         <div class="main-card-title">New Pet Entry Form</div>
         <fieldset>
-          <legend>Pet Name<legend>
-          <input type="text" class="form-control" id="petname" name="petname">
+          <label class="form-label">Pet Name</label>
+          <input type="text" id="petname" name="petname">
           <br>
-          <legend>Pet Date of Birth<legend>
-          <input type="date" class="form-control" id="petdob" name="petdob">
           <br>
-          <legend>Pet Species<legend>
+          <label class="form-label">Pet Date of Birth</label>
+          <input type="date" id="petdob" name="petdob">
+          <br>
+          <br>
+          <label class="form-label">Pet Breed</label>
           <select id="petspecies" name="petspecies">
+            <option value="" disabled selected>Select a Breed</option>
             <option value=1>American Bulldog</option>
             <option value=2>American Pit Bull Terrier</option>
             <option value=3>Beagle</option>
@@ -62,8 +64,9 @@
           </select>
           <br>
           <br>
-          <legend>Owner's Name<legend>
+          <label class="form-label">Owner's Name</label>
           <select id="ownername" name="ownername">
+            <option value="" disabled selected>Select a Pet Owner</option>
             <?php
              $sql = "SELECT * FROM Owner";
              $result = mysqli_query($conn, $sql);
@@ -77,8 +80,9 @@
           </select>
           <br>
           <br>
-          <legend>Veterinarian's Name<legend>
+          <label class="form-label">Veterinarian's Name</label>
           <select id="vetname" name="vetname">
+            <option value="" disabled selected>Select a Veterinarian</option>
             <?php
              $sql = "SELECT * FROM Vet";
              $result = mysqli_query($conn, $sql);
@@ -92,8 +96,9 @@
           </select>
           <br>
           <br>
-          <legend>Treatment Name<legend>
+          <label class="form-label">Treatment Name</label>
           <select id="treatname" name="treatname">
+            <option value="" disabled selected>Select a Treatment</option>
             <?php
              $sql = "SELECT * FROM Treatment";
              $result = mysqli_query($conn, $sql);
@@ -107,8 +112,9 @@
           </select>
           <br>
           <br>
-          <legend>Pet Diet Prescription<legend>
+          <label class="form-label">Pet Diet Prescription</label>
           <select id="dietname" name="dietname">
+            <option value="" disabled selected>Select a Diet Plan</option>
             <?php
              $sql = "SELECT * FROM Diet";
              $result = mysqli_query($conn, $sql);
@@ -122,8 +128,9 @@
           </select>
           <br>
           <br>
-          <legend>Pet Exercise Plan<legend>
+          <label class="form-label">Pet Exercise Plan</label>
           <select id="exercisename" name="exercisename">
+            <option value="" disabled selected>Select an Exercise Plan</option>
             <?php
              $sql = "SELECT * FROM Exercise";
              $result = mysqli_query($conn, $sql);
@@ -137,8 +144,9 @@
           </select>
           <br>
           <br>
-          <legend>Pet Diagnosis<legend>
+          <label class="form-label">Pet Diagnosis</label>
           <select id="diagnosisname" name="diagnosisname">
+            <option value="" disabled selected>Select a Diagnosis</option>
             <?php
              $sql = "SELECT * FROM Diagnosis";
              $result = mysqli_query($conn, $sql);
@@ -184,8 +192,9 @@
       <form id="petmodify" action="petupdate.php" method="post">
         <div class="main-card-title">Modify Existing Pet Entry Form</div>
         <fieldset>
-          <legend>Pet Name<legend>
+          <label class="form-label">Pet ID and Name</label>
           <select id="updpetname" name="petname">
+            <option value="" disabled selected>Select a Pet</option>
             <?php
              $sql = "SELECT * FROM Pet";
              $result = mysqli_query($conn, $sql);
@@ -199,8 +208,9 @@
           </select>
           <br>
           <br>
-          <legend>Pet Owner<legend>
+          <label class="form-label">Pet Owner</label>
           <select id="updownername" name="ownername">
+            <option value="" disabled selected>Select a Pet Owner</option>
             <?php
              $sql = "SELECT * FROM Owner";
              $result = mysqli_query($conn, $sql);
@@ -214,11 +224,13 @@
           </select>
           <br>
           <br>
-          <legend>Pet Date of Birth<legend>
-          <input type="date" class="form-control" id="updpetdob" name="petdob">
+          <label class="form-label">Pet Date of Birth</label>
+          <input type="date" id="updpetdob" name="petdob">
           <br>
-          <legend>Pet Species<legend>
+          <br>
+          <label class="form-label">Pet Breed</label>
           <select id="updpetspecies" name="petspecies">
+            <option value="" disabled selected>Select a Breed</option>
             <option value=1>American Bulldog</option>
             <option value=2>American Pit Bull Terrier</option>
             <option value=3>Beagle</option>
@@ -229,8 +241,9 @@
           </select>
           <br>
           <br>
-          <legend>Veterinarian's Name<legend>
+          <label class="form-label">Veterinarian's Name</label>
           <select id="updvetname" name="vetname">
+            <option value="" disabled selected>Select a Veterinarian</option>
             <?php
              $sql = "SELECT * FROM Vet";
              $result = mysqli_query($conn, $sql);
@@ -244,8 +257,9 @@
           </select>
           <br>
           <br>
-          <legend>Treatment Name<legend>
+          <label class="form-label">Treatment Name</label>
           <select id="updtreatname" name="treatname">
+            <option value="" disabled selected>Select a Treatment</option>
             <?php
              $sql = "SELECT * FROM Treatment";
              $result = mysqli_query($conn, $sql);
@@ -259,8 +273,9 @@
           </select>
           <br>
           <br>
-          <legend>Pet Diet Prescription<legend>
+          <label class="form-label">Pet Diet Prescription</label>
           <select id="upddietname" name="dietname">
+            <option value="" disabled selected>Select a Diet Plan</option>
             <?php
              $sql = "SELECT * FROM Diet";
              $result = mysqli_query($conn, $sql);
@@ -274,8 +289,9 @@
           </select>
           <br>
           <br>
-          <legend>Pet Exercise Plan<legend>
+          <label class="form-label">Pet Exercise Plan</label>
           <select id="updexercisename" name="exercisename">
+            <option value="" disabled selected>Select an Exercise Plan</option>
             <?php
              $sql = "SELECT * FROM Exercise";
              $result = mysqli_query($conn, $sql);
@@ -289,8 +305,9 @@
           </select>
           <br>
           <br>
-          <legend>Pet Diagnosis<legend>
+          <label class="form-label">Pet Diagnosis</label>
           <select id="upddiagnosisname" name="diagnosisname">
+            <option value="" disabled selected>Select a Diagnosis</option>
             <?php
              $sql = "SELECT * FROM Diagnosis";
              $result = mysqli_query($conn, $sql);

@@ -35,8 +35,6 @@
      <a href = "logout.php">Logout</a>
     </div>
    </nav>
-<div id="homeimage">
- <img id="homebg" src="images/dogcliffs.jpg" alt="">
   <div class="card-img-overlay">
     <div id="form-container">
     <div class="container">
@@ -45,19 +43,19 @@
         <a href="petmanager.php">Go back</a>
         <div class="main-card-title">Add Treatment</div>
         <fieldset>
-          <legend>Treatment Name<legend>
-          <input type="text" class="form-control" id="treatmentname" name="treatmentname">
+          <label class="form-label">Treatment Name</label>
+          <input type="text" id="treatmentname" name="treatmentname">
           <br>
           <br>
-          <legend>Treatment Date<legend>
-          <input type="date" class="form-control" id="treatdate" name="treatdate">
+          <label class="form-label">Treatment Date</label>
+          <input type="date" id="treatdate" name="treatdate">
           <br>
           <br>
-          <legend>Treatment Notes<legend>
-          <input type="text" class="form-control" id="treatmentnotes" name="treatmentnotes">
+          <label class="form-label">Treatment Notes</label>
+          <input type="text" id="treatmentnotes" name="treatmentnotes">
           <br>
           <br>
-          <legend>Treatment Type<legend>
+          <label class="form-label">Treatment Type</label>
           <select id="treatmenttype" name="treatmenttype">
             <option value="Follow up">Follow-up</option>
             <option value="Surgery">Surgery</option>
@@ -66,7 +64,7 @@
           </select>
           <br>
           <br>
-          <legend>Treatment Cost<legend>
+          <label class="form-label">Treatment Cost</label>
           <select id="treatmentcost" name="treatmentcost">
             <?php
               $sql = "SELECT * FROM Treatment_Cost";
@@ -107,7 +105,7 @@
       <form id="dietadd" action="dietadd.php" method="post">
         <div class="main-card-title">Add Diet Prescription</div>
         <fieldset>
-          <legend>Diet Name<legend>
+          <label class="form-label">Diet Name</label>
           <input type="text" class="form-control" id="dietname" name="dietname">
           <br>
           <br>

@@ -1,10 +1,7 @@
 body{
-  background-image: url(images/dogcliffs.jpg);
-  background-attachment: fixed;
-  background-size: cover;
-  background-color: #1c1e21;
+  background-color: #5b99d4;
   margin: 0;
-  margin-bottom: 180%;
+  margin-bottom: 100%;
 }
 .logo{
   position: absolute;
@@ -21,34 +18,37 @@ body{
 }
 #form-container{
   display: block;
-  width: 50%;
-  margin-top: 10%;
+  width: 30%;
+  margin-top: 5%;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 5%;
   background-color: #fff;
   text-align: center;
   border-radius: 10px;
 }
-
 .main-card-title{
-  font-size: 250%;
+  font-size: 200%;
   color: #205bba;
   font-family: waffle;
-  width: 100%;
+  width: 70%;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 3%;
   margin-top: 3%;
 }
-form{
+.formentry{
   margin-top: 5%;
-  width: 60%;
+  width: 100%;
+  padding-left: 20%;
+  padding-right: 20%;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 5%;
+  margin-bottom: 10%;
 }
 .form-label{
   float: left;
+  font-family: raleway-light;
 }
 input{
   width: 100%;
@@ -60,14 +60,17 @@ input{
   padding-left: 5%;
 }
 
-select{
-  width: 100%;
-  padding-bottom: 3%;
-  padding-top: 3%;
-  border-radius: 5px;
-  border: 0;
+#treatmentresults{
   background-color: #d5d6e0;
-  padding-left: 5%;
+  border-radius: 20px;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 3%;
+  padding-bottom: 3%;
+  text-align: left;
+  list-style: none;
+  margin-bottom: 10%;
 }
 .hvr-fade{
   display: inline-block;
@@ -87,8 +90,7 @@ select{
   padding-left: 20px;
   padding-right: 20px;
   margin-top: 10%;
-  margin-bottom: 10%;
-  font-family: 'Roboto', sans-serif;
+  font-family: raleway-medium, sans-serif;
   font-size: 150%;
   border-radius: 10px;
 }
@@ -106,21 +108,18 @@ select{
   top: 20%;
   text-align: center;
 }
-
 footer{
   position: fixed;
   bottom: 0;
   display: inline-block;
-  height: 6%;
+  height: 100px;
   width: 100%;
   color: white;
-  padding-top: 1%;
-  padding-bottom: 1%;
 }
 footer p{
   display: inline;
   padding: 20px;
-  margin-left: 5%;
+  margin-left: 10%;
   margin-top: 10%;
 }
 .fa {
@@ -152,4 +151,12 @@ footer p{
 @font-face {
   font-family: waffle;
   src: url(fonts/waffle.otf);
+}
+@font-face {
+  font-family: raleway-light;
+  src: url(fonts/raleway-light.ttf);
+}
+@font-face {
+  font-family: raleway-medium;
+  src: url(fonts/raleway-medium.ttf);
 }

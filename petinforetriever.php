@@ -9,14 +9,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>PETPLUS PET MANAGER</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="petmanager.css">
+  <link rel="stylesheet" type="text/css" href="petsmanager.css">
   <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
  </head>
  <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-   <img class="logo" src="images/petplus.png" alt="PETPLUS">
+   <img class="logo" src="images/petpluslogowhite.png" alt="PETPLUS">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
      <span class="navbar-toggler-icon"></span>
     </button>
@@ -106,19 +106,19 @@
         <div class="main-card-title">Add Diet Prescription</div>
         <fieldset>
           <label class="form-label">Diet Name</label>
-          <input type="text" class="form-control" id="dietname" name="dietname">
+          <input type="text" id="dietname" name="dietname">
           <br>
           <br>
-          <legend>Diet Start Date<legend>
-          <input type="date" class="form-control" id="dietstartdate" name="dietstartdate">
+          <label class="form-label">Diet Start Date</label>
+          <input type="date" id="dietstartdate" name="dietstartdate">
           <br>
           <br>
-          <legend>Diet End Date<legend>
-          <input type="date" class="form-control" id="dietenddate" name="dietenddate">
+          <label class="form-label">Diet End Date</label>
+          <input type="date" id="dietenddate" name="dietenddate">
           <br>
           <br>
-          <legend>Diet Notes<legend>
-          <input type="text" class="form-control" id="dietnotes" name="dietnotes">
+          <label class="form-label">Diet Notes</label>
+          <input type="text" id="dietnotes" name="dietnotes">
           <br>
           <br>
           <button type="submit" id="submit" class="btn btn-success">Submit</button>
@@ -146,20 +146,20 @@
       <form id="exerciseadd" action="exerciseadd.php" method="post">
         <div class="main-card-title">Add Exercise Plan</div>
         <fieldset>
-          <legend>Exercise Name<legend>
-          <input type="text" class="form-control" id="exercisename" name="exercisename">
+          <label class="form-label">Exercise Name</label>
+          <input type="text" id="exercisename" name="exercisename">
           <br>
           <br>
-          <legend>Exercise Start Date<legend>
-          <input type="date" class="form-control" id="exercisestartdate" name="exercisestartdate">
+          <label class="form-label">Exercise Start Date</label>
+          <input type="date" id="exercisestartdate" name="exercisestartdate">
           <br>
           <br>
-          <legend>Exercise End Date<legend>
-          <input type="date" class="form-control" id="exerciseenddate" name="exerciseenddate">
+          <label class="form-label">Exercise End Date</label>
+          <input type="date" id="exerciseenddate" name="exerciseenddate">
           <br>
           <br>
-          <legend>Exercise Notes<legend>
-          <input type="text" class="form-control" id="exercisenotes" name="exercisenotes">
+          <label class="form-label">Exercise Notes</label>
+          <input type="text" id="exercisenotes" name="exercisenotes">
           <br>
           <br>
           <button type="submit" id="submit" class="btn btn-success">Submit</button>
@@ -187,19 +187,19 @@
       <form id="diagnosisadd" action="diagnosisadd.php" method="post">
         <div class="main-card-title">Add Diagnosis</div>
         <fieldset>
-          <legend>Diagnosis Name<legend>
-          <input type="text" class="form-control" id="diagnosisname" name="diagnosisname">
+          <label class="form-label">Diagnosis Name</label>
+          <input type="text" id="diagnosisname" name="diagnosisname">
           <br>
           <br>
-          <legend>Diagnosis Type<legend>
-          <input type="text" class="form-control" id="diagnosistype" name="diagnosistype">
+          <label class="form-label">Diagnosis Type</label>
+          <input type="text" id="diagnosistype" name="diagnosistype">
           <br>
           <br>
-          <legend>Diagnosis Date<legend>
-          <input type="date" class="form-control" id="diagnosisdate" name="diagnosisdate">
+          <label class="form-label">Diagnosis Date</label>
+          <input type="date" id="diagnosisdate" name="diagnosisdate">
           <br>
           <br>
-          <legend>Diagnosed By (Vet)<legend>
+          <label class="form-label">Diagnosed By (Vet)</label>
           <select id="diagnosisvet" name="diagnosisvet">
             <?php
               $sql = "SELECT * FROM Vet";
@@ -244,10 +244,10 @@
 </div>
 </div>
 <footer><p>NXFORG 2021</p>
-  <a href="#" class="fa fa-facebook"></a>
+  <!--<a href="#" class="fa fa-facebook"></a>
   <a href="#" class="fa fa-twitter"></a>
   <a href="#" class="fa fa-instagram"></a>
-  <a href="#" class="fa fa-snapchat-ghost"></a>
+  <a href="#" class="fa fa-snapchat-ghost"></a>-->
 </footer>
  </body>
 </html>

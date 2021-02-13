@@ -11,12 +11,12 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="viewpets.css">
+  <link rel="stylesheet" type="text/css" href="viewpet.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
  </head>
  <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-   <img class="logo" src="images/petplus.png" alt="PETPLUS">
+   <img class="logo" src="images/petpluslogowhite.png" alt="PETPLUS">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
      <span class="navbar-toggler-icon"></span>
     </button>
@@ -199,9 +199,9 @@
   </body>
   <footer>
    <p>NXFORG 2021</p>
-   <a href="#" class="fa fa-facebook"></a>
+   <!--<a href="#" class="fa fa-facebook"></a>
    <a href="#" class="fa fa-twitter"></a>
    <a href="#" class="fa fa-instagram"></a>
-   <a href="#" class="fa fa-snapchat-ghost"></a>
+   <a href="#" class="fa fa-snapchat-ghost"></a>-->
   </footer>
 </html>

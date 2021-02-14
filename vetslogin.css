@@ -163,3 +163,78 @@ footer p{
   font-family: raleway-medium;
   src: url(fonts/raleway-medium.ttf);
 }
+@media all and (max-width: 1025px) {
+  .logo{
+    position: relative;
+  }
+  .page-title{
+    margin-top: 30%;
+  }
+  .main-card-title{
+    font-size: 250%;
+  }
+  #form-container{
+    width: 60%;
+  }
+  .btn{
+    width: 40%;
+    font-size: 150%;
+  }
+  .btn-primary{
+    background-color: rgba(255, 255, 255, 1);
+    color: #205bba;
+    border: 2px solid #fff;
+  }
+  .btn-light{
+    color: #205bba;
+    border: 2px solid #fff;
+  }
+  .btn-light:hover {
+    color: #fff;
+    background-color:#095891;
+    border-color: #095891;
+  }
+}
+footer{
+  margin-top: 120%;
+}
+@media all and (max-width: 800px) {
+  #vetregister{
+    margin-bottom: 30%;
+  }
+  footer{
+    margin-top: 145%;
+  }
+}
+@media all and (max-width: 400px) {
+  .main-card-title{
+    font-size: 150%;
+  }
+  .card-img-overlay{
+    margin-top: 10%;
+  }
+  #form-container{
+    width: 80%;
+  }
+  label{
+    font-size: 80%;
+  }
+  input{
+    height: 12%;
+  }
+  #vetbtn{
+    margin-bottom: 10%;
+  }
+  #regbtn{
+    margin-bottom: 10%;
+  }
+  footer{
+    margin-top: 250%;
+    text-align: center;
+  }
+  footer p{
+    padding: 0;
+    margin-left: 0%;
+    margin-top: 0%;
+  }
+}

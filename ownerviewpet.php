@@ -100,7 +100,7 @@
            $ownerlnametreat = $_POST['ownerlnametreat'];
            $petnametreat = $_POST['petnametreat'];
            $result = mysqli_query($conn,"SELECT Pet_ID, Pet_Name, Diagnosis_Name, Diagnosis_Date, Treatment_Name,
-             Treatment_Type, Treatment_Date, Treatment_Notes, Vet_FName, Vet_LName, Vet_Title, Vet_Phone,
+             Treatment_Type, Treatment_Date, Treatment_Notes, Pet_Next_Treatment_Date, Vet_FName, Vet_LName, Vet_Title, Vet_Phone,
              Vet_Email, Practice_Name, Practice_Phone, Practice_Email, Practice_Number, Practice_Postcode FROM Pet
              JOIN Diagnosis ON Diagnosis.Diagnosis_ID = Pet.Pet_Diagnosis_ID JOIN Treatment ON
              Treatment.Treatment_ID = Pet.Pet_Treatment_ID JOIN Vet ON Vet.Vet_ID = Pet.Pet_Vet_ID JOIN Practice
@@ -116,6 +116,7 @@
                  echo "<li><b>Treatment Type:</b> " . " " . $row['Treatment_Type'] . "</li>";
                  echo "<li><b>Treatment Date:</b> " . " " . $row['Treatment_Date'] . "</li>";
                  echo "<li><b>Treatment Notes:</b> " . " " . $row['Treatment_Notes'] . "</li>";
+                 echo "<li><b>Next Treatment Date:</b> " . " " . $row['Pet_Next_Treatment_Date'] . "</li>";
                  echo "<li><b>Vet's First Name:</b> " . " " . $row['Vet_FName'] . "</li>";
                  echo "<li><b>Vet's Last Name:</b>" . " " . $row['Vet_LName'] . "</li>";
                  echo "<li><b>Vet's Accreditations:</b> " . " " . $row['Vet_Title'] . "</li>";

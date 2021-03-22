@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>PETPLUS PET MANAGER</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="petmanager.css">
+  <link rel="stylesheet" type="text/css" href="petsmanager.css">
   <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -41,7 +41,7 @@
     <div class="row">
       <form id="treatadd" action="treatmentadd.php" method="post">
         <a href="petmanager.php">Go back</a>
-        <div class="main-card-title">Add Treatment</div>
+        <div class="main-card-title">Add a Treatment</div>
         <fieldset>
           <label class="form-label">Treatment Name</label>
           <input type="text" id="treatmentname" name="treatmentname">

@@ -105,30 +105,31 @@
              Treatment_Type, Treatment_Date, Treatment_Notes, Vet_FName, Vet_LName, Vet_Title, Vet_Phone,
              Vet_Email, Practice_Name, Practice_Phone, Practice_Email, Practice_Number, Practice_Postcode FROM Pet
              JOIN Diagnosis ON Diagnosis.Diagnosis_ID = Pet.Pet_Diagnosis_ID JOIN Treatment ON
-             Treatment.Treatment_ID = Pet.Pet_Treatment_ID JOIN Vet ON Vet.Vet_ID = Pet.Pet_Vet_ID JOIN Practice
+             Treatment.Treatment_ID = Pet.Pet_Treatment_ID JOIN (SELECT Pet_Next_Treatment_Date FROM Treatment WHERE Pet_Next_Treatment_Date IS NOT NULL) As a ON a.Treatment_ID = Treatment.Treatment_ID JOIN Vet ON Vet.Vet_ID = Pet.Pet_Vet_ID JOIN Practice
              ON Practice.Practice_ID = Vet.Vet_Practice_ID JOIN Practice_Location ON Practice_Location.Practice_Location_ID
              = Practice.Practice_Location_ID WHERE Pet.Pet_ID = '$petidtreat' OR Pet.Pet_Name = '$petnametreat'");
              while($row = mysqli_fetch_array($result)){
-                 echo "<ul id=\"treatmentresults\">";
-                 echo "<li><b>Pet ID:</b> " . " " . $row['Pet_ID'] . "</li>";
-                 echo "<li><b>Pet Name:</b> " . " " . $row['Pet_Name'] . "</li>";
-                 echo "<li><b>Diagnosis:</b> " . " " . $row['Diagnosis_Name'] . "</li>";
-                 echo "<li><b>Date of Diagnosis:</b> " . " " . $row['Diagnosis_Date'] . "</li>";
-                 echo "<li><b>Treatment Name:</b> " . " " . $row['Treatment_Name'] . "</li>";
-                 echo "<li><b>Treatment Type:</b> " . " " . $row['Treatment_Type'] . "</li>";
-                 echo "<li><b>Treatment Date:</b> " . " " . $row['Treatment_Date'] . "</li>";
-                 echo "<li><b>Treatment Notes:</b> " . " " . $row['Treatment_Notes'] . "</li>";
-                 echo "<li><b>Vet's First Name:</b> " . " " . $row['Vet_FName'] . "</li>";
-                 echo "<li><b>Vet's Last Name:</b>" . " " . $row['Vet_LName'] . "</li>";
-                 echo "<li><b>Vet's Accreditations:</b> " . " " . $row['Vet_Title'] . "</li>";
-                 echo "<li><b>Vet's Phone Number:</b> " . " " . $row['Vet_Phone'] . "</li>";
-                 echo "<li><b>Vet's Email Address:</b> " . " " . $row['Vet_Email'] . "</li>";
-                 echo "<li><b>Practice Name:</b> " . " " . $row['Practice_Name'] . "</li>";
-                 echo "<li><b>Practice Phone Number:</b> " . " " . $row['Practice_Phone'] . "</li>";
-                 echo "<li><b>Practice Email Address:</b> " . " " . $row['Practice_Email'] . "</li>";
-                 echo "<li><b>Practice Street Number:</b> " . " " . $row['Practice_Number'] . "</li>";
-                 echo "<li><b>Practice Postcode:</b> " . " " . $row['Practice_Postcode'] . "</li>";
-                 echo "</ul>";
+                   echo "<ul id=\"treatmentresults\">";
+                   echo "<li><b>Pet ID:</b> " . " " . $row['Pet_ID'] . "</li>";
+                   echo "<li><b>Pet Name:</b> " . " " . $row['Pet_Name'] . "</li>";
+                   echo "<li><b>Diagnosis:</b> " . " " . $row['Diagnosis_Name'] . "</li>";
+                   echo "<li><b>Date of Diagnosis:</b> " . " " . $row['Diagnosis_Date'] . "</li>";
+                   echo "<li><b>Treatment Name:</b> " . " " . $row['Treatment_Name'] . "</li>";
+                   echo "<li><b>Treatment Type:</b> " . " " . $row['Treatment_Type'] . "</li>";
+                   echo "<li><b>Treatment Date:</b> " . " " . $row['Treatment_Date'] . "</li>";
+                   echo "<li><b>Treatment Notes:</b> " . " " . $row['Treatment_Notes'] . "</li>";
+                   echo "<li><b>Next Treatment Date:</b> " . " " . $row['Pet_Next_Treatment_Date'] . "</li>";
+                   echo "<li><b>Vet's First Name:</b> " . " " . $row['Vet_FName'] . "</li>";
+                   echo "<li><b>Vet's Last Name:</b>" . " " . $row['Vet_LName'] . "</li>";
+                   echo "<li><b>Vet's Accreditations:</b> " . " " . $row['Vet_Title'] . "</li>";
+                   echo "<li><b>Vet's Phone Number:</b> " . " " . $row['Vet_Phone'] . "</li>";
+                   echo "<li><b>Vet's Email Address:</b> " . " " . $row['Vet_Email'] . "</li>";
+                   echo "<li><b>Practice Name:</b> " . " " . $row['Practice_Name'] . "</li>";
+                   echo "<li><b>Practice Phone Number:</b> " . " " . $row['Practice_Phone'] . "</li>";
+                   echo "<li><b>Practice Email Address:</b> " . " " . $row['Practice_Email'] . "</li>";
+                   echo "<li><b>Practice Street Number:</b> " . " " . $row['Practice_Number'] . "</li>";
+                   echo "<li><b>Practice Postcode:</b> " . " " . $row['Practice_Postcode'] . "</li>";
+                   echo "</ul>";
                }
                mysqli_close($conn);
              }

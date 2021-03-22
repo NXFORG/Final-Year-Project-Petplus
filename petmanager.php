@@ -91,39 +91,6 @@
             <option value=6>Dachshund</option>
             <option value=7>Dalmatian</option>
           </select>
-          <!--<script>
-            function bind_select_search(srch, select, arr_name) {
-              window[arr_name] = []
-              $(select + " option").each(function(){
-                window[arr_name][this.value] = this.text
-              })
-              $(srch).keyup(function(e) {
-                text = $(srch).val()
-                if (text != '' || e.keyCode == 8) {
-                  arr = window[arr_name]
-                  $(select + " option").remove()
-                  tmp  = ''
-                  for (key in arr) {
-                    option_text = arr[key].toLowerCase()
-                    if (option_text.search(text.toLowerCase()) > -1 ) {
-                      tmp += '<option value="'+key+'">'+ arr[key] +'</option>'
-                    }
-                  }
-                  $(select).append(tmp)
-                }
-              })
-              $(srch).keydown(function(e) {
-                if (e.keyCode == 8) // Backspace
-                $(srch).trigger('keyup')
-              })
-
-            }
-
-            $(document).ready(function() {
-              bind_select_search('#srch', '#petspecies', 'options')
-            })
-            }
-          </script>-->
           <br>
           <br>
           <label class="form-label">Owner's Name</label>
@@ -144,16 +111,23 @@
           <br>
           <label class="form-label">Veterinarian's Name</label>
           <select id="vetname" name="vetname">
-            <option value="" disabled selected>Select a Veterinarian</option>
             <?php
+             $sql = "SELECT * FROM Vet WHERE Vet_Email = '$check'";
+             $result = mysqli_query($conn, $sql);
+             $resultnum = mysqli_num_rows($result);
+             if ($resultnum > 0){
+              while ($row = mysqli_fetch_assoc($result)){
+                echo "<option value=",$row['Vet_ID'],">" . $row['Vet_FName'] . " " . $row['Vet_LName'] . "</option>";
+               }
+             }
              $sql = "SELECT * FROM Vet";
              $result = mysqli_query($conn, $sql);
              $resultnum = mysqli_num_rows($result);
-              if ($resultnum > 0){
-               while ($row = mysqli_fetch_assoc($result)){
+             if ($resultnum > 0){
+              while ($row = mysqli_fetch_assoc($result)){
                 echo "<option value=",$row['Vet_ID'],">" . $row['Vet_FName'] . " " . $row['Vet_LName'] . "</option>";
                }
-              }
+             }
              ?>
           </select>
           <br>
@@ -182,6 +156,14 @@
           <select id="dietname" name="dietname">
             <option value="" disabled selected>Select a Diet Plan</option>
             <?php
+             $sql = "SELECT * FROM Diet WHERE Diet_Name = 'None' LIMIT 1";
+             $result = mysqli_query($conn, $sql);
+             $resultnum = mysqli_num_rows($result);
+             if ($resultnum > 0){
+              while ($row = mysqli_fetch_assoc($result)){
+               echo "<option value=",$row['Diet_ID'],">" . $row['Diet_Name'] . "</option>";
+              }
+             }
              $sql = "SELECT * FROM Diet";
              $result = mysqli_query($conn, $sql);
              $resultnum = mysqli_num_rows($result);
@@ -198,6 +180,14 @@
           <select id="exercisename" name="exercisename">
             <option value="" disabled selected>Select an Exercise Plan</option>
             <?php
+             $sql = "SELECT * FROM Exercise WHERE Exercise_Name = 'None' LIMIT 1";
+             $result = mysqli_query($conn, $sql);
+             $resultnum = mysqli_num_rows($result);
+              if ($resultnum > 0){
+               while ($row = mysqli_fetch_assoc($result)){
+               echo "<option value=",$row['Exercise_ID'],">" . $row['Exercise_Name'] . "</option>";
+               }
+              }
              $sql = "SELECT * FROM Exercise";
              $result = mysqli_query($conn, $sql);
              $resultnum = mysqli_num_rows($result);
@@ -214,6 +204,14 @@
           <select id="diagnosisname" name="diagnosisname">
             <option value="" disabled selected>Select a Diagnosis</option>
             <?php
+             $sql = "SELECT * FROM Diagnosis WHERE Diagnosis_Name = 'None' LIMIT 1";
+             $result = mysqli_query($conn, $sql);
+             $resultnum = mysqli_num_rows($result);
+              if ($resultnum > 0){
+               while ($row = mysqli_fetch_assoc($result)){
+                echo "<option value=",$row['Diagnosis_ID'],">" . $row['Diagnosis_Name'] . "</option>";
+               }
+              }
              $sql = "SELECT * FROM Diagnosis";
              $result = mysqli_query($conn, $sql);
              $resultnum = mysqli_num_rows($result);

@@ -16,7 +16,7 @@ body{
   margin:0 auto;
   text-align: center;
 }
-#form-container{
+#form-container,#form-container2,#form-container3{
   display: block;
   width: 30%;
   margin-top: 5%;
@@ -59,7 +59,12 @@ input{
   background-color: #d5d6e0;
   padding-left: 5%;
 }
-
+#addNewTreat,#addNewDiet{
+ color: #fff;
+ background-color: #2d64b3;
+ border-top-left-radius: 0;
+ border-top-right-radius: 0;
+}
 #treatmentresults{
   background-color: #d5d6e0;
   border-radius: 20px;

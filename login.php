@@ -92,11 +92,12 @@
       var $form = $(this),
       url = $form.attr('action');
       var posting = $.post(url, {
-        vetemail: $('#regemail').val(),
-        vetpassword: $('#regpassword').val()
+        email: $('#regemail').val(),
+        password: $('#regpassword').val()
       });
       posting.done(function(data) {
         alert("Account successfully created");
+        header("location:login.php");
       });
       posting.fail(function() {
         alert("Error: Account not created");

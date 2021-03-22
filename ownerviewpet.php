@@ -1,6 +1,8 @@
 <?php
   include_once 'petplus.php';
   include('loggedin.php');
+  $ownerfname = " ";
+  $ownerlname = " ";
 ?>
 <!DOCTYPE html>
 <html>
@@ -11,7 +13,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="viewpets.css">
+  <link rel="stylesheet" type="text/css" href="viewpet.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
  </head>
  <body>
@@ -36,12 +38,23 @@
       <div class="main-card-title">Pet Details</div>
        <form class="formentry" action="" method="post">
         <fieldset>
-          <label class="form-label">Owner's First Name</label>
-          <input type="text" id="ownerfname" name="ownerfname">
+          <?php
+            $sql = "SELECT * FROM Owner WHERE Owner_Email = '$check'";
+            $result = mysqli_query($conn, $sql);
+            $resultnum = mysqli_num_rows($result);
+            if ($resultnum > 0){
+             while ($row = mysqli_fetch_assoc($result)){
+              $ownerfname = $row['Owner_FName'];
+              $ownerlname = $row['Owner_LName'];
+              }
+            }
+          ?>
+          <label class='form-label'>Owner's First Name</label>
+          <input type='text' id='ownerfname' name ='ownerfname' value="<?php echo $ownerfname ?>">
           <br>
           <br>
-          <label class="form-label">Owner's Last Name</label>
-          <input type="text" id="ownerlname" name="ownerlname">
+          <label class='form-label'>Owner's Last Name</label>
+          <input type='text' id='ownerlname' name ='ownerlname' value="<?php echo $ownerlname ?>">
           <br>
           <br>
           <label class="form-label">Pet's Name</label>
@@ -51,13 +64,19 @@
          <input type="submit" name="choosepet" class="btn btn-success">
        </fieldset>
      </form>
+     <input id="addNewTreat" type="button" onclick="addTreat();" value="Add a new treatment" />
+     <script>
+     function addTreat(){
+       document.getElementById("form-container2").style.display="block";
+     }
+     </script>
       <?php
        if(isset($_POST['choosepet'])){
         $ownerfname = $_POST['ownerfname'];
         $ownerlname = $_POST['ownerlname'];
         $petname = $_POST['petname'];
         $result = mysqli_query($conn,"SELECT Pet_ID, Pet_Name, Pet_DOB, Species_Name, Species_Breed FROM Pet JOIN Owner ON Owner.Owner_ID = Pet.Pet_Owner_ID
-          JOIN Species ON Species.Species_ID = Pet.Pet_Species_ID WHERE Owner.Owner_FName = '$ownerfname' AND Owner.Owner_LName = '$ownerlname' AND Pet.Pet_Name = '$petname'");
+          JOIN Species ON Species.Species_ID = Pet.Pet_Species_ID WHERE Owner.Owner_FName LIKE '$ownerfname' AND Owner.Owner_LName LIKE '$ownerlname' AND Pet.Pet_Name = '$petname'");
           while($row = mysqli_fetch_array($result)){
               echo "<ul id=\"treatmentresults\">";
               echo "<li><b>Pet ID:</b>" . " " . $row['Pet_ID'] . "</li>";
@@ -73,18 +92,18 @@
        </div>
       </div>
      </div>
-     <div id="form-container">
+     <div id="form-container2">
       <div class="container">
         <div class="row">
           <div class="main-card-title">Pet Treatment Information</div>
            <form class="formentry" action="" method="post">
             <fieldset>
-              <label class="form-label">Owner's First Name</label>
-              <input type="text" id="ownerfnametreat" name="ownerfnametreat">
+              <label class='form-label'>Owner's First Name</label>
+              <input type='text' id='ownerfnametreat' name ='ownerfnametreat' value="<?php echo $ownerfname ?>">
               <br>
               <br>
-              <label class="form-label">Owner's Last Name</label>
-              <input type="text" id="ownerlnametreat" name="ownerlnametreat">
+              <label class='form-label'>Owner's Last Name</label>
+              <input type='text' id='ownerlnametreat' name ='ownerlnametreat' value="<?php echo $ownerlname ?>">
               <br>
               <br>
               <label class="form-label">Pet's Name</label>
@@ -94,6 +113,12 @@
              <input type="submit" name="choosetreatment" class="btn btn-success">
            </fieldset>
          </form>
+         <input id="addNewDiet" type="button" onclick="addDiet();" value="Add new diet or exercise plan" />
+         <script>
+         function addDiet(){
+           document.getElementById("form-container3").style.display="block";
+         }
+         </script>
          <?php
           if(isset($_POST['choosetreatment'])){
            $ownerfnametreat = $_POST['ownerfnametreat'];
@@ -135,18 +160,18 @@
            </div>
          </div>
        </div>
-       <div id="form-container">
+       <div id="form-container3">
         <div class="container">
           <div class="row">
             <div class="main-card-title">Pet Diet and Exercise Plans</div>
              <form class="formentry" action="" method="post">
               <fieldset>
-                <label class="form-label">Owner's First Name</label>
-                <input type="text" id="ownerfnamediet" name="ownerfnamediet">
+                <label class='form-label'>Owner's First Name</label>
+                <input type='text' id='ownerfnamediet' name ='ownerfnamediet' value="<?php echo $ownerfname ?>">
                 <br>
                 <br>
-                <label class="form-label">Owner's Last Name</label>
-                <input type="text" id="ownerlnamediet" name="ownerlnamediet">
+                <label class='form-label'>Owner's Last Name</label>
+                <input type='text' id='ownerlnamediet' name ='ownerlnamediet' value="<?php echo $ownerlname ?>">
                 <br>
                 <br>
                 <label class="form-label">Pet's Name</label>
@@ -201,6 +226,10 @@
            </div>
          </div>
      </div>
+     <script type="text/javascript">
+      document.getElementById("form-container2").style.display="none";
+      document.getElementById("form-container3").style.display="none";
+     </script>
   </body>
   <footer>
    <p>NXFORG 2021</p>

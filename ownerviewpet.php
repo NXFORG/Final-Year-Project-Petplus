@@ -64,12 +64,6 @@
          <input type="submit" name="choosepet" class="btn btn-success">
        </fieldset>
      </form>
-     <input id="addNewTreat" type="button" onclick="addTreat();" value="Add a new treatment" />
-     <script>
-     function addTreat(){
-       document.getElementById("form-container2").style.display="block";
-     }
-     </script>
       <?php
        if(isset($_POST['choosepet'])){
         $ownerfname = $_POST['ownerfname'];

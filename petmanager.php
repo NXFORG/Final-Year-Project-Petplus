@@ -231,7 +231,7 @@
         </fieldset>
         <h5>Need to add a new Treatment, Diet Plan, Exercise Plan or Diagnosis? Click the link below.</h5>
       </form>
-      <input id="addNewAdd" type="button" href="petinforetriever.php" value="Add new treatment" />
+      <input id="addNewAdd" type="button" onClick="document.location.href='petinforetriever.php'" value="Add new treatment" />
       <script>
         $("#newpetadd").submit(function(event) {
           event.preventDefault(); /*Stops redirect*/
@@ -451,7 +451,7 @@
         <h5>Need to add a new Treatment, Diet Plan, Exercise Plan or Diagnosis? Click the link below.</h5>
         <p id="nxforg">NXFORG 2021</p>
       </form>
-      <input id="addNewModify" type="button" href="petinforetriever.php" value="Add new treatment" />
+      <input id="addNewModify" type="button" onClick="document.location.href='petinforetriever.php'" value="Add new treatment"/>
       <script>
         $("#addNewModify").hide();
         $("#petmodify").submit(function(event) {

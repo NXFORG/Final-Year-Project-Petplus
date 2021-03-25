@@ -1,10 +1,13 @@
 <?php
  include_once 'petplus.php';
+ $user_type = $_POST['user_type'];
+ $user_fname = $_POST['user_fname'];
+ $user_lname = $_POST['user_lname'];
  $email = $_POST['email'];
  $password = $_POST['password'];
 
-  $sql = $conn->prepare("INSERT INTO Users(Email,Password) VALUES(?,?)");
-  $sql->bind_param("ss",$_POST['email'], $_POST['password']);
+  $sql = $conn->prepare("INSERT INTO Users(User_Type,User_FName,User_LName,Email,Password) VALUES(?,?,?,?,?)");
+  $sql->bind_param("sssss",$_POST['user_type'],$_POST['user_fname'],$_POST['user_lname'],$_POST['email'], $_POST['password']);
   $success = $sql->execute();
   if($success){
       echo "success";

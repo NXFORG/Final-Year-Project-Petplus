@@ -1,0 +1,241 @@
+body{
+  background-color: #5b99d4;
+  margin: 0;
+}
+.logo{
+  position: absolute;
+  max-height: 50px;
+}
+.navbar{
+  z-index: 50;
+  padding: 10;
+}
+/*CSS for navbar item container*/
+.navbar-nav {
+  margin:0 auto;
+  text-align: center;
+}
+/*CSS for hover effect on the navbar items*/
+#homebg{
+  width: 100%;
+}
+#form-container{
+  display: block;
+  width: 30%;
+  margin-top: 10%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #fff;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.main-card-title{
+  font-size: 200%;
+  margin-bottom: 3%;
+  color: #205bba;
+  font-family: waffle;
+  width: 100%;
+}
+form{
+  margin-top: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 5%;
+  width: 70%;
+}
+input{
+  width: 100%;
+  padding-bottom: 3%;
+  padding-top: 3%;
+  border-radius: 5px;
+  border: 0;
+  background-color: #d5d6e0;
+  padding-left: 5%;
+}
+.form-label{
+  float: left;
+  font-family: raleway-light;
+}
+#vetregister > .main-card-title{
+  color: #39a342;
+}
+.hvr-fade{
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  overflow: hidden;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: color, background-color;
+  transition-property: color, background-color;
+}
+#vetbtn{
+  color: #fff;
+  width: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-top: 10%;
+  font-family: raleway-medium, sans-serif;
+  font-size: 150%;
+  border-radius: 5px;
+  background-color: #205bba;
+}
+#regbtn{
+  color: #fff;
+  width: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-top: 10%;
+  font-family: raleway-medium, sans-serif;
+  font-size: 150%;
+  border-radius: 5px;
+  background-color: #39a342;
+}
+#vetbtn:focus, #vetbtn.focus, #vetbtn:hover {
+  color: #fff;
+  background-color: #326fa8;
+  box-shadow: 0 0 0 0.2rem rgba(0,0,0,0);
+}
+#regbtn:focus, #regbtn.focus, #regbtn:hover {
+  color: #fff;
+  background-color: #1f6e25;
+  box-shadow: 0 0 0 0.2rem rgba(0,0,0,0);
+}
+.formBtnContainerLogin{
+  z-index: 0;
+  position: absolute;
+  display: inline-block;
+  width: 100%;
+  top: 20%;
+  text-align: center;
+}
+
+footer{
+  margin-top: 70%;
+  display: inline-block;
+  height: 100px;
+  width: 100%;
+  color: white;
+}
+footer p{
+  display: inline;
+  padding: 20px;
+  margin-left: 10%;
+  margin-top: 10%;
+}
+.fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  text-decoration: none;
+  display: inline;
+}
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+.fa-twitter {
+  background: #55ACEE;
+  color: white;
+}
+.fa-instagram {
+  background: #125688;
+  color: white;
+}
+.fa-snapchat-ghost {
+  background: #fffc00;
+  color: white;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+@font-face {
+  font-family: waffle;
+  src: url(fonts/waffle.otf);
+}
+@font-face {
+  font-family: raleway-light;
+  src: url(fonts/raleway-light.ttf);
+}
+@font-face {
+  font-family: raleway-medium;
+  src: url(fonts/raleway-medium.ttf);
+}
+@media all and (max-width: 1025px) {
+  .logo{
+    position: relative;
+  }
+  .page-title{
+    margin-top: 30%;
+  }
+  .main-card-title{
+    font-size: 250%;
+  }
+  #form-container{
+    width: 60%;
+  }
+  .btn{
+    width: 40%;
+    font-size: 150%;
+  }
+  .btn-primary{
+    background-color: rgba(255, 255, 255, 1);
+    color: #205bba;
+    border: 2px solid #fff;
+  }
+  .btn-light{
+    color: #205bba;
+    border: 2px solid #fff;
+  }
+  .btn-light:hover {
+    color: #fff;
+    background-color:#095891;
+    border-color: #095891;
+  }
+}
+footer{
+  margin-top: 120%;
+}
+@media all and (max-width: 800px) {
+  #vetregister{
+    margin-bottom: 30%;
+  }
+  footer{
+    margin-top: 145%;
+  }
+}
+@media all and (max-width: 400px) {
+  .main-card-title{
+    font-size: 150%;
+  }
+  .card-img-overlay{
+    margin-top: 10%;
+  }
+  #form-container{
+    width: 80%;
+  }
+  label{
+    font-size: 80%;
+  }
+  input{
+    height: 12%;
+  }
+  #vetbtn{
+    margin-bottom: 10%;
+  }
+  #regbtn{
+    margin-bottom: 10%;
+  }
+  footer{
+    margin-top: 250%;
+    text-align: center;
+  }
+  footer p{
+    padding: 0;
+    margin-left: 0%;
+    margin-top: 0%;
+  }
+}

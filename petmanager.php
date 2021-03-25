@@ -16,7 +16,7 @@
   <!--<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>-->
   <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js" integrity="sha512-rMGGF4wg1R73ehtnxXBt5mbUfN9JUJwbk21KMlnLZDJh7BkPmeovBuddZCENJddHYYMkCh9hPFnPmS9sspki8g==" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css" integrity="sha512-yVvxUQV0QESBt1SyZbNJMAwyKvFTLMyXSyBHDO4BG5t7k/Lw34tyqlSDlKIrIENIzCl+RVUNjmCPG+V/GMesRw==" crossorigin="anonymous">-->
-  <link rel="stylesheet" type="text/css" href="petmanager.css">
+  <link rel="stylesheet" type="text/css" href="petaddmod.css">
  </head>
  <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -278,13 +278,17 @@
              ?>
           </select>
           <br>
-          <input type="submit" name="getPetDetails" class="btn btn-success">
         </fieldset>
+        <input type="submit" name="getPetDetails" id="choosePet" class="btn btn-success">
+        <input type="submit" name="clearPet" id="clearPet" class="btn btn-primary" value="Clear current selection">
       </form>
       <?php
        if(isset($_POST['getPetDetails'])){
         $mpet = $_POST['modpetname'];
         $modid = $mpet;
+       }
+       if(isset($_POST['clearPet'])){
+        $modid = "";
        }
       ?>
       <form id="petmodify" action="petupdate.php" method="post">
@@ -293,30 +297,11 @@
         </script>
         <div class="main-card-title">Change Pet Details</div>
         <fieldset>
-          <label class="form-label">Pet ID and Name</label>
-          <select id="updpetname" name="petname">
-            <option value="" disabled selected>Select a Pet</option>
-            <?php
-             $sql = "SELECT * FROM Pet";
-             $result = mysqli_query($conn, $sql);
-             $resultnum = mysqli_num_rows($result);
-              if ($resultnum > 0){
-               while ($row = mysqli_fetch_assoc($result)){
-                echo "<option value=",$row['Pet_ID'],">" . $row['Pet_ID'] . " " . $row['Pet_Name'] .  "</option>";
-                $modid = $row['Pet_ID'];
-                echo $modid;
-               }
-              }
-             ?>
-          </select>
-          <br>
-          <br>
           <label class="form-label">Pet Owner</label>
           <!--<input type="text" id="ownerval" name="ownerval">-->
           <select id="updownername" name="ownername">
-            <option value="" disabled selected>Select a Pet Owner</option>
             <?php
-             $sql = "SELECT * FROM Owner";
+             $sql = "SELECT * FROM Owner JOIN Pet ON Pet.Pet_Owner_ID = Owner.Owner_ID WHERE Pet_ID = '$modid'";
              $result = mysqli_query($conn, $sql);
              $resultnum = mysqli_num_rows($result);
               if ($resultnum > 0){
@@ -324,12 +309,29 @@
                 echo "<option value=",$row['Owner_ID'],">" . $row['Owner_FName'] . " " . $row['Owner_LName'] . "</option>";
                }
               }
+              $sql = "SELECT * FROM Owner";
+              $result = mysqli_query($conn, $sql);
+              $resultnum = mysqli_num_rows($result);
+               if ($resultnum > 0){
+                while ($row = mysqli_fetch_assoc($result)){
+                 echo "<option value=",$row['Owner_ID'],">" . $row['Owner_FName'] . " " . $row['Owner_LName'] . "</option>";
+                }
+               }
              ?>
           </select>
           <br>
           <br>
           <label class="form-label">Pet Date of Birth</label>
-          <input type="date" id="updpetdob" name="petdob">
+          <?php
+          $sql = "SELECT * FROM Pet WHERE Pet_ID = '$modid'";
+          $result = mysqli_query($conn, $sql);
+          $resultnum = mysqli_num_rows($result);
+          if ($resultnum > 0){
+           while ($row = mysqli_fetch_assoc($result)){
+             echo "<input type='date' id='updpetdob' name='petdob' value=" . $row['Pet_DOB'] . ">";
+            }
+          }
+          ?>
           <br>
           <br>
           <label class="form-label">Pet Breed</label>
@@ -380,8 +382,15 @@
           <br>
           <label class="form-label">Treatment Name</label>
           <select id="updtreatname" name="treatname">
-            <option value="" disabled selected>Select a Treatment</option>
             <?php
+             $sql = "SELECT * FROM Treatment JOIN Pet ON Pet.Pet_Treatment_ID = Treatment.Treatment_ID WHERE Pet_ID = '$modid' AND Treatment_Date < CURDATE()";
+             $result = mysqli_query($conn, $sql);
+             $resultnum = mysqli_num_rows($result);
+             if ($resultnum > 0){
+              while ($row = mysqli_fetch_assoc($result)){
+               echo "<option value=",$row['Treatment_ID'],">" . $row['Treatment_ID'] . " " . $row['Treatment_Name'] . "</option>";
+              }
+             }
              $sql = "SELECT * FROM Treatment WHERE Treatment_Date < CURDATE()";
              $result = mysqli_query($conn, $sql);
              $resultnum = mysqli_num_rows($result);
@@ -395,13 +404,29 @@
           <br>
           <br>
           <label class="form-label">Next Treatment Booked (Leave blank if not applicable)</label>
-          <input type="date" id="updfuturetreat" name="futuretreat">
+          <?php
+          $sql = "SELECT * FROM Pet WHERE Pet_ID = '$modid'";
+          $result = mysqli_query($conn, $sql);
+          $resultnum = mysqli_num_rows($result);
+          if ($resultnum > 0){
+           while ($row = mysqli_fetch_assoc($result)){
+             echo "<input type='date' id='updfuturetreat' name='futuretreat' value=" . $row['Pet_Next_Treatment_Date'] . ">";
+            }
+          }
+          ?>
           <br>
           <br>
           <label class="form-label">Pet Diet Prescription</label>
           <select id="upddietname" name="dietname">
-            <option value="" disabled selected>Select a Diet Plan</option>
             <?php
+            $sql = "SELECT * FROM Diet JOIN Pet ON Pet.Pet_Diet_ID = Diet.Diet_ID WHERE Pet_ID = '$modid'";
+            $result = mysqli_query($conn, $sql);
+            $resultnum = mysqli_num_rows($result);
+             if ($resultnum > 0){
+              while ($row = mysqli_fetch_assoc($result)){
+               echo "<option value=",$row['Diet_ID'],">" . $row['Diet_ID'] . " " . $row['Diet_Name'] . "</option>";
+              }
+             }
              $sql = "SELECT * FROM Diet";
              $result = mysqli_query($conn, $sql);
              $resultnum = mysqli_num_rows($result);
@@ -416,8 +441,15 @@
           <br>
           <label class="form-label">Pet Exercise Plan</label>
           <select id="updexercisename" name="exercisename">
-            <option value="" disabled selected>Select an Exercise Plan</option>
             <?php
+             $sql = "SELECT * FROM Exercise JOIN Pet ON Pet.Pet_Exercise_ID = Exercise.Exercise_ID WHERE Pet_ID = '$modid'";
+             $result = mysqli_query($conn, $sql);
+             $resultnum = mysqli_num_rows($result);
+             if ($resultnum > 0){
+              while ($row = mysqli_fetch_assoc($result)){
+               echo "<option value=",$row['Exercise_ID'],">" . $row['Exercise_ID'] . " " . $row['Exercise_Name'] . "</option>";
+              }
+             }
              $sql = "SELECT * FROM Exercise";
              $result = mysqli_query($conn, $sql);
              $resultnum = mysqli_num_rows($result);
@@ -432,8 +464,15 @@
           <br>
           <label class="form-label">Pet Diagnosis</label>
           <select id="upddiagnosisname" name="diagnosisname">
-            <option value="" disabled selected>Select a Diagnosis</option>
             <?php
+             $sql = "SELECT * FROM Diagnosis JOIN Pet ON Pet.Pet_Diagnosis_ID = Diagnosis.Diagnosis_ID WHERE Pet_ID = '$modid'";
+             $result = mysqli_query($conn, $sql);
+             $resultnum = mysqli_num_rows($result);
+             if ($resultnum > 0){
+              while ($row = mysqli_fetch_assoc($result)){
+               echo "<option value=",$row['Diagnosis_ID'],">" . $row['Diagnosis_ID'] . " " . $row['Diagnosis_Name'] . "</option>";
+              }
+             }
              $sql = "SELECT * FROM Diagnosis";
              $result = mysqli_query($conn, $sql);
              $resultnum = mysqli_num_rows($result);
@@ -459,7 +498,6 @@
           var $form = $(this),
           url = $form.attr('action');
           var posting = $.post(url, {
-            petname: $('#updpetname').val(),
             petdob: $('#updpetdob').val(),
             petspecies: $('#updpetspecies').val(),
             ownername: $('#updownername').val(),

@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>PETPLUS PET MANAGER</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="vetslogin.css">
+  <link rel="stylesheet" type="text/css" href="vetlogin.css">
   <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -80,8 +80,18 @@
   <form id="vetregister" action = "accountadd.php" method = "post">
     <div class="main-card-title">Register a Vet Account</div>
     <br>
+    <label class="form-label">First Name</label>
+    <input type = "text" id="regfname" name = "fname"/>
+    <br>
+    <br>
+    <label class="form-label">Last Name</label>
+    <input type = "text" id="reglname" name = "lname"/>
+    <br>
+    <br>
     <label class="form-label">Email Address</label>
-    <input type = "text" id="regemail" name = "email"/><br /><br />
+    <input type = "text" id="regemail" name = "email"/>
+    <br>
+    <br>
     <label class="form-label">Password</label>
     <input type = "password" id="regpassword" name = "password"/><br/><br />
     <input type = "submit" id="regbtn" value = " Submit "/><br />
@@ -92,6 +102,9 @@
       var $form = $(this),
       url = $form.attr('action');
       var posting = $.post(url, {
+        user_type: 'vet',
+        user_fname: $('#regfname').val(),
+        user_lname: $('#reglname').val(),
         email: $('#regemail').val(),
         password: $('#regpassword').val()
       });

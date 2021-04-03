@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="viewpet.css">
+  <link rel="stylesheet" type="text/css" href="vetview.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
  </head>
  <body>
@@ -46,8 +46,13 @@
           <input type="text" id="petid" name="petid">
           <br>
           <br>
+          <hr>
           <label class="form-label">Pet Name</label>
           <input type="text" id="petname" name="petname">
+          <br>
+          <br>
+          <label class="form-label">Owner Postcode</label>
+          <input type="text" id="petpostcode" name="petpostcode">
           <br>
           <br>
          <input type="submit" name="choosepet" class="btn btn-success">
@@ -57,8 +62,9 @@
        if(isset($_POST['choosepet'])){
         $petid = $_POST['petid'];
         $petname = $_POST['petname'];
+        $petpostcode = $_POST['petpostcode'];
         $result = mysqli_query($conn,"SELECT Pet_ID, Pet_Name, Pet_DOB, Species_Name, Species_Breed, Owner_FName, Owner_LName, Owner_Phone, Owner_Email, House_Number, Street_Postcode FROM Pet JOIN Owner ON Owner.Owner_ID = Pet.Pet_Owner_ID
-         JOIN Owner_Location ON Owner_Location.Owner_Location_ID = Owner.Owner_Location_ID JOIN Species ON Species.Species_ID = Pet.Pet_Species_ID WHERE Pet.Pet_ID = '$petid' OR Pet.Pet_Name = '$petname'");
+         JOIN Owner_Location ON Owner_Location.Owner_Location_ID = Owner.Owner_Location_ID JOIN Species ON Species.Species_ID = Pet.Pet_Species_ID WHERE Pet.Pet_ID = '$petid' OR (Pet.Pet_Name = '$petname' AND Owner_Location.Street_Postcode = '$petpostcode')");
           while($row = mysqli_fetch_array($result)){
               echo "<ul id=\"treatmentresults\">";
               echo "<li><b>Pet ID:</b>" . " " . $row['Pet_ID'] . "</li>";
@@ -90,8 +96,13 @@
               <input type="text" id="petidtreat" name="petidtreat">
               <br>
               <br>
+              <hr>
               <label class="form-label">Pet Name</label>
               <input type="text" id="petnametreat" name="petnametreat">
+              <br>
+              <br>
+              <label class="form-label">Owner Postcode</label>
+              <input type="text" id="petpostcode" name="petpostcode">
               <br>
               <br>
              <input type="submit" name="choosetreatment" class="btn btn-success">
@@ -101,13 +112,15 @@
           if(isset($_POST['choosetreatment'])){
            $petidtreat = $_POST['petidtreat'];
            $petnametreat = $_POST['petnametreat'];
+           $petpostcode = $_POST['petpostcode'];
            $result = mysqli_query($conn,"SELECT Pet_ID, Pet_Name, Diagnosis_Name, Diagnosis_Date, Treatment_Name,
              Treatment_Type, Treatment_Date, Treatment_Notes, Vet_FName, Vet_LName, Vet_Title, Vet_Phone,
              Vet_Email, Practice_Name, Practice_Phone, Practice_Email, Practice_Number, Practice_Postcode FROM Pet
              JOIN Diagnosis ON Diagnosis.Diagnosis_ID = Pet.Pet_Diagnosis_ID JOIN Treatment ON
              Treatment.Treatment_ID = Pet.Pet_Treatment_ID JOIN Vet ON Vet.Vet_ID = Pet.Pet_Vet_ID JOIN Practice
              ON Practice.Practice_ID = Vet.Vet_Practice_ID JOIN Practice_Location ON Practice_Location.Practice_Location_ID
-             = Practice.Practice_Location_ID WHERE Pet.Pet_ID = '$petidtreat' OR Pet.Pet_Name = '$petnametreat'");
+             = Practice.Practice_Location_ID JOIN Owner ON Owner.Owner_ID = Pet.Pet_Owner_ID JOIN Owner_Location ON
+             Owner_Location.Owner_Location_ID = Owner.Owner_Location_ID WHERE Pet.Pet_ID = '$petidtreat' OR (Pet.Pet_Name = '$petnametreat' AND Owner_Location.Street_Postcode = '$petpostcode')");
              while($row = mysqli_fetch_array($result)){
                    echo "<ul id=\"treatmentresults\">";
                    echo "<li><b>Pet ID:</b> " . " " . $row['Pet_ID'] . "</li>";
@@ -147,8 +160,13 @@
                 <input type="text" id="petiddietex" name="petiddietex">
                 <br>
                 <br>
+                <hr>
                 <label class="form-label">Pet Name</label>
                 <input type="text" id="petnamedietex" name="petnamedietex">
+                <br>
+                <br>
+                <label class="form-label">Owner Postcode</label>
+                <input type="text" id="petpostcode" name="petpostcode">
                 <br>
                 <br>
                <input type="submit" name="choosedietex" class="btn btn-success">
@@ -159,13 +177,14 @@
             if(isset($_POST['choosedietex'])){
              $petiddietex = $_POST['petiddietex'];
              $petnamedietex = $_POST['petnamedietex'];
+             $petpostcode = $_POST['petpostcode'];
              $result = mysqli_query($conn,"SELECT Pet_ID, Pet_Name, Diet_Name, Diet_Start, Diet_End, Diet_Notes, Exercise_Name,
                Exercise_Type, Exercise_Start, Exercise_End, Exercise_Notes, Vet_FName, Vet_LName, Vet_Title, Vet_Phone,
                Vet_Email, Practice_Name, Practice_Phone, Practice_Email, Practice_Number, Practice_Postcode FROM Pet
                JOIN Diet ON Diet.Diet_ID = Pet.Pet_Diet_ID JOIN Exercise ON Exercise.Exercise_ID = Pet.Pet_Exercise_ID JOIN
                Vet ON Vet.Vet_ID = Pet.Pet_Vet_ID JOIN Practice ON Practice.Practice_ID = Vet.Vet_Practice_ID JOIN
-               Practice_Location ON Practice_Location.Practice_Location_ID = Practice.Practice_Location_ID WHERE Pet.Pet_ID
-               = '$petiddietex' OR Pet.Pet_Name = '$petnamedietex'");
+               Practice_Location ON Practice_Location.Practice_Location_ID = Practice.Practice_Location_ID JOIN Owner ON Owner.Owner_ID = Pet.Pet_Owner_ID JOIN Owner_Location ON
+               Owner_Location.Owner_Location_ID = Owner.Owner_Location_ID WHERE Pet.Pet_ID = '$petiddietex' OR (Pet.Pet_Name = '$petnamedietex' AND Owner_Location.Street_Postcode = '$petpostcode')");
                while($row = mysqli_fetch_array($result)){
                    echo "<ul id=\"treatmentresults\">";
                    echo "<li><b>Pet ID:</b> " . " " . $row['Pet_ID'] . "</li>";

@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="viewpet.css">
+  <link rel="stylesheet" type="text/css" href="vetview.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
  </head>
  <body>
@@ -86,7 +86,7 @@
        </div>
       </div>
      </div>
-     <div id="form-container2">
+     <div id="form-container">
       <div class="container">
         <div class="row">
           <div class="main-card-title">Pet Treatment Information</div>
@@ -107,19 +107,13 @@
              <input type="submit" name="choosetreatment" class="btn btn-success">
            </fieldset>
          </form>
-         <input id="addNewDiet" type="button" onclick="addDiet();" value="Add new diet or exercise plan" />
-         <script>
-         function addDiet(){
-           document.getElementById("form-container3").style.display="block";
-         }
-         </script>
          <?php
           if(isset($_POST['choosetreatment'])){
            $ownerfnametreat = $_POST['ownerfnametreat'];
            $ownerlnametreat = $_POST['ownerlnametreat'];
            $petnametreat = $_POST['petnametreat'];
            $result = mysqli_query($conn,"SELECT Pet_ID, Pet_Name, Diagnosis_Name, Diagnosis_Date, Treatment_Name,
-             Treatment_Type, Treatment_Date, Treatment_Notes, Pet_Next_Treatment_Date, Vet_FName, Vet_LName, Vet_Title, Vet_Phone,
+             Treatment_Type, Treatment_Date, Treatment_Notes, Vet_FName, Vet_LName, Vet_Title, Vet_Phone,
              Vet_Email, Practice_Name, Practice_Phone, Practice_Email, Practice_Number, Practice_Postcode FROM Pet
              JOIN Diagnosis ON Diagnosis.Diagnosis_ID = Pet.Pet_Diagnosis_ID JOIN Treatment ON
              Treatment.Treatment_ID = Pet.Pet_Treatment_ID JOIN Vet ON Vet.Vet_ID = Pet.Pet_Vet_ID JOIN Practice
@@ -135,7 +129,7 @@
                  echo "<li><b>Treatment Type:</b> " . " " . $row['Treatment_Type'] . "</li>";
                  echo "<li><b>Treatment Date:</b> " . " " . $row['Treatment_Date'] . "</li>";
                  echo "<li><b>Treatment Notes:</b> " . " " . $row['Treatment_Notes'] . "</li>";
-                 echo "<li><b>Next Treatment Date:</b> " . " " . $row['Pet_Next_Treatment_Date'] . "</li>";
+                 //echo "<li><b>Next Treatment Date:</b> " . " " . $row['Pet_Next_Treatment_Date'] . "</li>";
                  echo "<li><b>Vet's First Name:</b> " . " " . $row['Vet_FName'] . "</li>";
                  echo "<li><b>Vet's Last Name:</b>" . " " . $row['Vet_LName'] . "</li>";
                  echo "<li><b>Vet's Accreditations:</b> " . " " . $row['Vet_Title'] . "</li>";
@@ -154,7 +148,7 @@
            </div>
          </div>
        </div>
-       <div id="form-container3">
+       <div id="form-container">
         <div class="container">
           <div class="row">
             <div class="main-card-title">Pet Diet and Exercise Plans</div>

@@ -2,6 +2,7 @@
   include_once 'petplus.php';
   include('loggedin.php');
   include('modinstance.php');
+  $modpetid = "";
 ?>
 <!DOCTYPE html>
 <html>
@@ -78,6 +79,10 @@
           <input type="text" id="petname" name="petname">
           <br>
           <br>
+          <label class="form-label">Microchip ID</label>
+          <input type="text" id="microid" name="microid">
+          <br>
+          <br>
           <label class="form-label">Pet Date of Birth</label>
           <input type="date" id="petdob" name="petdob">
           <br>
@@ -100,7 +105,14 @@
           <select id="ownername" class="dropdownSelect" name="ownername">
             <option value="" disabled selected>Select a Pet Owner</option>
             <?php
-             $sql = "SELECT * FROM Owner";
+             $sql = "SELECT DISTINCT Owner_ID, Owner_FName, Owner_LName FROM Owner
+             JOIN Pet ON Pet.Pet_Owner_ID = Owner.Owner_ID
+             JOIN Vet ON Vet.Vet_ID = Pet.Pet_Vet_ID
+             JOIN Practice ON Practice.Practice_ID = Vet.Vet_Practice_ID
+             WHERE Practice_ID = (SELECT Practice_ID
+             FROM Practice
+             JOIN Vet ON Vet.Vet_Practice_ID = Practice.Practice_ID
+             WHERE Vet_Email = '$check')";
              $result = mysqli_query($conn, $sql);
              $resultnum = mysqli_num_rows($result);
               if ($resultnum > 0){
@@ -123,7 +135,12 @@
                 echo "<option value=",$row['Vet_ID'],">" . $row['Vet_FName'] . " " . $row['Vet_LName'] . "</option>";
                }
              }
-             $sql = "SELECT * FROM Vet";
+             $sql = "SELECT * FROM Vet
+             JOIN Practice ON Practice.Practice_ID = Vet.Vet_Practice_ID
+             WHERE Practice_ID = (SELECT Practice_ID
+             FROM Practice
+             JOIN Vet ON Vet.Vet_Practice_ID = Practice.Practice_ID
+             WHERE Vet_Email = '$check')";
              $result = mysqli_query($conn, $sql);
              $resultnum = mysqli_num_rows($result);
              if ($resultnum > 0){
@@ -152,7 +169,7 @@
           <br>
           <br>
           <label class="form-label">Next Treatment Booked (Leave blank if not applicable)</label>
-          <input type="date" id="futuretreat" name="futuretreat">
+          <input type="text" id="futuretreat" name="futuretreat" value="N/A">
           <br>
           <br>
           <label class="form-label">Pet Diet Prescription</label>
@@ -239,6 +256,7 @@
           url = $form.attr('action');
           var posting = $.post(url, {
             petname: $('#petname').val(),
+            microid: $('#microid').val(),
             petdob: $('#petdob').val(),
             petspecies: $('#petspecies').val(),
             ownername: $('#ownername').val(),
@@ -297,9 +315,23 @@
         </script>
         <div class="main-card-title">Change Pet Details</div>
         <fieldset>
+          <label class="form-label">Pet ID</label>
+          <select id="updpetid" name="updpetid">
+            <?php
+             $sql = "SELECT * FROM Pet WHERE Pet_ID = '$modid'";
+             $result = mysqli_query($conn, $sql);
+             $resultnum = mysqli_num_rows($result);
+              if ($resultnum > 0){
+               while ($row = mysqli_fetch_assoc($result)){
+                echo "<option value=",$row['Pet_ID']," disabled selected>" . $row['Pet_ID'] . "</option>";
+               }
+              }
+            ?>
+          </select>
+          <br>
+          <br>
           <label class="form-label">Pet Owner</label>
-          <!--<input type="text" id="ownerval" name="ownerval">-->
-          <select id="updownername" name="ownername">
+          <select id="updownername" name="updownername">
             <?php
              $sql = "SELECT * FROM Owner JOIN Pet ON Pet.Pet_Owner_ID = Owner.Owner_ID WHERE Pet_ID = '$modid'";
              $result = mysqli_query($conn, $sql);
@@ -321,6 +353,19 @@
           </select>
           <br>
           <br>
+          <label class="form-label">Microchip ID</label>
+          <?php
+          $sql = "SELECT * FROM Pet WHERE Pet_ID = '$modid'";
+          $result = mysqli_query($conn, $sql);
+          $resultnum = mysqli_num_rows($result);
+          if ($resultnum > 0){
+           while ($row = mysqli_fetch_assoc($result)){
+             echo "<input type='text' id='updpetmicroid' name='updpetmicroid' value=" . $row['Pet_System_ID'] . ">";
+            }
+          }
+          ?>
+          <br>
+          <br>
           <label class="form-label">Pet Date of Birth</label>
           <?php
           $sql = "SELECT * FROM Pet WHERE Pet_ID = '$modid'";
@@ -328,14 +373,14 @@
           $resultnum = mysqli_num_rows($result);
           if ($resultnum > 0){
            while ($row = mysqli_fetch_assoc($result)){
-             echo "<input type='date' id='updpetdob' name='petdob' value=" . $row['Pet_DOB'] . ">";
+             echo "<input type='date' id='updpetdob' name='updpetdob' value=" . $row['Pet_DOB'] . ">";
             }
           }
           ?>
           <br>
           <br>
           <label class="form-label">Pet Breed</label>
-          <select id="updpetspecies" name="petspecies">
+          <select id="updpetspecies" name="updpetspecies">
             <?php
              $sql = "SELECT * FROM Species JOIN Pet ON Pet.Pet_Species_ID = Species.Species_ID WHERE Pet_ID = '$modid'";
              $result = mysqli_query($conn, $sql);
@@ -358,7 +403,7 @@
           <br>
           <br>
           <label class="form-label">Veterinarian's Name</label>
-          <select id="updvetname" name="vetname">
+          <select id="updvetname" name="updvetname">
             <?php
              $sql = "SELECT * FROM Vet JOIN Pet ON Pet.Pet_Vet_ID = Vet.Vet_ID WHERE Pet_ID = '$modid'";
              $result = mysqli_query($conn, $sql);
@@ -381,7 +426,7 @@
           <br>
           <br>
           <label class="form-label">Treatment Name</label>
-          <select id="updtreatname" name="treatname">
+          <select id="updtreatname" name="updtreatname">
             <?php
              $sql = "SELECT * FROM Treatment JOIN Pet ON Pet.Pet_Treatment_ID = Treatment.Treatment_ID WHERE Pet_ID = '$modid' AND Treatment_Date < CURDATE()";
              $result = mysqli_query($conn, $sql);
@@ -410,14 +455,14 @@
           $resultnum = mysqli_num_rows($result);
           if ($resultnum > 0){
            while ($row = mysqli_fetch_assoc($result)){
-             echo "<input type='date' id='updfuturetreat' name='futuretreat' value=" . $row['Pet_Next_Treatment_Date'] . ">";
+             echo "<input type='text' id='updfuturetreat' name='updfuturetreat' value=" . $row['Pet_Next_Treatment_Date'] . ">";
             }
           }
           ?>
           <br>
           <br>
           <label class="form-label">Pet Diet Prescription</label>
-          <select id="upddietname" name="dietname">
+          <select id="upddietname" name="upddietname">
             <?php
             $sql = "SELECT * FROM Diet JOIN Pet ON Pet.Pet_Diet_ID = Diet.Diet_ID WHERE Pet_ID = '$modid'";
             $result = mysqli_query($conn, $sql);
@@ -440,7 +485,7 @@
           <br>
           <br>
           <label class="form-label">Pet Exercise Plan</label>
-          <select id="updexercisename" name="exercisename">
+          <select id="updexercisename" name="updexercisename">
             <?php
              $sql = "SELECT * FROM Exercise JOIN Pet ON Pet.Pet_Exercise_ID = Exercise.Exercise_ID WHERE Pet_ID = '$modid'";
              $result = mysqli_query($conn, $sql);
@@ -463,7 +508,7 @@
           <br>
           <br>
           <label class="form-label">Pet Diagnosis</label>
-          <select id="upddiagnosisname" name="diagnosisname">
+          <select id="upddiagnosisname" name="upddiagnosisname">
             <?php
              $sql = "SELECT * FROM Diagnosis JOIN Pet ON Pet.Pet_Diagnosis_ID = Diagnosis.Diagnosis_ID WHERE Pet_ID = '$modid'";
              $result = mysqli_query($conn, $sql);
@@ -493,28 +538,30 @@
       <input id="addNewModify" type="button" onClick="document.location.href='petinforetriever.php'" value="Add new treatment"/>
       <script>
         $("#addNewModify").hide();
-        $("#petmodify").submit(function(event) {
-          event.preventDefault(); /*Stops redirect*/
-          var $form = $(this),
-          url = $form.attr('action');
-          var posting = $.post(url, {
-            petdob: $('#updpetdob').val(),
-            petspecies: $('#updpetspecies').val(),
-            ownername: $('#updownername').val(),
-            vetname: $('#updvetname').val(),
-            treatname: $('#updtreatname').val(),
-            futuretreat: $('#updfuturetreat').val(),
-            dietname: $('#upddietname').val(),
-            exercisename: $('#updexercisename').val(),
-            diagnosisname: $('#upddiagnosisname').val()
-          });
-          posting.done(function(data) {
-            alert("Form successfully submitted");
-          });
-          posting.fail(function() {
-            alert("Error: Form not submitted");
-          });
-        });
+        //$("#petmodify").submit(function(event) {
+          //event.preventDefault(); /*Stops redirect*/
+          //var $form = $(this),
+          //url = $form.attr('action');
+          //var posting = $.post(url, {
+            //petid: $('#updpetid').val(),
+            //petdob: $('#updpetdob').val(),
+            //microid: $('#updpetmicroid').val(),
+            //petspecies: $('#updpetspecies').val(),
+            //ownername: $('#updownername').val(),
+            //vetname: $('#updvetname').val(),
+            //treatname: $('#updtreatname').val(),
+            //futuretreat: $('#updfuturetreat').val(),
+            //dietname: $('#upddietname').val(),
+            //exercisename: $('#updexercisename').val(),
+            //diagnosisname: $('#upddiagnosisname').val()
+          //});
+          //posting.done(function(data) {
+            //alert("Form successfully submitted");
+          //});
+          //posting.fail(function() {
+            //alert("Error: Form not submitted");
+          //});
+        //});
       </script>
    </div>
   </div>

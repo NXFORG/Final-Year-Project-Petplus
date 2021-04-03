@@ -156,7 +156,13 @@
           <select id="treatname" name="treatname">
             <option value="" disabled selected>Select a Treatment</option>
             <?php
-             $sql = "SELECT * FROM Treatment WHERE Treatment_Date < CURDATE()";
+             $sql = "SELECT DISTINCT Treatment_ID, Treatment_Name FROM Treatment JOIN Pet ON Pet.Pet_Treatment_ID = Treatment.Treatment_ID
+             JOIN Vet ON Vet.Vet_ID = Pet.Pet_Vet_ID
+             JOIN Practice ON Practice.Practice_ID = Vet.Vet_Practice_ID
+             WHERE Practice_ID = (SELECT Practice_ID
+             FROM Practice
+             JOIN Vet ON Vet.Vet_Practice_ID = Practice.Practice_ID
+             WHERE Vet_Email = '$check') AND Treatment_Date < CURDATE() ORDER BY Treatment_ID";
              $result = mysqli_query($conn, $sql);
              $resultnum = mysqli_num_rows($result);
               if ($resultnum > 0){
@@ -184,7 +190,13 @@
                echo "<option value=",$row['Diet_ID'],">" . $row['Diet_Name'] . "</option>";
               }
              }
-             $sql = "SELECT * FROM Diet";
+             $sql = "SELECT DISTINCT Diet_ID, Diet_Name FROM Diet JOIN Pet ON Pet.Pet_Diet_ID = Diet.Diet_ID
+             JOIN Vet ON Vet.Vet_ID = Pet.Pet_Vet_ID
+             JOIN Practice ON Practice.Practice_ID = Vet.Vet_Practice_ID
+             WHERE Practice_ID = (SELECT Practice_ID
+             FROM Practice
+             JOIN Vet ON Vet.Vet_Practice_ID = Practice.Practice_ID
+             WHERE Vet_Email = '$check') ORDER BY Diet_ID";
              $result = mysqli_query($conn, $sql);
              $resultnum = mysqli_num_rows($result);
               if ($resultnum > 0){
@@ -208,7 +220,13 @@
                echo "<option value=",$row['Exercise_ID'],">" . $row['Exercise_Name'] . "</option>";
                }
               }
-             $sql = "SELECT * FROM Exercise";
+             $sql = "SELECT DISTINCT Exercise_ID, Exercise_Name FROM Exercise JOIN Pet ON Pet.Pet_Exercise_ID = Exercise.Exercise_ID
+             JOIN Vet ON Vet.Vet_ID = Pet.Pet_Vet_ID
+             JOIN Practice ON Practice.Practice_ID = Vet.Vet_Practice_ID
+             WHERE Practice_ID = (SELECT Practice_ID
+             FROM Practice
+             JOIN Vet ON Vet.Vet_Practice_ID = Practice.Practice_ID
+             WHERE Vet_Email = '$check') ORDER BY Exercise_ID";
              $result = mysqli_query($conn, $sql);
              $resultnum = mysqli_num_rows($result);
               if ($resultnum > 0){
@@ -232,7 +250,13 @@
                 echo "<option value=",$row['Diagnosis_ID'],">" . $row['Diagnosis_Name'] . "</option>";
                }
               }
-             $sql = "SELECT * FROM Diagnosis";
+             $sql = "SELECT Diagnosis_ID, Diagnosis_Name FROM Diagnosis JOIN Pet ON Pet.Pet_Diagnosis_ID = Diagnosis.Diagnosis_ID
+             JOIN Vet ON Vet.Vet_ID = Pet.Pet_Vet_ID
+             JOIN Practice ON Practice.Practice_ID = Vet.Vet_Practice_ID
+             WHERE Practice_ID = (SELECT Practice_ID
+             FROM Practice
+             JOIN Vet ON Vet.Vet_Practice_ID = Practice.Practice_ID
+             WHERE Vet_Email = '$check') ORDER BY Diagnosis_ID";
              $result = mysqli_query($conn, $sql);
              $resultnum = mysqli_num_rows($result);
               if ($resultnum > 0){

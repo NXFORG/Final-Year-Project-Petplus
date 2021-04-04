@@ -66,7 +66,6 @@
           document.getElementById("newpetadd").style.display="none";
           document.getElementById("showModify").style.display="none";
           document.getElementById("addNewAdd").style.display="none";
-          $("#petmodify").show();
           $("#showAdd").show();
           $("#addNewModify").show();
           $("#getPetName").show();
@@ -328,30 +327,28 @@
        if(isset($_POST['getPetDetails'])){
         $mpet = $_POST['modpetname'];
         $modid = $mpet;
+        echo "<script>document.getElementById('newpetadd').style.display='none';document.getElementById('showModify').style.display='none'; document.getElementById('addNewAdd').style.display='none'; $('#showAdd').show(); $('#addNewModify').show(); $('#getPetName').show();$('#petmodify').show();</script>";
        }
        if(isset($_POST['clearPet'])){
         $modid = "";
        }
       ?>
       <form id="petmodify" action="petupdate.php" method="post">
-        <script type="text/javascript">
-          $("#petmodify").hide();
-        </script>
         <div class="main-card-title">Change Pet Details</div>
         <fieldset>
-          <label class="form-label">Pet ID</label>
-          <select id="updpetid" name="updpetid">
+          <select type="hidden" id="updpetid" name="updpetid">
             <?php
              $sql = "SELECT * FROM Pet WHERE Pet_ID = '$modid'";
              $result = mysqli_query($conn, $sql);
              $resultnum = mysqli_num_rows($result);
               if ($resultnum > 0){
                while ($row = mysqli_fetch_assoc($result)){
-                echo "<option value=",$row['Pet_ID']," disabled selected>" . $row['Pet_ID'] . "</option>";
+                echo "<option value=",$row['Pet_ID'],">" . $row['Pet_ID'] . "</option>";
                }
               }
             ?>
           </select>
+
           <br>
           <br>
           <label class="form-label">Pet Owner</label>
@@ -562,30 +559,30 @@
       <input id="addNewModify" type="button" onClick="document.location.href='petinforetriever.php'" value="Add new treatment"/>
       <script>
         $("#addNewModify").hide();
-        //$("#petmodify").submit(function(event) {
-          //event.preventDefault(); /*Stops redirect*/
-          //var $form = $(this),
-          //url = $form.attr('action');
-          //var posting = $.post(url, {
-            //petid: $('#updpetid').val(),
-            //petdob: $('#updpetdob').val(),
-            //microid: $('#updpetmicroid').val(),
-            //petspecies: $('#updpetspecies').val(),
-            //ownername: $('#updownername').val(),
-            //vetname: $('#updvetname').val(),
-            //treatname: $('#updtreatname').val(),
-            //futuretreat: $('#updfuturetreat').val(),
-            //dietname: $('#upddietname').val(),
-            //exercisename: $('#updexercisename').val(),
-            //diagnosisname: $('#upddiagnosisname').val()
-          //});
-          //posting.done(function(data) {
-            //alert("Form successfully submitted");
-          //});
-          //posting.fail(function() {
-            //alert("Error: Form not submitted");
-          //});
-        //});
+        $("#petmodify").submit(function(event) {
+          event.preventDefault(); /*Stops redirect*/
+          var $form = $(this),
+          url = $form.attr('action');
+          var posting = $.post(url, {
+            updpetid: $('#updpetid').val(),
+            updpetdob: $('#updpetdob').val(),
+            updpetmicroid: $('#updpetmicroid').val(),
+            updpetspecies: $('#updpetspecies').val(),
+            updownername: $('#updownername').val(),
+            updvetname: $('#updvetname').val(),
+            updtreatname: $('#updtreatname').val(),
+            updfuturetreat: $('#updfuturetreat').val(),
+            upddietname: $('#upddietname').val(),
+            updexercisename: $('#updexercisename').val(),
+            upddiagnosisname: $('#upddiagnosisname').val()
+          });
+          posting.done(function(data) {
+            alert("Form successfully submitted");
+          });
+          posting.fail(function() {
+            alert("Error: Form not submitted");
+          });
+        });
       </script>
    </div>
   </div>

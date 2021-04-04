@@ -11,6 +11,7 @@
  $dietname = $_POST['upddietname'];
  $exercisename = $_POST['updexercisename'];
  $diagnosisname = $_POST['upddiagnosisname'];
+ echo "Value:" . $petid . "\n";
  echo "Value:" . $petdob . "\n";
  echo "Value:" . $microid . "\n";
  echo "Value:" . $petspecies . "\n";

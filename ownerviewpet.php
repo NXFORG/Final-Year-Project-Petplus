@@ -69,8 +69,10 @@
         $ownerfname = $_POST['ownerfname'];
         $ownerlname = $_POST['ownerlname'];
         $petname = $_POST['petname'];
-        $result = mysqli_query($conn,"SELECT Pet_ID, Pet_Name, Pet_DOB, Species_Name, Species_Breed FROM Pet JOIN Owner ON Owner.Owner_ID = Pet.Pet_Owner_ID
-          JOIN Species ON Species.Species_ID = Pet.Pet_Species_ID WHERE Owner.Owner_FName LIKE '$ownerfname' AND Owner.Owner_LName LIKE '$ownerlname' AND Pet.Pet_Name = '$petname'");
+        $result = mysqli_query($conn,"SELECT Pet_ID, Pet_Name, Pet_DOB, Species_Name, Species_Breed FROM Pet
+          JOIN Owner ON Owner.Owner_ID = Pet.Pet_Owner_ID
+          JOIN Species ON Species.Species_ID = Pet.Pet_Species_ID
+          WHERE Owner.Owner_Email = '$check' AND Owner.Owner_FName LIKE '$ownerfname' AND Owner.Owner_LName LIKE '$ownerlname' AND Pet.Pet_Name = '$petname'");
           while($row = mysqli_fetch_array($result)){
               echo "<ul id=\"treatmentresults\">";
               echo "<li><b>Pet ID:</b>" . " " . $row['Pet_ID'] . "</li>";
@@ -115,10 +117,19 @@
            $result = mysqli_query($conn,"SELECT Pet_ID, Pet_Name, Diagnosis_Name, Diagnosis_Date, Treatment_Name,
              Treatment_Type, Treatment_Date, Treatment_Notes, Vet_FName, Vet_LName, Vet_Title, Vet_Phone,
              Vet_Email, Practice_Name, Practice_Phone, Practice_Email, Practice_Number, Practice_Postcode FROM Pet
-             JOIN Diagnosis ON Diagnosis.Diagnosis_ID = Pet.Pet_Diagnosis_ID JOIN Treatment ON
-             Treatment.Treatment_ID = Pet.Pet_Treatment_ID JOIN Vet ON Vet.Vet_ID = Pet.Pet_Vet_ID JOIN Practice
-             ON Practice.Practice_ID = Vet.Vet_Practice_ID JOIN Practice_Location ON Practice_Location.Practice_Location_ID
-             = Practice.Practice_Location_ID JOIN Owner ON Owner.Owner_ID = Pet.Pet_Owner_ID WHERE Owner.Owner_FName = '$ownerfnametreat' AND Owner.Owner_LName = '$ownerlnametreat' AND Pet.Pet_Name = '$petnametreat'");
+             JOIN Diagnosis ON Diagnosis.Diagnosis_ID = Pet.Pet_Diagnosis_ID
+             JOIN Treatment ON
+             Treatment.Treatment_ID = Pet.Pet_Treatment_ID
+             JOIN Vet ON Vet.Vet_ID = Pet.Pet_Vet_ID
+             JOIN Practice
+             ON Practice.Practice_ID = Vet.Vet_Practice_ID
+             JOIN Practice_Location ON Practice_Location.Practice_Location_ID
+             = Practice.Practice_Location_ID
+             JOIN Owner ON Owner.Owner_ID = Pet.Pet_Owner_ID
+             WHERE Owner.Owner_Email = '$check'
+             AND Owner.Owner_FName = '$ownerfnametreat'
+             AND Owner.Owner_LName = '$ownerlnametreat'
+             AND Pet.Pet_Name = '$petnametreat'");
              while($row = mysqli_fetch_array($result)){
                  echo "<ul id=\"treatmentresults\">";
                  echo "<li><b>Pet ID:</b> " . " " . $row['Pet_ID'] . "</li>";
@@ -178,10 +189,15 @@
              $result = mysqli_query($conn,"SELECT Pet_ID, Pet_Name, Diet_Name, Diet_Start, Diet_End, Diet_Notes, Exercise_Name,
                Exercise_Type, Exercise_Start, Exercise_End, Exercise_Notes, Vet_FName, Vet_LName, Vet_Title, Vet_Phone,
                Vet_Email, Practice_Name, Practice_Phone, Practice_Email, Practice_Number, Practice_Postcode FROM Pet
-               JOIN Diet ON Diet.Diet_ID = Pet.Pet_Diet_ID JOIN Exercise ON Exercise.Exercise_ID = Pet.Pet_Exercise_ID JOIN
-               Vet ON Vet.Vet_ID = Pet.Pet_Vet_ID JOIN Practice ON Practice.Practice_ID = Vet.Vet_Practice_ID JOIN
-               Practice_Location ON Practice_Location.Practice_Location_ID = Practice.Practice_Location_ID JOIN Owner ON
-               Owner.Owner_ID = Pet.Pet_Owner_ID WHERE Owner.Owner_FName = '$ownerfnamediet' AND Owner.Owner_LName = '$ownerlnamediet' AND Pet.Pet_Name = '$petnamediet'");
+               JOIN Diet ON Diet.Diet_ID = Pet.Pet_Diet_ID
+               JOIN Exercise ON Exercise.Exercise_ID = Pet.Pet_Exercise_ID
+               JOIN Vet ON Vet.Vet_ID = Pet.Pet_Vet_ID
+               JOIN Practice ON Practice.Practice_ID = Vet.Vet_Practice_ID
+               JOIN Practice_Location ON Practice_Location.Practice_Location_ID = Practice.Practice_Location_ID
+               JOIN Owner ON Owner.Owner_ID = Pet.Pet_Owner_ID
+               WHERE Owner.Owner_Email = '$check' AND Owner.Owner_FName = '$ownerfnamediet'
+               AND Owner.Owner_LName = '$ownerlnamediet'
+               AND Pet.Pet_Name = '$petnamediet'");
                while($row = mysqli_fetch_array($result)){
                    echo "<ul id=\"treatmentresults\">";
                    echo "<li><b>Pet ID:</b> " . " " . $row['Pet_ID'] . "</li>";

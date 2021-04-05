@@ -90,13 +90,15 @@
           <!--<input type="text" id="srch" name="search">-->
           <select id="petspecies" name="petspecies">
             <option value="" disabled selected>Select a Breed</option>
-            <option value=1>American Bulldog</option>
-            <option value=2>American Pit Bull Terrier</option>
-            <option value=3>Beagle</option>
-            <option value=4>Bulldog</option>
-            <option value=5>Collie</option>
-            <option value=6>Dachshund</option>
-            <option value=7>Dalmatian</option>
+            <?php
+             $sql = "SELECT * FROM Species";
+             $result = mysqli_query($conn, $sql);
+             $resultnum = mysqli_num_rows($result);
+             if ($resultnum > 0){
+              while ($row = mysqli_fetch_assoc($result)){
+                echo "<option value=",$row['Species_ID'],">" . $row['Species_Breed'] . " (" . $row['Species_Name'] . ")</option>";
+               }
+             }?>
           </select>
           <br>
           <br>
@@ -428,7 +430,7 @@
              $resultnum = mysqli_num_rows($result);
              if ($resultnum > 0){
               while ($row = mysqli_fetch_assoc($result)){
-                echo "<option value=",$row['Species_ID'],">" . $row['Species_Breed'] . "</option>";
+                echo "<option value=",$row['Species_ID'],">" . $row['Species_Breed'] . " (" . $row['Species_Name'] . ")</option>";
                }
              }
              $sql = "SELECT * FROM Species";
@@ -436,7 +438,7 @@
              $resultnum = mysqli_num_rows($result);
               if ($resultnum > 0){
                while ($row = mysqli_fetch_assoc($result)){
-                echo "<option value=",$row['Species_ID'],">" . $row['Species_Breed'] . "</option>";
+                echo "<option value=",$row['Species_ID'],">" . $row['Species_Breed'] . " (" . $row['Species_Name'] . ")</option>";
                }
               }
              ?>

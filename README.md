@@ -1,2 +1,2 @@
-# nxforg.gihub.io
+# nxforg.github.io
 #Spok

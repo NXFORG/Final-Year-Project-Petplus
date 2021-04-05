@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>PETPLUS PET MANAGER</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="petinforetriever.css">
+  <link rel="stylesheet" type="text/css" href="addnew.css">
   <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -39,8 +39,8 @@
     <div id="form-container">
     <div class="container">
     <div class="row">
+      <input id="goBack" type="button" onClick="document.location.href='petmanager.php'" value="Go to add/modify form" />
       <form id="treatadd" action="treatmentadd.php" method="post">
-        <a href="petmanager.php">Go back</a>
         <div class="main-card-title">Add a Treatment</div>
         <fieldset>
           <label class="form-label">Treatment Name</label>
@@ -202,7 +202,12 @@
           <label class="form-label">Diagnosed By (Vet)</label>
           <select id="diagnosisvet" name="diagnosisvet">
             <?php
-              $sql = "SELECT * FROM Vet";
+              $sql = "SELECT DISTINCT Vet_ID, Vet_FName, Vet_LName FROM Vet  
+               JOIN Practice ON Practice.Practice_ID = Vet.Vet_Practice_ID
+               WHERE Practice_ID = (SELECT Practice_ID
+               FROM Practice
+               JOIN Vet ON Vet.Vet_Practice_ID = Practice.Practice_ID
+               WHERE Vet_Email = '$check')";
               $result = mysqli_query($conn, $sql);
               $resultnum = mysqli_num_rows($result);
               if ($resultnum > 0){
@@ -216,9 +221,9 @@
           <br>
           <button type="submit" id="submit" class="btn btn-success">Submit</button>
         </fieldset>
-        <a href="petmanager.php">Go back</a>
-        <p id="nxforg">NXFORG 2021</p>
+        <p id="nxforg">UP854443 2021</p>
       </form>
+      <input id="goBack2" type="button" onClick="document.location.href='petmanager.php'" value="Go to add/modify form" />
       <script>
         $("#diagnosisadd").submit(function(event) {
           event.preventDefault(); /*Stops redirect*/
@@ -244,7 +249,7 @@
 </div>
 </div>
 </div>
-<footer><p>NXFORG 2021</p>
+<footer><p>UP854443 2021</p>
   <!--<a href="#" class="fa fa-facebook"></a>
   <a href="#" class="fa fa-twitter"></a>
   <a href="#" class="fa fa-instagram"></a>

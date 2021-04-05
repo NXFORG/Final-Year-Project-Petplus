@@ -1,6 +1,7 @@
 body{
-  background-color: #1c1e21;
+  background-color: #5b99d4;
   margin: 0;
+  margin-bottom: 200%;
 }
 .logo{
   position: absolute;
@@ -16,24 +17,25 @@ body{
   text-align: center;
 }
 /*CSS for hover effect on the navbar items*/
-#homebg{
-  width: 100%;
-}
 #form-container{
   display: block;
-  width: 70%;
+  width: 50%;
   margin-top: 10%;
   margin-left: auto;
   margin-right: auto;
   background-color: #fff;
   text-align: center;
-}
-#form-container > .container{
-
+  border-radius: 10px;
 }
 .main-card-title{
-  font-size: 200%;
+  font-size: 250%;
+  color: #205bba;
+  font-family: waffle;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: 3%;
+  margin-top: 3%;
 }
 form{
   margin-top: 5%;
@@ -41,6 +43,33 @@ form{
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 5%;
+}
+.form-label{
+  float: left;
+  font-family: raleway-light;
+}
+input{
+  width: 100%;
+  padding-bottom: 3%;
+  padding-top: 3%;
+  border-radius: 5px;
+  border: 0;
+  background-color: #d5d6e0;
+  padding-left: 5%;
+  font-family: raleway-semibold;
+}
+select{
+  width: 100%;
+  padding-bottom: 3%;
+  padding-top: 3%;
+  border-radius: 5px;
+  border: 0;
+  background-color: #d5d6e0;
+  padding-left: 5%;
+  font-family: raleway-semibold;
+}
+h5{
+  font-family: raleway-semibold;
 }
 .hvr-fade{
   display: inline-block;
@@ -56,13 +85,13 @@ form{
 }
 .btn{
   color: #fff;
-  width: 40%;
+  width: 100%;
   padding-left: 20px;
   padding-right: 20px;
-  margin-right: 10px;
-  font-family: 'Roboto', sans-serif;
+  margin-top: 10%;
+  font-family: raleway-medium, sans-serif;
   font-size: 150%;
-  border-radius: 0;
+  border-radius: 10;
 }
 .btn:focus, .btn.focus {
   color: #fff;
@@ -99,17 +128,35 @@ form{
     margin-bottom: 20px;
     margin-top: 20px;
 }
+#nxforg{
+  margin-top: 3%;
+}
+#goBack{
+ color: #fff;
+ background-color: #2d64b3;
+ border-bottom-left-radius: 0;
+ border-bottom-right-radius: 0;
+}
+#goBack2{
+ color: #fff;
+ background-color: #2d64b3;
+ border-top-left-radius: 0;
+ border-top-right-radius: 0;
+}
 footer{
-  margin-top: 55%;
+  position: fixed;
+  bottom: 0;
   display: inline-block;
-  height: 100px;
+  height: 6%;
   width: 100%;
   color: white;
+  padding-top: 1%;
+  padding-bottom: 1%;
 }
 footer p{
   display: inline;
   padding: 20px;
-  margin-left: 10%;
+  margin-left: 5%;
   margin-top: 10%;
 }
 .fa {
@@ -137,4 +184,20 @@ footer p{
   background: #fffc00;
   color: white;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+@font-face {
+  font-family: waffle;
+  src: url(fonts/waffle.otf);
+}
+@font-face {
+  font-family: raleway-light;
+  src: url(fonts/raleway-light.ttf);
+}
+@font-face {
+  font-family: raleway-medium;
+  src: url(fonts/raleway-medium.ttf);
+}
+@font-face {
+  font-family: raleway-semibold;
+  src: url(fonts/raleway-semibold.ttf);
 }

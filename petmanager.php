@@ -2,7 +2,6 @@
   include_once 'petplus.php';
   include('loggedin.php');
   include('modinstance.php');
-  $modpetid = "";
 ?>
 <!DOCTYPE html>
 <html>
@@ -66,6 +65,7 @@
           document.getElementById("newpetadd").style.display="none";
           document.getElementById("showModify").style.display="none";
           document.getElementById("addNewAdd").style.display="none";
+          $("#petmodify").hide();
           $("#showAdd").show();
           $("#addNewModify").show();
           $("#getPetName").show();
@@ -323,17 +323,18 @@
         <input type="submit" name="getPetDetails" id="choosePet" class="btn btn-success">
         <input type="submit" name="clearPet" id="clearPet" class="btn btn-primary" value="Clear current selection">
       </form>
-      <?php
-       if(isset($_POST['getPetDetails'])){
-        $mpet = $_POST['modpetname'];
-        $modid = $mpet;
-        echo "<script>document.getElementById('newpetadd').style.display='none';document.getElementById('showModify').style.display='none'; document.getElementById('addNewAdd').style.display='none'; $('#showAdd').show(); $('#addNewModify').show(); $('#getPetName').show();$('#petmodify').show();</script>";
-       }
-       if(isset($_POST['clearPet'])){
-        $modid = "";
-       }
-      ?>
       <form id="petmodify" action="petupdate.php" method="post">
+        <script>$('#petmodify').hide();</script>
+        <?php
+         if(isset($_POST['getPetDetails'])){
+          $mpet = $_POST['modpetname'];
+          $modid = $mpet;
+          echo "<script>document.getElementById('newpetadd').style.display='none';document.getElementById('showModify').style.display='none'; document.getElementById('addNewAdd').style.display='none'; $('#showAdd').show(); $('#addNewModify').show(); $('#getPetName').show(); $('#petmodify').show();</script>";
+         }
+         if(isset($_POST['clearPet'])){
+          $modid = "";
+         }
+        ?>
         <div class="main-card-title">Change Pet Details</div>
         <fieldset>
           <select type="hidden" id="updpetid" name="updpetid">
@@ -553,7 +554,7 @@
           <br>
           <button type="submit" id="updsubmit" class="btn btn-success">Submit</button>
         </fieldset>
-        <h5>Need to add a new Treatment, Diet Plan, Exercise Plan or Diagnosis? Click the link below.</h5>
+        <!--<h5>Need to add a new Treatment, Diet Plan, Exercise Plan or Diagnosis? Click the link below.</h5>-->
         <p id="nxforg">NXFORG 2021</p>
       </form>
       <input id="addNewModify" type="button" onClick="document.location.href='petinforetriever.php'" value="Add new treatment"/>
@@ -583,6 +584,9 @@
             alert("Error: Form not submitted");
           });
         });
+        function modFormShow(){
+          $('#petmodify').show();
+        }
       </script>
    </div>
   </div>

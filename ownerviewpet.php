@@ -214,10 +214,6 @@
            </div>
          </div>
      </div>
-     <script type="text/javascript">
-      document.getElementById("form-container2").style.display="none";
-      document.getElementById("form-container3").style.display="none";
-     </script>
   </body>
   <footer>
    <p>NXFORG 2021</p>

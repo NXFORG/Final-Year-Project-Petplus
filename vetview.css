@@ -1,6 +1,6 @@
 body{
   background-color: #5b99d4;
-  margin-bottom: 300%;
+  margin-bottom: 200%;
 
 }
 .logo{
@@ -18,7 +18,7 @@ body{
 }
 #form-container,#form-container2,#form-container3{
   display: block;
-  width: 30%;
+  width: 60%;
   margin-top: 5%;
   margin-left: auto;
   margin-right: auto;
@@ -68,7 +68,7 @@ input{
 #treatmentresults{
   background-color: #d5d6e0;
   border-radius: 20px;
-  width: 70%;
+  width: 80%;
   margin-left: auto;
   margin-right: auto;
   padding-top: 3%;
@@ -76,6 +76,33 @@ input{
   text-align: left;
   list-style: none;
   margin-bottom: 10%;
+}
+#treatmentresults>h1{
+  text-align: center;
+  font-family: raleway-medium;
+}
+#treatmentresults>table{
+  margin-left: 10%;
+  width: 80%;
+  table-layout: fixed;
+}
+#treatmentresults>td{
+  word-wrap:break-word;
+  vertical-align: top;
+}
+#resultsHeader{
+  text-align: center;
+}
+#resultsHeader>h4{
+  width: 70%;
+  display: inline;
+  padding-left: 5%;
+  font-family: raleway-medium;
+}
+#resultsimg{
+  display: inline;
+  width: 10%;
+  border-radius: 50%;
 }
 .hvr-fade{
   display: inline-block;
@@ -125,10 +152,9 @@ footer{
   color: white;
 }
 footer p{
-  display: inline;
-  padding: 20px;
-  margin-left: 10%;
-  margin-top: 10%;
+  position: fixed;
+  bottom: 0;
+  margin-left: 5%;
 }
 .fa {
   padding: 5px;

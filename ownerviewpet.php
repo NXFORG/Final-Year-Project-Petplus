@@ -1,8 +1,6 @@
 <?php
   include_once 'petplus.php';
   include('loggedin.php');
-  $ownerfname = " ";
-  $ownerlname = " ";
 ?>
 <!DOCTYPE html>
 <html>
@@ -38,49 +36,68 @@
       <div class="main-card-title">Pet Details</div>
        <form class="formentry" action="" method="post">
         <fieldset>
-          <?php
-            $sql = "SELECT * FROM Owner WHERE Owner_Email = '$check'";
-            $result = mysqli_query($conn, $sql);
-            $resultnum = mysqli_num_rows($result);
-            if ($resultnum > 0){
-             while ($row = mysqli_fetch_assoc($result)){
-              $ownerfname = $row['Owner_FName'];
-              $ownerlname = $row['Owner_LName'];
-              }
-            }
-          ?>
-          <label class='form-label'>Owner's First Name</label>
-          <input type='text' id='ownerfname' name ='ownerfname' value="<?php echo $ownerfname ?>">
-          <br>
-          <br>
-          <label class='form-label'>Owner's Last Name</label>
-          <input type='text' id='ownerlname' name ='ownerlname' value="<?php echo $ownerlname ?>">
-          <br>
-          <br>
           <label class="form-label">Pet's Name</label>
           <input type="text" id="petname" name="petname">
           <br>
           <br>
-         <input type="submit" name="choosepet" class="btn btn-success">
+          <label class="form-label">Pet's Location (Postcode)</label>
+          <input type="text" id="petloc" name="petloc">
+          <input type="submit" name="choosepet" class="btn btn-success">
        </fieldset>
      </form>
       <?php
        if(isset($_POST['choosepet'])){
-        $ownerfname = $_POST['ownerfname'];
-        $ownerlname = $_POST['ownerlname'];
         $petname = $_POST['petname'];
-        $result = mysqli_query($conn,"SELECT Pet_ID, Pet_Name, Pet_DOB, Species_Name, Species_Breed FROM Pet
+        $petloc = $_POST['petloc'];
+        $result = mysqli_query($conn,"SELECT Pet_ID, Pet_Name, Pet_DOB, Species_Name, Species_Breed, Pet.Pet_Next_Treatment_Date, Diagnosis_Name, Diagnosis_Date,Diet_Name, Diet_Start, Diet_End, Diet_Notes, Exercise_Name, Exercise_Type, Exercise_Start, Exercise_End, Exercise_Notes, Treatment_Name,
+          Treatment_Type, Treatment_Date, Treatment_Notes, Vet_FName, Vet_LName, Vet_Title, Vet_Phone,
+          Vet_Email, Practice_Name, Practice_Phone, Practice_Email, Practice_Number, Practice_Postcode FROM Pet
           JOIN Owner ON Owner.Owner_ID = Pet.Pet_Owner_ID
+          JOIN Owner_Location ON Owner_Location.Owner_Location_ID = Owner.Owner_Location_ID
           JOIN Species ON Species.Species_ID = Pet.Pet_Species_ID
-          WHERE Owner.Owner_Email = '$check' AND Owner.Owner_FName LIKE '$ownerfname' AND Owner.Owner_LName LIKE '$ownerlname' AND Pet.Pet_Name = '$petname'");
+          JOIN Diagnosis ON Diagnosis.Diagnosis_ID = Pet.Pet_Diagnosis_ID
+          JOIN Diet ON Diet.Diet_ID = Pet.Pet_Diet_ID
+          JOIN Exercise ON Exercise.Exercise_ID = Pet.Pet_Exercise_ID
+          JOIN Treatment ON
+          Treatment.Treatment_ID = Pet.Pet_Treatment_ID
+          JOIN Vet ON Vet.Vet_ID = Pet.Pet_Vet_ID
+          JOIN Practice ON Practice.Practice_ID = Vet.Vet_Practice_ID
+          JOIN Practice_Location ON Practice_Location.Practice_Location_ID
+          = Practice.Practice_Location_ID
+          WHERE Owner.Owner_Email = '$check' AND Pet.Pet_Name = '$petname' AND Owner_Location.Street_Postcode = '$petloc'");
           while($row = mysqli_fetch_array($result)){
-              echo "<ul id=\"treatmentresults\">";
-              echo "<li><b>Pet ID:</b>" . " " . $row['Pet_ID'] . "</li>";
-              echo "<li><b>Pet Name:</b>" . " " . $row['Pet_Name'] . "</li>";
-              echo "<li><b>Pet Date of Birth:</b>" . " " . $row['Pet_DOB'] . "</li>";
-              echo "<li><b>Species:</b>" . " " . $row['Species_Name'] . "</li>";
-              echo "<li><b>Breed:</b>" . " " . $row['Species_Breed'] . "</li>";
-              echo "</ul>";
+            echo "<div id=\"treatmentresults\">";
+            echo "<h1>Pet Profile</h1>";
+            echo "<br>";
+            echo "<div id='resultsHeader'>";
+            echo "<img id='resultsimg' src='images/catroof.jpeg' alt=''>";
+            echo "<h4>Name:" . " " . $row['Pet_Name'] . " (" . $row['Pet_ID'] . ")</h4></div><br>";
+              echo "<table>";
+              echo "<tr><td><h5>Basic Information</h5></td></tr>";
+              echo "<tr><td><b>Pet Date of Birth:</b>" . " " . $row['Pet_DOB'] . "</td><td><b>Breed:</b>" . " " . $row['Species_Breed'] . "</td><td><b>Species:</b>" . " " . $row['Species_Name'] . "</td></tr>";
+              echo "<tr><td><br></td></tr>";
+              echo "<tr><td><h5>Treatment Information</h5></td></tr>";
+              echo "<tr><td><b>Diagnosis:</b> " . " " . $row['Diagnosis_Name'] . "</td><td><b>Date of Diagnosis:</b> " . " " . $row['Diagnosis_Date'] . "</td></tr>";
+              echo "<tr><td><b>Treatment Name:</b> " . " " . $row['Treatment_Name'] . "</td><td><b>Treatment Type:</b> " . " " . $row['Treatment_Type'] . "</td><td><b>Treatment Date:</b> " . " " . $row['Treatment_Date'] . "</td></tr>";
+              echo "<tr><td><b>Treatment Notes:</b> " . " " . $row['Treatment_Notes'] . "</td><td><b>Next Treatment Date:</b> " . " " . $row['Pet_Next_Treatment_Date'] . "</td></tr>";
+              echo "<tr><td><br></td></tr>";
+              echo "<tr><td><h5>Veterinarian Information</h5></td></tr>";
+              echo "<tr><td><b>Vet's First Name:</b> " . " " . $row['Vet_FName'] . "</td><td><b>Vet's Last Name:</b>" . " " . $row['Vet_LName'] . "</td><td><b>Vet's Accreditations:</b> " . " " . $row['Vet_Title'] . "</td></tr>";
+              echo "<tr><td><b>Vet's Phone Number:</b> " . " " . $row['Vet_Phone'] . "</td><td><b>Vet's Email Address:</b> " . " " . $row['Vet_Email'] . "</td></tr>";
+              echo "<tr><td><br></td></tr>";
+              echo "<tr><td><h5>Practice Information</h5></td></tr>";
+              echo "<tr><td><b>Practice Name:</b> " . " " . $row['Practice_Name'] . "</td><td><b>Practice Phone Number:</b> " . " " . $row['Practice_Phone'] ."</td><td><b>Practice Email Address:</b> " . " " . $row['Practice_Email'] . "</td></tr>";
+              echo "<tr><td><b>Practice Street Number:</b> " . " " . $row['Practice_Number'] . "</td><td><b>Practice Postcode:</b> " . " " . $row['Practice_Postcode'] . "</td></tr>";
+              echo "<tr><td><br></td></tr>";
+              echo "<tr><td><h5>Diet Information</h5></td></tr>";
+              echo "<tr><td><b>Diet Name:</b> " . " " . $row['Diet_Name'] . "</td><td><b>Diet Start Date:</b> " . " " . $row['Diet_Start'] . "</td><td><b>Diet End Date:</b> " . " " . $row['Diet_End'] . "</td></tr>";
+              echo "<tr><td><b>Diet Notes:</b> " . " " . $row['Diet_Notes'] . "</td></tr>";
+              echo "<tr><td><br></td></tr>";
+              echo "<tr><td><h5>Exercise Information</h5></td></tr>";
+              echo "<tr><td><b>Exercise Name:</b> " . " " . $row['Exercise_Name'] . "</td><td><b>Exercise Start Date:</b> " . " " . $row['Exercise_Start'] . "</td><td><b>Exercise End Date:</b> " . " " . $row['Exercise_End'] . "</td></tr>";
+              echo "<tr><td><b>Exercise Notes:</b> " . " " . $row['Exercise_Notes'] . "</td></tr>";
+              echo "</table>";
+              echo "</div>";
             }
             mysqli_close($conn);
           }
@@ -88,154 +105,9 @@
        </div>
       </div>
      </div>
-     <div id="form-container">
-      <div class="container">
-        <div class="row">
-          <div class="main-card-title">Pet Treatment Information</div>
-           <form class="formentry" action="" method="post">
-            <fieldset>
-              <label class='form-label'>Owner's First Name</label>
-              <input type='text' id='ownerfnametreat' name ='ownerfnametreat' value="<?php echo $ownerfname ?>">
-              <br>
-              <br>
-              <label class='form-label'>Owner's Last Name</label>
-              <input type='text' id='ownerlnametreat' name ='ownerlnametreat' value="<?php echo $ownerlname ?>">
-              <br>
-              <br>
-              <label class="form-label">Pet's Name</label>
-              <input type="text" id="petnametreat" name="petnametreat">
-              <br>
-              <br>
-             <input type="submit" name="choosetreatment" class="btn btn-success">
-           </fieldset>
-         </form>
-         <?php
-          if(isset($_POST['choosetreatment'])){
-           $ownerfnametreat = $_POST['ownerfnametreat'];
-           $ownerlnametreat = $_POST['ownerlnametreat'];
-           $petnametreat = $_POST['petnametreat'];
-           $result = mysqli_query($conn,"SELECT Pet_ID, Pet_Name, Pet.Pet_Next_Treatment_Date, Diagnosis_Name, Diagnosis_Date, Treatment_Name,
-             Treatment_Type, Treatment_Date, Treatment_Notes, Vet_FName, Vet_LName, Vet_Title, Vet_Phone,
-             Vet_Email, Practice_Name, Practice_Phone, Practice_Email, Practice_Number, Practice_Postcode FROM Pet
-             JOIN Diagnosis ON Diagnosis.Diagnosis_ID = Pet.Pet_Diagnosis_ID
-             JOIN Treatment ON
-             Treatment.Treatment_ID = Pet.Pet_Treatment_ID
-             JOIN Vet ON Vet.Vet_ID = Pet.Pet_Vet_ID
-             JOIN Practice
-             ON Practice.Practice_ID = Vet.Vet_Practice_ID
-             JOIN Practice_Location ON Practice_Location.Practice_Location_ID
-             = Practice.Practice_Location_ID
-             JOIN Owner ON Owner.Owner_ID = Pet.Pet_Owner_ID
-             WHERE Owner.Owner_Email = '$check'
-             AND Owner.Owner_FName = '$ownerfnametreat'
-             AND Owner.Owner_LName = '$ownerlnametreat'
-             AND Pet.Pet_Name = '$petnametreat'");
-             while($row = mysqli_fetch_array($result)){
-                 echo "<ul id=\"treatmentresults\">";
-                 echo "<li><b>Pet ID:</b> " . " " . $row['Pet_ID'] . "</li>";
-                 echo "<li><b>Pet Name:</b> " . " " . $row['Pet_Name'] . "</li>";
-                 echo "<li><b>Diagnosis:</b> " . " " . $row['Diagnosis_Name'] . "</li>";
-                 echo "<li><b>Date of Diagnosis:</b> " . " " . $row['Diagnosis_Date'] . "</li>";
-                 echo "<li><b>Treatment Name:</b> " . " " . $row['Treatment_Name'] . "</li>";
-                 echo "<li><b>Treatment Type:</b> " . " " . $row['Treatment_Type'] . "</li>";
-                 echo "<li><b>Treatment Date:</b> " . " " . $row['Treatment_Date'] . "</li>";
-                 echo "<li><b>Treatment Notes:</b> " . " " . $row['Treatment_Notes'] . "</li>";
-                 echo "<li><b>Next Treatment Date:</b> " . " " . $row['Pet_Next_Treatment_Date'] . "</li>";
-                 echo "<li><b>Vet's First Name:</b> " . " " . $row['Vet_FName'] . "</li>";
-                 echo "<li><b>Vet's Last Name:</b>" . " " . $row['Vet_LName'] . "</li>";
-                 echo "<li><b>Vet's Accreditations:</b> " . " " . $row['Vet_Title'] . "</li>";
-                 echo "<li><b>Vet's Phone Number:</b> " . " " . $row['Vet_Phone'] . "</li>";
-                 echo "<li><b>Vet's Email Address:</b> " . " " . $row['Vet_Email'] . "</li>";
-                 echo "<li><b>Practice Name:</b> " . " " . $row['Practice_Name'] . "</li>";
-                 echo "<li><b>Practice Phone Number:</b> " . " " . $row['Practice_Phone'] . "</li>";
-                 echo "<li><b>Practice Email Address:</b> " . " " . $row['Practice_Email'] . "</li>";
-                 echo "<li><b>Practice Street Number:</b> " . " " . $row['Practice_Number'] . "</li>";
-                 echo "<li><b>Practice Postcode:</b> " . " " . $row['Practice_Postcode'] . "</li>";
-                 echo "</ul>";
-               }
-               mysqli_close($conn);
-             }
-             ?>
-           </div>
-         </div>
-       </div>
-       <div id="form-container">
-        <div class="container">
-          <div class="row">
-            <div class="main-card-title">Pet Diet and Exercise Plans</div>
-             <form class="formentry" action="" method="post">
-              <fieldset>
-                <label class='form-label'>Owner's First Name</label>
-                <input type='text' id='ownerfnamediet' name ='ownerfnamediet' value="<?php echo $ownerfname ?>">
-                <br>
-                <br>
-                <label class='form-label'>Owner's Last Name</label>
-                <input type='text' id='ownerlnamediet' name ='ownerlnamediet' value="<?php echo $ownerlname ?>">
-                <br>
-                <br>
-                <label class="form-label">Pet's Name</label>
-                <input type="text" id="petnamediet" name="petnamediet">
-                <br>
-                <br>
-               <input type="submit" name="choosediet" class="btn btn-success">
-             </fieldset>
-             <p id="nxforg">NXFORG 2021</p>
-           </form>
-           <?php
-            if(isset($_POST['choosediet'])){
-             $ownerfnamediet = $_POST['ownerfnamediet'];
-             $ownerlnamediet = $_POST['ownerlnamediet'];
-             $petnamediet = $_POST['petnamediet'];
-             $result = mysqli_query($conn,"SELECT Pet_ID, Pet_Name, Diet_Name, Diet_Start, Diet_End, Diet_Notes, Exercise_Name,
-               Exercise_Type, Exercise_Start, Exercise_End, Exercise_Notes, Vet_FName, Vet_LName, Vet_Title, Vet_Phone,
-               Vet_Email, Practice_Name, Practice_Phone, Practice_Email, Practice_Number, Practice_Postcode FROM Pet
-               JOIN Diet ON Diet.Diet_ID = Pet.Pet_Diet_ID
-               JOIN Exercise ON Exercise.Exercise_ID = Pet.Pet_Exercise_ID
-               JOIN Vet ON Vet.Vet_ID = Pet.Pet_Vet_ID
-               JOIN Practice ON Practice.Practice_ID = Vet.Vet_Practice_ID
-               JOIN Practice_Location ON Practice_Location.Practice_Location_ID = Practice.Practice_Location_ID
-               JOIN Owner ON Owner.Owner_ID = Pet.Pet_Owner_ID
-               WHERE Owner.Owner_Email = '$check' AND Owner.Owner_FName = '$ownerfnamediet'
-               AND Owner.Owner_LName = '$ownerlnamediet'
-               AND Pet.Pet_Name = '$petnamediet'");
-               while($row = mysqli_fetch_array($result)){
-                   echo "<ul id=\"treatmentresults\">";
-                   echo "<li><b>Pet ID:</b> " . " " . $row['Pet_ID'] . "</li>";
-                   echo "<li><b>Pet Name:</b> " . " " . $row['Pet_Name'] . "</li>";
-                   echo "<li><b>Diet Name:</b> " . " " . $row['Diet_Name'] . "</li>";
-                   echo "<li><b>Diet Start Date:</b> " . " " . $row['Diet_Start'] . "</li>";
-                   echo "<li><b>Diet End Date:</b> " . " " . $row['Diet_End'] . "</li>";
-                   echo "<li><b>Diet Notes:</b> " . " " . $row['Diet_Notes'] . "</li>";
-                   echo "<li><b>Exercise Name:</b> " . " " . $row['Exercise_Name'] . "</li>";
-                   echo "<li><b>Exercise Type:</b> " . " " . $row['Exercise_Type'] . "</li>";
-                   echo "<li><b>Exercise Start Date:</b> " . " " . $row['Exercise_Start'] . "</li>";
-                   echo "<li><b>Exercise End Date:</b> " . " " . $row['Exercise_End'] . "</li>";
-                   echo "<li><b>Exercise Notes:</b> " . " " . $row['Exercise_Notes'] . "</li>";
-                   echo "<li><b>Vet's First Name:</b> " . " " . $row['Vet_FName'] . "</li>";
-                   echo "<li><b>Vet's Last Name:</b>" . " " . $row['Vet_LName'] . "</li>";
-                   echo "<li><b>Vet's Accreditations:</b> " . " " . $row['Vet_Title'] . "</li>";
-                   echo "<li><b>Vet's Phone Number:</b> " . " " . $row['Vet_Phone'] . "</li>";
-                   echo "<li><b>Vet's Email Address:</b> " . " " . $row['Vet_Email'] . "</li>";
-                   echo "<li><b>Practice Name:</b> " . " " . $row['Practice_Name'] . "</li>";
-                   echo "<li><b>Practice Phone Number:</b> " . " " . $row['Practice_Phone'] . "</li>";
-                   echo "<li><b>Practice Email Address:</b> " . " " . $row['Practice_Email'] . "</li>";
-                   echo "<li><b>Practice Street Number:</b> " . " " . $row['Practice_Number'] . "</li>";
-                   echo "<li><b>Practice Postcode:</b> " . " " . $row['Practice_Postcode'] . "</li>";
-                   echo "</ul>";
-                 }
-                 mysqli_close($conn);
-               }
-               ?>
-             </div>
-           </div>
-         </div>
-     </div>
+    </div>
   </body>
   <footer>
-   <p>NXFORG 2021</p>
-   <!--<a href="#" class="fa fa-facebook"></a>
-   <a href="#" class="fa fa-twitter"></a>
-   <a href="#" class="fa fa-instagram"></a>
-   <a href="#" class="fa fa-snapchat-ghost"></a>-->
+   <p>UP854443 2021</p>
   </footer>
 </html>

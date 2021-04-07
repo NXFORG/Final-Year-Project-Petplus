@@ -250,11 +250,6 @@
          </div>
      </div>
   </body>
-  <footer>
-   <p>NXFORG 2021</p>
-   <!--<a href="#" class="fa fa-facebook"></a>
-   <a href="#" class="fa fa-twitter"></a>
-   <a href="#" class="fa fa-instagram"></a>
-   <a href="#" class="fa fa-snapchat-ghost"></a>-->
+  <footer><p>UP854443 2021</p>
   </footer>
 </html>

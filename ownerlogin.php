@@ -45,13 +45,17 @@
         if($_SERVER["REQUEST_METHOD"] == "POST") {
           $user = mysqli_real_escape_string($conn,$_POST['username']);
           $pass = mysqli_real_escape_string($conn,$_POST['password']);
-          $sql = "SELECT User_ID FROM Users WHERE Email = '$user' and Password = '$pass'";
+          $sql = "SELECT User_ID,Password FROM Users WHERE Email = '$user'";
           $result = mysqli_query($conn,$sql);
           $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
           $count = mysqli_num_rows($result);
           if($count == 1) {
-            $_SESSION['login_user'] = $user;
-            header("location: ownerviewpet.php");
+            if(password_verify ($pass, $row['Password'])){
+              $_SESSION['login_user'] = $user;
+              header("location: ownerviewpet.php");
+            }else{
+              echo "<script>alert(\"Your email or password wasn't recognised, please try again.\")</script>";
+            }
           }else{
             echo "<script>alert(\"Your email or password wasn't recognised, please try again.\")</script>";
           }
@@ -117,11 +121,7 @@
 </div>
 </div>
 </div>
-<footer><p>NXFORG 2021</p>
-  <!--<a href="#" class="fa fa-facebook"></a>
-  <a href="#" class="fa fa-twitter"></a>
-  <a href="#" class="fa fa-instagram"></a>
-  <a href="#" class="fa fa-snapchat-ghost"></a>-->
+<footer><p>UP854443 2021</p>
 </footer>
  </body>
 </html>

@@ -49,17 +49,20 @@
        if(isset($_POST['choosepet'])){
         $petname = $_POST['petname'];
         $petloc = $_POST['petloc'];
-        $result = mysqli_query($conn,"SELECT Pet_ID, Pet_Name, Pet_DOB, Species_Name, Species_Breed, Pet.Pet_Next_Treatment_Date, Diagnosis_Name, Diagnosis_Date,Diet_Name, Diet_Start, Diet_End, Diet_Notes, Exercise_Name, Exercise_Type, Exercise_Start, Exercise_End, Exercise_Notes, Treatment_Name,
+        $result = mysqli_query($conn,"SELECT Pet_ID, Pet_Name, Pet_DOB, Species_Name, Species_Breed, Pet.Pet_Next_Treatment_Date,
+          Diagnosis_Name, Diagnosis_Date,Diet_Name, Diet_Start, Diet_End, Diet_Notes, Exercise_Name, Exercise_Type, Exercise_Start,
+          Exercise_End, Exercise_Notes, Walk_Notes, Treatment_Name,
           Treatment_Type, Treatment_Date, Treatment_Notes, Vet_FName, Vet_LName, Vet_Title, Vet_Phone,
-          Vet_Email, Practice_Name, Practice_Phone, Practice_Email, Practice_Number, Practice_Postcode FROM Pet
+          Vet_Email, Practice_Name, Practice_Phone, Practice_Email, Practice_Number, Practice_Postcode
+          FROM Pet
           JOIN Owner ON Owner.Owner_ID = Pet.Pet_Owner_ID
           JOIN Owner_Location ON Owner_Location.Owner_Location_ID = Owner.Owner_Location_ID
           JOIN Species ON Species.Species_ID = Pet.Pet_Species_ID
           JOIN Diagnosis ON Diagnosis.Diagnosis_ID = Pet.Pet_Diagnosis_ID
           JOIN Diet ON Diet.Diet_ID = Pet.Pet_Diet_ID
           JOIN Exercise ON Exercise.Exercise_ID = Pet.Pet_Exercise_ID
-          JOIN Treatment ON
-          Treatment.Treatment_ID = Pet.Pet_Treatment_ID
+          JOIN Walk ON Walk.Walk_ID = Species.Species_ID
+          JOIN Treatment ON Treatment.Treatment_ID = Pet.Pet_Treatment_ID
           JOIN Vet ON Vet.Vet_ID = Pet.Pet_Vet_ID
           JOIN Practice ON Practice.Practice_ID = Vet.Vet_Practice_ID
           JOIN Practice_Location ON Practice_Location.Practice_Location_ID
@@ -95,7 +98,7 @@
               echo "<tr><td><br></td></tr>";
               echo "<tr><td><h5>Exercise Information</h5></td></tr>";
               echo "<tr><td><b>Exercise Name:</b> " . " " . $row['Exercise_Name'] . "</td><td><b>Exercise Start Date:</b> " . " " . $row['Exercise_Start'] . "</td><td><b>Exercise End Date:</b> " . " " . $row['Exercise_End'] . "</td></tr>";
-              echo "<tr><td><b>Exercise Notes:</b> " . " " . $row['Exercise_Notes'] . "</td></tr>";
+              echo "<tr><td><b>Exercise Notes:</b> " . " " . $row['Exercise_Notes'] . "</td><td><b>Walking Notes:</b> " . " " . $row['Walk_Notes'] . "</td></tr>";
               echo "</table>";
               echo "</div>";
             }

@@ -42,16 +42,24 @@
     <div class="row">
       <?php
       session_start();
+        //Once the vet submits the login form, their entered details are checked with the database values
         if($_SERVER["REQUEST_METHOD"] == "POST") {
+          //the vet's username
           $user = mysqli_real_escape_string($conn,$_POST['username']);
+          //the vet's password
           $pass = mysqli_real_escape_string($conn,$_POST['password']);
+          //Query to retrieve a matching email value from the database
           $sql = "SELECT User_ID,Password FROM Users WHERE Email = '$user'";
+          //The query is executed
+          //'conn' variable taken from the databse connection file
           $result = mysqli_query($conn,$sql);
           $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
           $count = mysqli_num_rows($result);
+          //if a result is found, the password is verified
           if($count == 1) {
             if(password_verify ($pass, $row['Password'])){
               $_SESSION['login_user'] = $user;
+              //if the entered password matches the hashed database value, the login is successful
               header("location: petmanager.php");
             }else{
               echo "<script>alert(\"Your email or password wasn't recognised, please try again.\")</script>";
@@ -61,6 +69,7 @@
           }
         }
         ?>
+      <!--HTML login form-->
       <form action = "" method = "post">
         <div class="main-card-title">Vet Login</div>
         <br>

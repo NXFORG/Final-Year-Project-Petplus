@@ -3,9 +3,9 @@
   include('loggedin.php');
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en-gb">
  <head>
-  <meta charset = "UTF 8">
+  <meta charset = "UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>PETPLUS PET MANAGER</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -202,7 +202,7 @@
           <label class="form-label">Diagnosed By (Vet)</label>
           <select id="diagnosisvet" name="diagnosisvet">
             <?php
-              $sql = "SELECT DISTINCT Vet_ID, Vet_FName, Vet_LName FROM Vet  
+              $sql = "SELECT DISTINCT Vet_ID, Vet_FName, Vet_LName FROM Vet
                JOIN Practice ON Practice.Practice_ID = Vet.Vet_Practice_ID
                WHERE Practice_ID = (SELECT Practice_ID
                FROM Practice

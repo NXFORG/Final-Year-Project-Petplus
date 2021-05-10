@@ -2,9 +2,9 @@
   include_once 'petplus.php';
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en-gb">
  <head>
-  <meta charset = "UTF 8">
+  <meta charset = "UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>PETPLUS PET MANAGER</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -74,14 +74,14 @@
         <div class="main-card-title">Vet Login</div>
         <br>
         <label class="form-label">Email Address</label>
-        <input type = "text" name = "username"/>
+        <input label="Email address" type = "text" name = "username"/>
         <br>
         <br>
         <label class="form-label">Password</label>
-        <input type = "password" name = "password"/>
+        <input label="Password" type = "password" name = "password"/>
         <br>
         <br>
-        <input type = "submit" id="vetbtn" value = " Submit "/><br />
+        <input label="Submit" type = "submit" id="vetbtn" value = " Submit "/><br />
         <div id="loginmsg"> </div>
       </form>
    </div>
@@ -94,20 +94,20 @@
     <div class="main-card-title">Register a Vet Account</div>
     <br>
     <label class="form-label">First Name</label>
-    <input type = "text" id="regfname" name = "fname"/>
+    <input label="First name" type = "text" id="regfname" name = "fname"/>
     <br>
     <br>
     <label class="form-label">Last Name</label>
-    <input type = "text" id="reglname" name = "lname"/>
+    <input label="Last name" type = "text" id="reglname" name = "lname"/>
     <br>
     <br>
     <label class="form-label">Email Address</label>
-    <input type = "text" id="regemail" name = "email"/>
+    <input label="Email address" type = "text" id="regemail" name = "email"/>
     <br>
     <br>
     <label class="form-label">Password</label>
-    <input type = "password" id="regpassword" name = "password"/><br/><br />
-    <input type = "submit" id="regbtn" value = " Submit "/><br />
+    <input label="Password" type = "password" id="regpassword" name = "password"/><br/><br />
+    <input label="submit" type = "submit" id="regbtn" value = " Submit "/><br />
   </form>
   <script>
     $("#vetregister").submit(function(event) {

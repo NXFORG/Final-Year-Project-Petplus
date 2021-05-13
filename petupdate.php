@@ -1,5 +1,7 @@
 <?php
- //include('modinstance.php');
+ //Database connection file
+ include_once 'dbconnect.php';
+
  $petid = $_POST['updpetid'];
  $petdob = $_POST['updpetdob'];
  $microid = $_POST['updpetmicroid'];
@@ -23,8 +25,6 @@
  echo "Value:" . $exercisename . "\n";
  echo "Value:" . $diagnosisname . "\n";
 
-
-$conn = new mysqli('localhost','chris','test212','PetPlus');
 if($conn->connect_error){
     die('connection failed: '.$conn->connect_error);
   }else{

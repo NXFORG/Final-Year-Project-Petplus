@@ -1,5 +1,5 @@
 <?php
-  include_once 'petplus.php';
+  include_once 'dbconnect.php';
 ?>
 <!DOCTYPE html>
 <html lang="en-gb">
@@ -28,7 +28,7 @@
        <a class="nav-link hvr-fade" href="about.html">ABOUT</a>
      </li>-->
       <li class="nav-item active">
-       <a class="nav-link hvr-fade" href="login.php">VETS<span class="sr-only ">(current)</span></a>
+       <a class="nav-link hvr-fade" href="vetlogin.php">VETS<span class="sr-only ">(current)</span></a>
       </li>
       <li class="nav-item">
        <a class="nav-link hvr-fade" href="ownerlogin.php">OWNERS</a>
@@ -60,7 +60,7 @@
             if(password_verify ($pass, $row['Password'])){
               $_SESSION['login_user'] = $user;
               //if the entered password matches the hashed database value, the login is successful
-              header("location: petmanager.php");
+              header("location: addmodify.php");
             }else{
               echo "<script>alert(\"Your email or password wasn't recognised, please try again.\")</script>";
             }

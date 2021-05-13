@@ -1,5 +1,7 @@
 <?php
-  include_once 'petplus.php';
+  //Database connection file
+  include_once 'dbconnect.php';
+  //Login session
   include('loggedin.php');
 ?>
 <!DOCTYPE html>
@@ -8,10 +10,13 @@
   <meta charset = "UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>PETPLUS PET MANAGER</title>
+  <!--Bootstrap stylesheet-->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!--Custom stylesheet-->
   <link rel="stylesheet" type="text/css" href="vetview.css">
+  <!--jQuery library link-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
  </head>
  <body>
@@ -23,9 +28,11 @@
     <div class="collapse navbar-collapse" id="navbarNav">
      <ul class="navbar-nav">
       <li class="nav-item active">
+       <!--A pet owner can only access this page-->
        <a class="nav-link hvr-fade" href="ownerviewpet.php">VIEW PET<span class="sr-only ">(current)</span></a>
       </li>
      </ul>
+     <!--Logout link-->
      <a href = "logout.php">Logout</a>
     </div>
    </nav>
@@ -33,6 +40,7 @@
     <div id="form-container">
     <div class="container">
     <div class="row">
+      <!--The owner enters the pet's name and postcode to retrieve information about the pet-->
       <div class="main-card-title">Pet Details</div>
        <form class="formentry" action="" method="post">
         <fieldset>
@@ -49,6 +57,7 @@
        if(isset($_POST['choosepet'])){
         $petname = $_POST['petname'];
         $petloc = $_POST['petloc'];
+        //Query to retrieve all important pet information
         $result = mysqli_query($conn,"SELECT Pet_ID, Pet_Name, Pet_DOB, Species_Name, Species_Breed, Pet.Pet_Next_Treatment_Date,
           Diagnosis_Name, Diagnosis_Date,Diet_Name, Diet_Start, Diet_End, Diet_Notes, Exercise_Name, Exercise_Type, Exercise_Start,
           Exercise_End, Exercise_Notes, Walk_Notes, Treatment_Name,
@@ -68,7 +77,9 @@
           JOIN Practice_Location ON Practice_Location.Practice_Location_ID
           = Practice.Practice_Location_ID
           WHERE Owner.Owner_Email = '$check' AND Pet.Pet_Name = '$petname' AND Owner_Location.Street_Postcode = '$petloc'");
+          //Owner's name is retrieved from their login information and compared against the value the pet's database entry
           while($row = mysqli_fetch_array($result)){
+            //Pet information is output in a HTML table
             echo "<div id=\"treatmentresults\">";
             echo "<h1>Pet Profile</h1>";
             echo "<br>";

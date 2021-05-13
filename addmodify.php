@@ -1,6 +1,6 @@
 <?php
   //Database connection file
-  include_once 'petplus.php';
+  include_once 'dbconnect.php';
   //Login session file
   include('loggedin.php');
   //Stores the pet being modified by the modify form
@@ -36,13 +36,13 @@
      <ul class="navbar-nav">
       <li class="nav-item active">
        <!--'<span class="sr-only ">(current)</span>' displays the current navbar tab in bold-->
-       <a class="nav-link hvr-fade" href="petmanager.php">PET MANAGER<span class="sr-only ">(current)</span></a>
+       <a class="nav-link hvr-fade" href="addmodify.php">PET MANAGER<span class="sr-only ">(current)</span></a>
       </li>
       <li class="nav-item">
-       <a class="nav-link hvr-fade" href="petinforetriever.php">ADD NEW</a>
+       <a class="nav-link hvr-fade" href="addtreatment.php">ADD NEW</a>
       </li>
       <li class="nav-item">
-       <a class="nav-link hvr-fade" href="viewpet.php">VIEW PET</a>
+       <a class="nav-link hvr-fade" href="vetview.php">VIEW PET</a>
       </li>
      </ul>
      <!--logout button-->
@@ -305,7 +305,7 @@
         <h5>Need to add a new Treatment, Diet Plan, Exercise Plan or Diagnosis? Click the link below.</h5>
       </form>
       <!--Link to 'add treatment' page-->
-      <input id="addNewAdd" type="button" onClick="document.location.href='petinforetriever.php'" value="Add new treatment" />
+      <input id="addNewAdd" type="button" onClick="document.location.href='addtreatment.php'" value="Add new treatment" />
       <script>
         //jQuery to prevent default PHP form redirect on form submission
         $("#newpetadd").submit(function(event) {
@@ -527,6 +527,7 @@
           <br>
           <label class="form-label">Treatment Name</label>
           <select id="updtreatname" name="updtreatname">
+            <option value="" disabled><b>Current Last Treatment:</b></option>
             <?php
              //The pet's most recent treatment is retrieved
              $sql = "SELECT * FROM Treatment JOIN Pet ON Pet.Pet_Treatment_ID = Treatment.Treatment_ID WHERE Pet_ID = '$modid' AND Treatment_Date < CURDATE()";
@@ -537,6 +538,24 @@
                echo "<option value=",$row['Treatment_ID'],">" . $row['Treatment_ID'] . " " . $row['Treatment_Name'] . " (Current)" . "</option>";
               }
              }
+             echo "<option value='' disabled><b>Your recently uploaded treatments:</b></option>";
+             //A vet can select their recently uploaded treatments
+             $sql = "SELECT DISTINCT Treatment_ID, Treatment_Name FROM Treatment
+             JOIN Vet ON Vet.Vet_ID = Treatment.Treatment_Vet
+             JOIN Practice ON Practice.Practice_ID = Vet.Vet_Practice_ID
+             WHERE Practice_ID = (SELECT Practice_ID
+             FROM Practice
+             JOIN Vet ON Vet.Vet_Practice_ID = Practice.Practice_ID
+             WHERE Vet_Email = '$check') AND Treatment_Date < CURDATE() ORDER BY Treatment_ID";
+             $result = mysqli_query($conn, $sql);
+             $resultnum = mysqli_num_rows($result);
+              if ($resultnum > 0){
+               while ($row = mysqli_fetch_assoc($result)){
+                echo "<option value=",$row['Treatment_ID'],">" . $row['Treatment_ID'] . " " . $row['Treatment_Name'] . "</option>";
+               }
+               echo "<option value='' disabled><b>Other treatments uploaded by your practice:</b></option>";
+              }
+
              //Other treatments from the practice are retrieved
              $sql = "SELECT DISTINCT Treatment_ID, Treatment_Name FROM Treatment
              JOIN Pet ON Pet.Pet_Treatment_ID = Treatment.Treatment_ID
@@ -674,7 +693,7 @@
         <p id="nxforg">NXFORG 2021</p>
       </form>
       <!--Link to 'add treatment' page-->
-      <input id="addNewModify" type="button" onClick="document.location.href='petinforetriever.php'" value="Add new treatment"/>
+      <input id="addNewModify" type="button" onClick="document.location.href='addtreatment.php'" value="Add new treatment"/>
       <script>
         //jQuery to prevent default PHP redirect
         $("#addNewModify").hide();

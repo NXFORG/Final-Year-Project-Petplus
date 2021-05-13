@@ -1,6 +1,8 @@
 <?php
+ //Database connection file
+ include_once 'dbconnect.php';
     $speciesname = $_POST['speciesname'];//Pet name variable from login page form
-    $conn=mysqli_connect("localhost","chris","test212","PetPlus");//database connection
+
 
     if (mysqli_connect_errno()){
         echo "Failed to connect to database" . mysqli_connect_error();

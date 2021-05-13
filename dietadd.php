@@ -1,10 +1,12 @@
 <?php
+ //Database connection file
+ include_once 'dbconnect.php';
+
  $dietname = $_POST['dietname'];
  $dietstart = $_POST['dietstartdate'];
  $dietend = $_POST['dietenddate'];
  $dietnotes = $_POST['dietnotes'];
 
-$conn = new mysqli('localhost','chris','test212','PetPlus');
 if($conn->connect_error){
     die('connection failed: '.$conn->connect_error);
   }else{

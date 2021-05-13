@@ -1,5 +1,5 @@
 <?php
- include_once 'petplus.php';
+ include_once 'dbconnect.php';
  $user_type = $_POST['user_type'];
  $user_fname = $_POST['user_fname'];
  $user_lname = $_POST['user_lname'];

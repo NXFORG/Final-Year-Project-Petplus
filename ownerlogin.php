@@ -1,5 +1,5 @@
 <?php
-  include_once 'petplus.php';
+  include_once 'dbconnect.php';
 ?>
 <!DOCTYPE html>
 <html lang="en-gb">
@@ -24,11 +24,8 @@
       <li class="nav-item">
        <a class="nav-link hvr-fade" href="index.html">HOME</a>
       </li>
-      <!--<li class="nav-item">
-       <a class="nav-link hvr-fade" href="about.html">ABOUT</a>
-     </li>-->
       <li class="nav-item">
-       <a class="nav-link hvr-fade" href="login.php">VETS</a>
+       <a class="nav-link hvr-fade" href="vetlogin.php">VETS</a>
       </li>
       <li class="nav-item active">
        <a class="nav-link hvr-fade" href="ownerlogin.php">OWNERS<span class="sr-only ">(current)</span></a>

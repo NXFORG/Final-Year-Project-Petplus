@@ -1,10 +1,13 @@
 <?php
+ //Database connection file
+ include_once 'dbconnect.php';
+ 
  $diagnosisname = $_POST['diagnosisname'];
  $diagnosistype = $_POST['diagnosistype'];
  $diagnosisdate = $_POST['diagnosisdate'];
  $diagnosisvet = $_POST['diagnosisvet'];
 
-$conn = new mysqli('localhost','chris','test212','PetPlus');
+
 if($conn->connect_error){
     die('connection failed: '.$conn->connect_error);
   }else{

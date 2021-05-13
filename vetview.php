@@ -1,5 +1,5 @@
 <?php
-  include_once 'petplus.php';
+  include_once 'dbconnect.php';
   include('loggedin.php');
 ?>
 <!DOCTYPE html>
@@ -23,13 +23,13 @@
     <div class="collapse navbar-collapse" id="navbarNav">
      <ul class="navbar-nav">
       <li class="nav-item">
-       <a class="nav-link hvr-fade" href="petmanager.php">PET MANAGER</a>
+       <a class="nav-link hvr-fade" href="addmodify.php">PET MANAGER</a>
       </li>
       <li class="nav-item">
-       <a class="nav-link hvr-fade" href="petinforetriever.php">ADD NEW</a>
+       <a class="nav-link hvr-fade" href="addtreatment.php">ADD NEW</a>
       </li>
       <li class="nav-item active">
-       <a class="nav-link hvr-fade" href="viewpet.php">VIEW PET<span class="sr-only ">(current)</span></a>
+       <a class="nav-link hvr-fade" href="vetview.php">VIEW PET<span class="sr-only ">(current)</span></a>
       </li>
      </ul>
      <a href = "logout.php">Logout</a>

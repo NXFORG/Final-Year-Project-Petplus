@@ -1,4 +1,7 @@
 <?php
+ //Database connection file
+ include_once 'dbconnect.php';
+
  $petname = $_POST['petname'];
  $microid = $_POST['microid'];
  $petdob = $_POST['petdob'];
@@ -11,7 +14,6 @@
  $exercisename = $_POST['exercisename'];
  $diagnosisname = $_POST['diagnosisname'];
 
-$conn = new mysqli('localhost','chris','test212','PetPlus');
 if($conn->connect_error){
     die('connection failed: '.$conn->connect_error);
   }else{

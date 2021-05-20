@@ -179,14 +179,42 @@
           <select id="treatname" name="treatname">
             <option value="" disabled selected>Select a Treatment</option>
             <?php
-             $sql = "SELECT DISTINCT Treatment_ID, Treatment_Name FROM Treatment JOIN Pet ON Pet.Pet_Treatment_ID = Treatment.Treatment_ID
+             //The pet's most recent treatment is retrieved
+             $sql = "SELECT * FROM Treatment JOIN Pet ON Pet.Pet_Treatment_ID = Treatment.Treatment_ID WHERE Pet_ID = '$modid' AND Treatment_Date < CURDATE()";
+             $result = mysqli_query($conn, $sql);
+             $resultnum = mysqli_num_rows($result);
+             if ($resultnum > 0){
+              while ($row = mysqli_fetch_assoc($result)){
+               echo "<option value=",$row['Treatment_ID'],">" . $row['Treatment_ID'] . " " . $row['Treatment_Name'] . " (Current)" . "</option>";
+              }
+             }
+             echo "<option value='' disabled><b>Your recently uploaded treatments:</b></option>";
+             //A vet can select their recently uploaded treatments
+             $sql = "SELECT DISTINCT Treatment_ID, Treatment_Name FROM Treatment
+             JOIN Vet ON Vet.Vet_ID = Treatment.Treatment_Vet
+             JOIN Practice ON Practice.Practice_ID = Vet.Vet_Practice_ID
+             WHERE Practice_ID = (SELECT Practice_ID
+             FROM Practice
+             JOIN Vet ON Vet.Vet_Practice_ID = Practice.Practice_ID
+             WHERE Vet_Email = '$check') AND Treatment_Date < CURDATE() ORDER BY Treatment_ID";
+             $result = mysqli_query($conn, $sql);
+             $resultnum = mysqli_num_rows($result);
+              if ($resultnum > 0){
+               while ($row = mysqli_fetch_assoc($result)){
+                echo "<option value=",$row['Treatment_ID'],">" . $row['Treatment_ID'] . " " . $row['Treatment_Name'] . "</option>";
+               }
+               echo "<option value='' disabled><b>Other treatments uploaded by your practice:</b></option>";
+              }
+
+             //Other treatments from the practice are retrieved
+             $sql = "SELECT DISTINCT Treatment_ID, Treatment_Name FROM Treatment
+             JOIN Pet ON Pet.Pet_Treatment_ID = Treatment.Treatment_ID
              JOIN Vet ON Vet.Vet_ID = Pet.Pet_Vet_ID
              JOIN Practice ON Practice.Practice_ID = Vet.Vet_Practice_ID
              WHERE Practice_ID = (SELECT Practice_ID
              FROM Practice
              JOIN Vet ON Vet.Vet_Practice_ID = Practice.Practice_ID
              WHERE Vet_Email = '$check') AND Treatment_Date < CURDATE() ORDER BY Treatment_ID";
-             //Future treatments are filtered out through the 'CURDATE())' function
              $result = mysqli_query($conn, $sql);
              $resultnum = mysqli_num_rows($result);
               if ($resultnum > 0){
@@ -280,7 +308,7 @@
                 echo "<option value=",$row['Diagnosis_ID'],">" . $row['Diagnosis_Name'] . "</option>";
                }
               }
-             //Other rpactice associated diagnoses are displayed
+             //Other practice associated diagnoses are displayed
              $sql = "SELECT Diagnosis_ID, Diagnosis_Name FROM Diagnosis JOIN Pet ON Pet.Pet_Diagnosis_ID = Diagnosis.Diagnosis_ID
              JOIN Vet ON Vet.Vet_ID = Pet.Pet_Vet_ID
              JOIN Practice ON Practice.Practice_ID = Vet.Vet_Practice_ID
@@ -390,7 +418,8 @@
         <div class="main-card-title">Change Pet Details</div>
         <fieldset>
           <!--Gets the requested pet's information from the database-->
-          <select type="hidden" id="updpetid" name="updpetid">
+          <label class="form-label">Pet ID</label>
+          <select disabled id="updpetid" name="updpetid">
             <?php
              $sql = "SELECT DISTINCT Pet_ID FROM Pet
              JOIN Vet ON Vet.Vet_ID = Pet.Pet_Vet_ID

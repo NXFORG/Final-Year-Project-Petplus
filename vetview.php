@@ -1,5 +1,7 @@
 <?php
+  //database connection file
   include_once 'dbconnect.php';
+  //login session established on vet's login
   include('loggedin.php');
 ?>
 <!DOCTYPE html>
@@ -8,13 +10,17 @@
   <meta charset = "UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>PETPLUS PET MANAGER</title>
+  <!--Link to Bootstrap library-->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!--Custom stylesheet link-->
   <link rel="stylesheet" type="text/css" href="vetview.css">
+  <!--Link to jQuery library-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
  </head>
  <body>
+  <!--Page navbar-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
    <img class="logo" src="images/petpluslogowhite.png" alt="PETPLUS">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,6 +45,7 @@
     <div id="form-container">
     <div class="container">
     <div class="row">
+      <!--Basic pet information form-->
       <div class="main-card-title">Pet Details and Owner Contact Information</div>
        <form class="formentry" action="" method="post">
         <fieldset>
@@ -59,10 +66,12 @@
        </fieldset>
      </form>
       <?php
+       //On form submission, information such as the pet's date of birth, owner's name and owner's contact information is retreived
        if(isset($_POST['choosepet'])){
         $petid = $_POST['petid'];
         $petname = $_POST['petname'];
         $petpostcode = $_POST['petpostcode'];
+        //The query checks if either the entered pet's ID or name and postcode combination match a database value
         $result = mysqli_query($conn,"SELECT Pet_ID, Pet_Name, Pet_DOB, Species_Name, Species_Breed, Owner_FName, Owner_LName, Owner_Phone, Owner_Email, House_Number, Street_Postcode FROM Pet
           JOIN Vet ON Vet.Vet_ID = Pet.Pet_Vet_ID
           JOIN Owner ON Owner.Owner_ID = Pet.Pet_Owner_ID
@@ -77,6 +86,7 @@
           FROM Practice
           JOIN Vet ON Vet.Vet_Practice_ID = Practice.Practice_ID
           WHERE Vet_Email = '$check' AND Pet_Name = '$petname' AND Street_Postcode = '$petpostcode')");
+          //If a match is found, this information is output
           while($row = mysqli_fetch_array($result)){
               echo "<ul id=\"treatmentresults\">";
               echo "<li><b>Pet ID:</b>" . " " . $row['Pet_ID'] . "</li>";
@@ -101,6 +111,7 @@
      <div id="form-container">
       <div class="container">
         <div class="row">
+          <!--Form to retrieve a pet's treatment information-->
           <div class="main-card-title">Pet Treatment Information</div>
            <form class="formentry" action="" method="post">
             <fieldset>
@@ -125,8 +136,9 @@
            $petidtreat = $_POST['petidtreat'];
            $petnametreat = $_POST['petnametreat'];
            $petpostcode = $_POST['petpostcode'];
+           //The query checks if the entered pet has any treatment information stored on the system
            $result = mysqli_query($conn,"SELECT Pet_ID, Pet_Name, Pet.Pet_Next_Treatment_Date, Diagnosis_Name, Diagnosis_Date, Treatment_Name,
-             Treatment_Type, Treatment_Date, Treatment_Notes, Vet_FName, Vet_LName, Vet_Title, Vet_Phone,
+             Treatment_Type, Treatment_Date, Treatment_Notes, Treatment_Vet, _FName, Vet_LName, Vet_Title, Vet_Phone,
              Vet_Email, Practice_Name, Practice_Phone, Practice_Email, Practice_Number, Practice_Postcode FROM Pet
              JOIN Diagnosis ON Diagnosis.Diagnosis_ID = Pet.Pet_Diagnosis_ID
              JOIN Treatment ON Treatment.Treatment_ID = Pet.Pet_Treatment_ID
@@ -142,6 +154,7 @@
              JOIN Vet ON Vet.Vet_Practice_ID = Practice.Practice_ID
              WHERE Vet_Email = '$check' AND Pet.Pet_Name = '$petnametreat'
              AND Owner_Location.Street_Postcode = '$petpostcode'))");
+             //If a match is found, treatment information is output along with the vet and practice's contact information
              while($row = mysqli_fetch_array($result)){
                    echo "<ul id=\"treatmentresults\">";
                    echo "<li><b>Pet ID:</b> " . " " . $row['Pet_ID'] . "</li>";
@@ -152,6 +165,7 @@
                    echo "<li><b>Treatment Type:</b> " . " " . $row['Treatment_Type'] . "</li>";
                    echo "<li><b>Treatment Date:</b> " . " " . $row['Treatment_Date'] . "</li>";
                    echo "<li><b>Treatment Notes:</b> " . " " . $row['Treatment_Notes'] . "</li>";
+                   echo "<li><b>Treatment Vet:</b> " . " " . $row['Treatment_Vet'] . "</li>";
                    echo "<li><b>Next Treatment Date:</b> " . " " . $row['Pet_Next_Treatment_Date'] . "</li>";
                    echo "<li><b>Vet's First Name:</b> " . " " . $row['Vet_FName'] . "</li>";
                    echo "<li><b>Vet's Last Name:</b>" . " " . $row['Vet_LName'] . "</li>";
@@ -174,6 +188,7 @@
        <div id="form-container">
         <div class="container">
           <div class="row">
+            <!--Form to retrieve a pet's diet and exercsie information-->
             <div class="main-card-title">Pet Diet and Exercise Plans</div>
              <form class="formentry" action="" method="post">
               <fieldset>
@@ -199,6 +214,7 @@
              $petiddietex = $_POST['petiddietex'];
              $petnamedietex = $_POST['petnamedietex'];
              $petpostcode = $_POST['petpostcode'];
+             //The query checks if the entered pet has any diet or exercise information stored on the system
              $result = mysqli_query($conn,"SELECT Pet_ID, Pet_Name, Diet_Name, Diet_Start, Diet_End, Diet_Notes, Exercise_Name,
                Exercise_Type, Exercise_Start, Exercise_End, Exercise_Notes, Vet_FName, Vet_LName, Vet_Title, Vet_Phone,
                Vet_Email, Practice_Name, Practice_Phone, Practice_Email, Practice_Number, Practice_Postcode FROM Pet
@@ -217,6 +233,7 @@
                JOIN Vet ON Vet.Vet_Practice_ID = Practice.Practice_ID
                WHERE Vet_Email = '$check' AND Pet.Pet_Name = '$petnamedietex'
                AND Owner_Location.Street_Postcode = '$petpostcode'))");
+               //If a match is found, diet and exercise information is output along with the vet and practice's contact information to enable follow-up
                while($row = mysqli_fetch_array($result)){
                    echo "<ul id=\"treatmentresults\">";
                    echo "<li><b>Pet ID:</b> " . " " . $row['Pet_ID'] . "</li>";

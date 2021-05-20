@@ -130,10 +130,11 @@
           var $form = $(this),
           url = $form.attr('action');
           var posting = $.post(url, {
+            //Form data field values
             treatmentname: $('#treatmentname').val(),
-            treatmenttype: $('#treatmenttype').val(),
             treatdate: $('#treatdate').val(),
             treatmentnotes: $('#treatmentnotes').val(),
+            treatmenttype: $('#treatmenttype').val(),
             treatmentcost: $('#treatmentcost').val(),
             treatmentvet: $('#treatmentvet').val()
           });

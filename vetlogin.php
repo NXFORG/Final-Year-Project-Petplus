@@ -1,4 +1,5 @@
 <?php
+  //Database connection file
   include_once 'dbconnect.php';
 ?>
 <!DOCTYPE html>
@@ -7,13 +8,17 @@
   <meta charset = "UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>PETPLUS PET MANAGER</title>
+  <!--Bootsrap library link-->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <!--Custom CSS stylesheet-->
   <link rel="stylesheet" type="text/css" href="vetlogin.css">
   <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!--jQuery library link-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
  </head>
  <body>
+   <!--Page navbar-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
    <img class="logo" src="images/petpluslogowhite.png" alt="PETPLUS">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,9 +29,6 @@
       <li class="nav-item">
        <a class="nav-link hvr-fade" href="index.html">HOME</a>
       </li>
-      <!--<li class="nav-item">
-       <a class="nav-link hvr-fade" href="about.html">ABOUT</a>
-     </li>-->
       <li class="nav-item active">
        <a class="nav-link hvr-fade" href="vetlogin.php">VETS<span class="sr-only ">(current)</span></a>
       </li>
@@ -90,6 +92,7 @@
 <div id="form-container">
 <div class="container">
 <div class="row">
+  <!--HTML register form-->
   <form id="vetregister" action = "accountadd.php" method = "post">
     <div class="main-card-title">Register a Vet Account</div>
     <br>
@@ -110,6 +113,8 @@
     <input label="submit" type = "submit" id="regbtn" value = " Submit "/><br />
   </form>
   <script>
+    //jQuery script to prevent PHP page redirect on form submission
+    //Also displays a success or error message depending on if account creation worked or not
     $("#vetregister").submit(function(event) {
       event.preventDefault(); /*Stops redirect*/
       var $form = $(this),

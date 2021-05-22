@@ -59,6 +59,16 @@ input{
   background-color: #d5d6e0;
   padding-left: 5%;
 }
+select{
+  width: 100%;
+  padding-bottom: 3%;
+  padding-top: 3%;
+  border-radius: 5px;
+  border: 0;
+  background-color: #d5d6e0;
+  padding-left: 5%;
+  font-family: raleway-semibold;
+}
 #addNewTreat,#addNewDiet{
  color: #fff;
  background-color: #2d64b3;
@@ -193,6 +203,10 @@ footer p{
 @font-face {
   font-family: raleway-medium;
   src: url(fonts/raleway-medium.ttf);
+}
+@font-face {
+  font-family: raleway-semibold;
+  src: url(fonts/raleway-semibold.ttf);
 }
 @media all and (max-width: 1025px) {
   .logo{

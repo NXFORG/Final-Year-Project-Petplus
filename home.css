@@ -129,7 +129,7 @@ body{
   background-color: #1c1e21;
 }
 .card-img{
-  height: 5%;
+  min-height: 5%;
 }
 .card-title{
   margin-top: 5%;

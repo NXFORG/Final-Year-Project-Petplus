@@ -43,9 +43,15 @@
     </div>
    </nav>
   <div class="card-img-overlay">
-    <div id="form-container">
+   <div id="form-header">
+    <input id="showTreat" type="button" onClick="document.getElementById('treatadd').style.display='block';document.getElementById('dietadd').style.display='none';document.getElementById('exerciseadd').style.display='none';document.getElementById('diagnosisadd').style.display='none';" value="Treatment" />
+    <input id="showDiet" type="button" onClick="document.getElementById('treatadd').style.display='none';document.getElementById('dietadd').style.display='block';document.getElementById('exerciseadd').style.display='none';document.getElementById('diagnosisadd').style.display='none';" value="Diet" />
+    <input id="showExercise" type="button" onClick="document.getElementById('treatadd').style.display='none';document.getElementById('dietadd').style.display='none';document.getElementById('exerciseadd').style.display='block';document.getElementById('diagnosisadd').style.display='none';" value="Exercise" />
+    <input id="showDiagnosis" type="button" onClick="document.getElementById('treatadd').style.display='none';document.getElementById('dietadd').style.display='none';document.getElementById('exerciseadd').style.display='none';document.getElementById('diagnosisadd').style.display='block';" value="Diagnosis" />
+   </div>
+   <div id="form-container">
     <div class="container">
-    <div class="row">
+     <div class="row">
       <input id="goBack" type="button" onClick="document.location.href='addmodify.php'" value="Go to add/modify form" />
       <!--This first form is for a vet to add a new treatment to the system-->
       <form id="treatadd" action="treatmentadd.php" method="post">
@@ -118,7 +124,6 @@
              ?>
           </select>
           <br>
-          <br>
           <!--Submits treatment form-->
           <button type="submit" id="submit" class="btn btn-success">Submit</button>
         </fieldset>
@@ -166,7 +171,6 @@
           <label class="form-label">Diet Notes</label>
           <input type="text" id="dietnotes" name="dietnotes">
           <br>
-          <br>
           <button type="submit" id="submit" class="btn btn-success">Submit</button>
         </fieldset>
       </form>
@@ -209,7 +213,6 @@
           <br>
           <label class="form-label">Exercise Notes</label>
           <input type="text" id="exercisenotes" name="exercisenotes">
-          <br>
           <br>
           <button type="submit" id="submit" class="btn btn-success">Submit</button>
         </fieldset>
@@ -271,10 +274,8 @@
               ?>
           </select>
           <br>
-          <br>
           <button type="submit" id="submit" class="btn btn-success">Submit</button>
         </fieldset>
-        <p id="nxforg">UP854443 2021</p>
       </form>
       <!--Link to add/modify form-->
       <input id="goBack2" type="button" onClick="document.location.href='addmodify.php'" value="Go to add/modify form" />
@@ -302,6 +303,12 @@
    </div>
   </div>
 </div>
+<script type="text/javascript">
+  document.getElementById("treatadd").style.display="block";
+  document.getElementById("dietadd").style.display="none";
+  document.getElementById("exerciseadd").style.display="none";
+  document.getElementById("diagnosisadd").style.display="none";
+</script>
 </div>
 </div>
 </div>

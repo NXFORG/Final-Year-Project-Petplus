@@ -39,6 +39,10 @@
     </div>
    </nav>
   <div class="card-img-overlay">
+    <div id="form-header">
+     <input id="showLogin" type="button" onClick="document.getElementById('vetlogin').style.display='block';document.getElementById('vetregister').style.display='none';" value="Login" />
+     <input id="showRegister" type="button" onClick="document.getElementById('vetlogin').style.display='none';document.getElementById('vetregister').style.display='block';" value="Register" />
+    </div>
     <div id="form-container">
     <div class="container">
     <div class="row">
@@ -72,7 +76,7 @@
         }
         ?>
       <!--HTML login form-->
-      <form action = "" method = "post">
+      <form id="vetlogin" action = "" method = "post">
         <div class="main-card-title">Vet Login</div>
         <br>
         <label class="form-label">Email Address</label>
@@ -139,6 +143,10 @@
 </div>
 </div>
 </div>
+<script type="text/javascript">
+  document.getElementById("vetlogin").style.display="block";
+  document.getElementById("vetregister").style.display="none";
+</script>
 <footer><p>UP854443 2021</p>
 </footer>
  </body>

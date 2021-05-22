@@ -17,10 +17,19 @@ body{
   text-align: center;
 }
 /*CSS for hover effect on the navbar items*/
+#form-header{
+  display: flex;
+  width: 50%;
+  margin-top: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px;
+  justify-content: space-evenly;
+}
 #form-container{
   display: block;
   width: 50%;
-  margin-top: 10%;
+  margin-top: 3%;
   margin-left: auto;
   margin-right: auto;
   background-color: #fff;
@@ -57,6 +66,23 @@ input{
   background-color: #d5d6e0;
   padding-left: 5%;
   font-family: raleway-semibold;
+}
+#showTreat,#showDiet,#showExercise,#showDiagnosis{
+ color: #fff;
+ text-align: center;
+ background-color: #2d64b3;
+ width: 20%;
+ padding-left: 1%;
+}
+#showTreat:focus, #showDiet:focus, #showExercise:focus, #showDiagnosis:focus{
+  color: #2d64b3;
+  background-color: #fff;
+  box-shadow: 0 0 0 0.2rem rgba(0,0,0,0);
+}
+#showTreat:hover, #showDiet:hover, #showExercise:hover, #showDiagnosis:hover{
+  color: #2d64b3;
+  background-color: #fff;
+  box-shadow: 0 0 0 0.2rem rgba(0,0,0,0);
 }
 select{
   width: 100%;
@@ -95,8 +121,8 @@ h5{
 }
 .btn:focus, .btn.focus {
   color: #fff;
-  background-color: #1c1e21;
-  border-color: #1c1e21;
+  background-color: #145207;
+  border-color: #145207;
   box-shadow: 0 0 0 0.2rem rgba(0,0,0,0);
 }
 .formBtnContainerLogin{

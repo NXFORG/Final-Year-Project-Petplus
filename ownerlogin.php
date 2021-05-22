@@ -39,6 +39,10 @@
     </div>
    </nav>
   <div class="card-img-overlay">
+    <div id="form-header">
+     <input id="showLogin" type="button" onClick="document.getElementById('ownerlogin').style.display='block';document.getElementById('ownerregister').style.display='none';" value="Login" />
+     <input id="showRegister" type="button" onClick="document.getElementById('ownerlogin').style.display='none';document.getElementById('ownerregister').style.display='block';" value="Register" />
+    </div>
     <div id="form-container">
     <div class="container">
     <div class="row">
@@ -72,7 +76,7 @@
         }
         ?>
       <!--HTML login form-->
-      <form action = "" method = "post">
+      <form id="ownerlogin" action = "" method = "post">
         <div class="main-card-title">Pet Owner Login</div>
         <br>
         <label class="form-label">Email Address</label>
@@ -89,7 +93,7 @@
 <div class="container">
 <div class="row">
   <!--HTML register form-->
-  <form id="vetregister" action = "accountadd.php" method = "post">
+  <form id="ownerregister" action = "accountadd.php" method = "post">
     <div class="main-card-title">Register an Owner Account</div>
     <br>
     <label class="form-label">First Name</label>
@@ -135,6 +139,10 @@
 </div>
 </div>
 </div>
+<script type="text/javascript">
+  document.getElementById("ownerlogin").style.display="block";
+  document.getElementById("ownerregister").style.display="none";
+</script>
 <footer><p>UP854443 2021</p>
 </footer>
  </body>

@@ -65,6 +65,10 @@ input{
   float: left;
   font-family: raleway-light;
 }
+.error{
+  float: left;
+  color: red;
+}
 #vetregister > .main-card-title,#ownerregister > .main-card-title{
   color: #39a342;
 }

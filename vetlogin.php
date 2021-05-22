@@ -80,11 +80,11 @@
         <div class="main-card-title">Vet Login</div>
         <br>
         <label class="form-label">Email Address</label>
-        <input label="Email address" type = "text" name = "username"/>
+        <input label="Email address" type = "email" name = "username" required/>
         <br>
         <br>
         <label class="form-label">Password</label>
-        <input label="Password" type = "password" name = "password"/>
+        <input label="Password" type = "password" name = "password" minlength="8" required/>
         <br>
         <br>
         <input label="Submit" type = "submit" id="vetbtn" value = " Submit "/><br />
@@ -101,42 +101,80 @@
     <div class="main-card-title">Register a Vet Account</div>
     <br>
     <label class="form-label">First Name</label>
-    <input label="First name" type = "text" id="regfname" name = "fname"/>
+    <input label="First name" id="regfname" name = "fname" minlength="4" type="text" required/>
     <br>
     <br>
     <label class="form-label">Last Name</label>
-    <input label="Last name" type = "text" id="reglname" name = "lname"/>
+    <input label="Last name" id="reglname" name = "lname" minlength="4" type="text" required/>
     <br>
     <br>
     <label class="form-label">Email Address</label>
-    <input label="Email address" type = "text" id="regemail" name = "email"/>
+    <input label="Email address" id="regemail" name = "email" type="email" required/>
     <br>
     <br>
     <label class="form-label">Password</label>
-    <input label="Password" type = "password" id="regpassword" name = "password"/><br/><br />
+    <input label="Password" type = "password" id="regpassword" name = "password" minlength="8" required/><br/><br />
     <input label="submit" type = "submit" id="regbtn" value = " Submit "/><br />
   </form>
   <script>
+  //Checks all required field have been completed correctly
+  $(document).ready(function() {
+    $("#vetlogin").validate({
+      rules: {
+        email: {
+          required: true,
+          email: true
+        },
+        password: {
+          required: true,
+          minlength: 8
+        }
+      }
+    });
+  });
+    $(document).ready(function() {
+      $("#vetregister").validate({
+        rules: {
+          fname : {
+            required: true,
+            minlength: 4
+          },
+          lname: {
+            required: true,
+            minlength: 4
+          },
+          email: {
+            required: true,
+            email: true
+          },
+          password: {
+            required: true,
+            minlength: 8
+          }
+        }
+      });
+    });
     //jQuery script to prevent PHP page redirect on form submission
     //Also displays a success or error message depending on if account creation worked or not
     $("#vetregister").submit(function(event) {
-      event.preventDefault(); /*Stops redirect*/
+      event.preventDefault();
       var $form = $(this),
       url = $form.attr('action');
-      var posting = $.post(url, {
-        user_type: 'vet',
-        user_fname: $('#regfname').val(),
-        user_lname: $('#reglname').val(),
-        email: $('#regemail').val(),
-        password: $('#regpassword').val()
-      });
-      posting.done(function(data) {
-        alert("Account successfully created");
-        header("location:login.php");
-      });
-      posting.fail(function() {
-        alert("Error: Account not created");
-      });
+       /*Stops redirect*/
+        var posting = $.post(url, {
+          user_type: 'vet',
+          user_fname: $('#regfname').val(),
+          user_lname: $('#reglname').val(),
+          email: $('#regemail').val(),
+          password: $('#regpassword').val()
+        });
+        posting.done(function(data) {
+          alert("Account successfully created");
+          location.reload();
+        });
+        posting.fail(function() {
+          alert("Error: Account not created");
+        });
     });
   </script>
 </div>

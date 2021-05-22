@@ -146,6 +146,7 @@
           //Form error checking
           posting.done(function(data) {
             alert("Form successfully submitted");
+            location.reload();
           });
           posting.fail(function() {
             alert("Error: Form not submitted");
@@ -189,6 +190,7 @@
           //Form error checking
           posting.done(function(data) {
             alert("Form successfully submitted");
+            location.reload();
           });
           posting.fail(function() {
             alert("Error: Form not submitted");
@@ -232,6 +234,7 @@
           //Form error checking
           posting.done(function(data) {
             alert("Form successfully submitted");
+            location.reload();
           });
           posting.fail(function() {
             alert("Error: Form not submitted");
@@ -294,6 +297,7 @@
           //Form error checking
           posting.done(function(data) {
             alert("Form successfully submitted");
+            location.reload();
           });
           posting.fail(function() {
             alert("Error: Form not submitted");

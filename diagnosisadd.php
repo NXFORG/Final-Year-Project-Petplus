@@ -1,7 +1,7 @@
 <?php
  //Database connection file
  include_once 'dbconnect.php';
- 
+
  $diagnosisname = $_POST['diagnosisname'];
  $diagnosistype = $_POST['diagnosistype'];
  $diagnosisdate = $_POST['diagnosisdate'];
@@ -15,7 +15,7 @@ if($conn->connect_error){
   $sql->bind_param("sssi",$_POST['diagnosisname'], $_POST['diagnosistype'], $_POST['diagnosisdate'], $_POST['diagnosisvet']);
   $success = $sql->execute();
   if($success){
-      echo "success";
+    echo "success";
   }else{
     echo "Failed";
   }

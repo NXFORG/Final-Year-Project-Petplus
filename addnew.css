@@ -24,12 +24,10 @@ body{
   margin-left: auto;
   margin-right: auto;
   border-radius: 10px;
-  justify-content: space-evenly;
 }
 #form-container{
   display: block;
   width: 50%;
-  margin-top: 3%;
   margin-left: auto;
   margin-right: auto;
   background-color: #fff;
@@ -68,21 +66,33 @@ input{
   font-family: raleway-semibold;
 }
 #showTreat,#showDiet,#showExercise,#showDiagnosis{
- color: #fff;
+ color: #2d64b3;
  text-align: center;
- background-color: #2d64b3;
- width: 20%;
+ background-color: #fff;
+ width: 25%;
  padding-left: 1%;
+ border-radius: 0;
+}
+#showTreat{
+  border-top-left-radius: 5px;
+}
+#showDiagnosis{
+  border-top-right-radius: 5px;
 }
 #showTreat:focus, #showDiet:focus, #showExercise:focus, #showDiagnosis:focus{
-  color: #2d64b3;
-  background-color: #fff;
+  color: #fff;
+  background-color: #2d64b3;
   box-shadow: 0 0 0 0.2rem rgba(0,0,0,0);
+  border: 0;
 }
 #showTreat:hover, #showDiet:hover, #showExercise:hover, #showDiagnosis:hover{
-  color: #2d64b3;
-  background-color: #fff;
+  color: #fff;
+  background-color: #2d64b3;
   box-shadow: 0 0 0 0.2rem rgba(0,0,0,0);
+  border: 0;
+}
+#showTreat,#showDiet,#showExercise{
+  border-right: 1px solid #b0b3af;
 }
 select{
   width: 100%;
@@ -160,8 +170,7 @@ h5{
 #goBack{
  color: #fff;
  background-color: #2d64b3;
- border-bottom-left-radius: 0;
- border-bottom-right-radius: 0;
+ border-radius: 0;
 }
 #goBack2{
  color: #fff;

@@ -93,20 +93,20 @@
         <!--Form fields-->
         <fieldset>
           <label class="form-label">Pet Name</label>
-          <input type="text" id="petname" name="petname">
+          <input type="text" id="petname" name="petname" minlength="3" required>
           <br>
           <br>
           <label class="form-label">Microchip ID</label>
-          <input type="text" id="microid" name="microid">
+          <input type="number" id="microid" name="microid" minlength="8">
           <br>
           <br>
           <label class="form-label">Pet Date of Birth</label>
-          <input type="date" id="petdob" name="petdob">
+          <input type="date" id="petdob" name="petdob" required>
           <br>
           <br>
           <label class="form-label">Pet Breed</label>
           <!--Retrieves breed 'select' options from the database-->
-          <select id="petspecies" name="petspecies">
+          <select id="petspecies" name="petspecies" required>
             <option value="" disabled selected>Select a Breed</option>
             <?php
              $sql = "SELECT * FROM Species";
@@ -122,7 +122,7 @@
           <br>
           <label class="form-label">Owner's Name</label>
           <!--Retrieves owner names from the database, who are clients of the logged-in vet's practice-->
-          <select id="ownername" class="dropdownSelect" name="ownername">
+          <select id="ownername" class="dropdownSelect" name="ownername" required>
             <option value="" disabled selected>Select a Pet Owner</option>
             <?php
              $sql = "SELECT DISTINCT Owner_ID, Owner_FName, Owner_LName FROM Owner
@@ -146,7 +146,7 @@
           <br>
           <label class="form-label">Veterinarian's Name</label>
           <!--Retrieves the current vet's name from their login information-->
-          <select id="vetname" name="vetname">
+          <select id="vetname" name="vetname" required>
             <?php
              $sql = "SELECT * FROM Vet WHERE Vet_Email = '$check'";
              $result = mysqli_query($conn, $sql);
@@ -176,16 +176,16 @@
           <br>
           <label class="form-label">Last Treatment Recieved</label>
           <!--Gets recent pet treatments-->
-          <select id="treatname" name="treatname">
+          <select id="treatname" name="treatname" required>
             <option value="" disabled selected>Select a Treatment</option>
             <?php
              //The pet's most recent treatment is retrieved
-             $sql = "SELECT * FROM Treatment JOIN Pet ON Pet.Pet_Treatment_ID = Treatment.Treatment_ID WHERE Pet_ID = '$modid' AND Treatment_Date < CURDATE()";
+             $sql = "SELECT * FROM Treatment JOIN Pet ON Pet.Pet_Treatment_ID = Treatment.Treatment_ID WHERE Treatment_Name ='None' LIMIT 1";
              $result = mysqli_query($conn, $sql);
              $resultnum = mysqli_num_rows($result);
              if ($resultnum > 0){
               while ($row = mysqli_fetch_assoc($result)){
-               echo "<option value=",$row['Treatment_ID'],">" . $row['Treatment_ID'] . " " . $row['Treatment_Name'] . " (Current)" . "</option>";
+               echo "<option value=",$row['Treatment_ID'],">" . $row['Treatment_Name'] . "</option>";
               }
              }
              echo "<option value='' disabled><b>Your recently uploaded treatments:</b></option>";
@@ -232,7 +232,7 @@
           <br>
           <br>
           <label class="form-label">Pet Diet Prescription</label>
-          <select id="dietname" name="dietname">
+          <select id="dietname" name="dietname" required>
             <option value="" disabled selected>Select a Diet Plan</option>
             <?php
              //None is displayed at the top of the search results
@@ -244,6 +244,22 @@
                echo "<option value=",$row['Diet_ID'],">" . $row['Diet_Name'] . "</option>";
               }
              }
+             echo "<option value='' disabled><b>Your recently uploaded diet plans:</b></option>";
+             $sql = "SELECT DISTINCT Diet_ID, Diet_Name FROM Diet
+             JOIN Vet ON Vet.Vet_ID = Diet.Diet_Vet
+             JOIN Practice ON Practice.Practice_ID = Vet.Vet_Practice_ID
+             WHERE Practice_ID = (SELECT Practice_ID
+             FROM Practice
+             JOIN Vet ON Vet.Vet_Practice_ID = Practice.Practice_ID
+             WHERE Vet_Email = '$check') ORDER BY Diet_ID";
+             $result = mysqli_query($conn, $sql);
+             $resultnum = mysqli_num_rows($result);
+              if ($resultnum > 0){
+               while ($row = mysqli_fetch_assoc($result)){
+                echo "<option value=",$row['Diet_ID'],">" . $row['Diet_ID'] . " " . $row['Diet_Name'] . "</option>";
+               }
+               echo "<option value='' disabled><b>Other diet plans uploaded by your practice:</b></option>";
+              }
              //Other diets associated with the vet's employing practice are retreived
              $sql = "SELECT DISTINCT Diet_ID, Diet_Name FROM Diet JOIN Pet ON Pet.Pet_Diet_ID = Diet.Diet_ID
              JOIN Vet ON Vet.Vet_ID = Pet.Pet_Vet_ID
@@ -264,7 +280,7 @@
           <br>
           <br>
           <label class="form-label">Pet Exercise Plan</label>
-          <select id="exercisename" name="exercisename">
+          <select id="exercisename" name="exercisename" required>
             <option value="" disabled selected>Select an Exercise Plan</option>
             <?php
              //'None' will be the first option
@@ -276,6 +292,22 @@
                echo "<option value=",$row['Exercise_ID'],">" . $row['Exercise_Name'] . "</option>";
                }
               }
+              echo "<option value='' disabled><b>Your recently uploaded exercise plans:</b></option>";
+              $sql = "SELECT DISTINCT Exercise_ID, Exercise_Name FROM Exercise
+              JOIN Vet ON Vet.Vet_ID = Exercise.Exercise_Vet
+              JOIN Practice ON Practice.Practice_ID = Vet.Vet_Practice_ID
+              WHERE Practice_ID = (SELECT Practice_ID
+              FROM Practice
+              JOIN Vet ON Vet.Vet_Practice_ID = Practice.Practice_ID
+              WHERE Vet_Email = '$check') ORDER BY Exercise_ID";
+              $result = mysqli_query($conn, $sql);
+              $resultnum = mysqli_num_rows($result);
+               if ($resultnum > 0){
+                while ($row = mysqli_fetch_assoc($result)){
+                 echo "<option value=",$row['Exercise_ID'],">" . $row['Exercise_ID'] . " " . $row['Exercise_Name'] . "</option>";
+                }
+                echo "<option value='' disabled><b>Other exercise plans uploaded by your practice:</b></option>";
+               }
             //Other exercise plans are retreived
              $sql = "SELECT DISTINCT Exercise_ID, Exercise_Name FROM Exercise JOIN Pet ON Pet.Pet_Exercise_ID = Exercise.Exercise_ID
              JOIN Vet ON Vet.Vet_ID = Pet.Pet_Vet_ID
@@ -296,7 +328,7 @@
           <br>
           <br>
           <label class="form-label">Pet Diagnosis</label>
-          <select id="diagnosisname" name="diagnosisname">
+          <select id="diagnosisname" name="diagnosisname" required>
             <option value="" disabled selected>Select a Diagnosis</option>
             <?php
              //No diagnosis is dipslayed as the first option
@@ -308,6 +340,18 @@
                 echo "<option value=",$row['Diagnosis_ID'],">" . $row['Diagnosis_Name'] . "</option>";
                }
               }
+              echo "<option value='' disabled><b>Your recently uploaded pet diagnoses:</b></option>";
+              $sql = "SELECT DISTINCT Diagnosis_ID, Diagnosis_Name FROM Diagnosis
+              JOIN Vet ON Vet.Vet_ID = Diagnosis.Diagnosis_Vet
+              WHERE Vet_Email = '$check' ORDER BY Diagnosis_ID";
+              $result = mysqli_query($conn, $sql);
+              $resultnum = mysqli_num_rows($result);
+               if ($resultnum > 0){
+                while ($row = mysqli_fetch_assoc($result)){
+                 echo "<option value=",$row['Diagnosis_ID'],">" . $row['Diagnosis_ID'] . " " . $row['Diagnosis_Name'] . "</option>";
+                }
+                echo "<option value='' disabled><b>Other pet diagnoses uploaded by your practice:</b></option>";
+               }
              //Other practice associated diagnoses are displayed
              $sql = "SELECT Diagnosis_ID, Diagnosis_Name FROM Diagnosis JOIN Pet ON Pet.Pet_Diagnosis_ID = Diagnosis.Diagnosis_ID
              JOIN Vet ON Vet.Vet_ID = Pet.Pet_Vet_ID
@@ -335,6 +379,43 @@
       <!--Link to 'add treatment' page-->
       <input id="addNewAdd" type="button" onClick="document.location.href='addtreatment.php'" value="Add new treatment" />
       <script>
+      $(document).ready(function() {
+        $("#newpetadd").validate({
+          rules: {
+            petname: {
+              required: true,
+              minlength: 3
+            },
+            microid: {
+              minlength: 8
+            },
+            petdob: {
+              required: true
+            },
+            petspecies: {
+              required: true
+            },
+            ownername: {
+              required: true
+            },
+            treatname: {
+              required: true
+            },
+            futuretreat: {
+              required: false
+            },
+            dietname: {
+              required: true
+            },
+            exercisename: {
+              required: true
+            },
+            diagnosisname: {
+              required: true
+            }
+          }
+        });
+      });
         //jQuery to prevent default PHP form redirect on form submission
         $("#newpetadd").submit(function(event) {
           event.preventDefault(); /*Stops redirect*/
@@ -357,6 +438,7 @@
           //form posting check
           posting.done(function(data) {
             alert("Form successfully submitted");
+            location.reload();
           });
           posting.fail(function() {
             alert("Error: Form not submitted");
@@ -479,7 +561,7 @@
           $resultnum = mysqli_num_rows($result);
           if ($resultnum > 0){
            while ($row = mysqli_fetch_assoc($result)){
-             echo "<input type='text' id='updpetmicroid' name='updpetmicroid' value=" . $row['Pet_System_ID'] . ">";
+             echo "<input type='text' id='updpetmicroid' name='updpetmicroid' minlength='8' required value=" . $row['Pet_System_ID'] . ">";
             }
           }
           ?>
@@ -631,6 +713,22 @@
                echo "<option value=",$row['Diet_ID'],">" . $row['Diet_ID'] . " " . $row['Diet_Name'] . " (Current)" . "</option>";
               }
              }
+             echo "<option value='' disabled><b>Your recently uploaded diet plans:</b></option>";
+             $sql = "SELECT DISTINCT Diet_ID, Diet_Name FROM Diet
+             JOIN Vet ON Vet.Vet_ID = Diet.Diet_Vet
+             JOIN Practice ON Practice.Practice_ID = Vet.Vet_Practice_ID
+             WHERE Practice_ID = (SELECT Practice_ID
+             FROM Practice
+             JOIN Vet ON Vet.Vet_Practice_ID = Practice.Practice_ID
+             WHERE Vet_Email = '$check') ORDER BY Diet_ID";
+             $result = mysqli_query($conn, $sql);
+             $resultnum = mysqli_num_rows($result);
+              if ($resultnum > 0){
+               while ($row = mysqli_fetch_assoc($result)){
+                echo "<option value=",$row['Diet_ID'],">" . $row['Diet_ID'] . " " . $row['Diet_Name'] . "</option>";
+               }
+               echo "<option value='' disabled><b>Other diet plans uploaded by your practice:</b></option>";
+              }
              //Gets other diet plans from the practice
              $sql = "SELECT DISTINCT Diet_ID, Diet_Name FROM Diet
              JOIN Pet ON Pet.Pet_Diet_ID = Diet.Diet_ID
@@ -663,6 +761,22 @@
                echo "<option value=",$row['Exercise_ID'],">" . $row['Exercise_ID'] . " " . $row['Exercise_Name'] . " (Current)" . "</option>";
               }
              }
+             echo "<option value='' disabled><b>Your recently uploaded exercise plans:</b></option>";
+             $sql = "SELECT DISTINCT Exercise_ID, Exercise_Name FROM Exercise
+             JOIN Vet ON Vet.Vet_ID = Exercise.Exercise_Vet
+             JOIN Practice ON Practice.Practice_ID = Vet.Vet_Practice_ID
+             WHERE Practice_ID = (SELECT Practice_ID
+             FROM Practice
+             JOIN Vet ON Vet.Vet_Practice_ID = Practice.Practice_ID
+             WHERE Vet_Email = '$check') ORDER BY Exercise_ID";
+             $result = mysqli_query($conn, $sql);
+             $resultnum = mysqli_num_rows($result);
+              if ($resultnum > 0){
+               while ($row = mysqli_fetch_assoc($result)){
+                echo "<option value=",$row['Exercise_ID'],">" . $row['Exercise_ID'] . " " . $row['Exercise_Name'] . "</option>";
+               }
+               echo "<option value='' disabled><b>Other exercise plans uploaded by your practice:</b></option>";
+              }
              //gets other exercise plans from the practice
              $sql = "SELECT DISTINCT Exercise_ID, Exercise_Name FROM Exercise
              JOIN Pet ON Pet.Pet_Exercise_ID = Exercise.Exercise_ID
@@ -695,6 +809,18 @@
                echo "<option value=",$row['Diagnosis_ID'],">" . $row['Diagnosis_ID'] . " " . $row['Diagnosis_Name'] . " (Current)" . "</option>";
               }
              }
+             echo "<option value='' disabled><b>Your recently uploaded pet diagnoses:</b></option>";
+             $sql = "SELECT DISTINCT Diagnosis_ID, Diagnosis_Name FROM Diagnosis
+             JOIN Vet ON Vet.Vet_ID = Diagnosis.Diagnosis_Vet
+             WHERE Vet_Email = '$check' ORDER BY Diagnosis_ID";
+             $result = mysqli_query($conn, $sql);
+             $resultnum = mysqli_num_rows($result);
+              if ($resultnum > 0){
+               while ($row = mysqli_fetch_assoc($result)){
+                echo "<option value=",$row['Diagnosis_ID'],">" . $row['Diagnosis_ID'] . " " . $row['Diagnosis_Name'] . "</option>";
+               }
+               echo "<option value='' disabled><b>Other pet diagnoses uploaded by your practice:</b></option>";
+              }
              //retrieves other diagnoses in case this needs to be updated
              $sql = "SELECT DISTINCT Diagnosis_ID, Diagnosis_Name FROM Diagnosis
              JOIN Pet ON Pet.Pet_Diagnosis_ID = Diagnosis.Diagnosis_ID
@@ -724,6 +850,17 @@
       <!--Link to 'add treatment' page-->
       <input id="addNewModify" type="button" onClick="document.location.href='addtreatment.php'" value="Add new treatment"/>
       <script>
+      //Checks all required field have been completed correctly
+      $(document).ready(function() {
+        $("#petmodify").validate({
+          rules: {
+            updpetmicroid: {
+              required: false,
+              minlength: 8
+            }
+          }
+        });
+      });
         //jQuery to prevent default PHP redirect
         $("#addNewModify").hide();
         $("#petmodify").submit(function(event) {
@@ -747,6 +884,7 @@
           //post success check
           posting.done(function(data) {
             alert("Form successfully submitted");
+            window.location.href = "addmodify.php";
           });
           posting.fail(function() {
             alert("Error: Form not submitted");

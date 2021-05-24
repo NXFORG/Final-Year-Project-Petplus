@@ -80,9 +80,13 @@
         <div class="main-card-title">Pet Owner Login</div>
         <br>
         <label class="form-label">Email Address</label>
-        <input type = "text" name = "username"/><br /><br />
+        <input type = "email" name = "username" required/>
+        <br>
+        <br>
         <label class="form-label">Password</label>
-        <input type = "password" name = "password"/><br/><br />
+        <input type = "password" name = "password" minlength="8" required/>
+        <br>
+        <br>
         <input type = "submit" id="vetbtn" value = " Submit "/><br />
         <div id="loginmsg"> </div>
       </form>
@@ -97,25 +101,67 @@
     <div class="main-card-title">Register an Owner Account</div>
     <br>
     <label class="form-label">First Name</label>
-    <input type = "text" id="regfname" name = "fname"/>
+    <input type = "text" id="regfname" name = "fname" minlength="4" required/>
     <br>
     <br>
     <label class="form-label">Last Name</label>
-    <input type = "text" id="reglname" name = "lname"/>
+    <input type = "text" id="reglname" name = "lname" minlength="4" required/>
     <br>
     <br>
     <label class="form-label">Email Address</label>
-    <input type = "text" id="regemail" name = "email"/>
+    <input type = "email" id="regemail" name = "email" required/>
     <br>
     <br>
     <label class="form-label">Password</label>
-    <input type = "password" id="regpassword" name = "password"/><br/><br />
-    <input type = "submit" id="regbtn" value = " Submit "/><br />
+    <input type = "password" id="regpassword" name = "password" minlength="8" required/>
+    <br>
+    <br>
+    <input type = "submit" id="regbtn" value = " Submit "/>
+    <br>
   </form>
   <script>
+  //Checks all required field have been completed correctly
+  $(document).ready(function() {
+    $("#ownerlogin").validate({
+      rules: {
+        email: {
+          required: true,
+          //forces email format
+          email: true
+        },
+        password: {
+          required: true,
+          //password must be a minimum of 8 characters
+          minlength: 8
+        }
+      }
+    });
+  });
+    $(document).ready(function() {
+      $("#ownerregister").validate({
+        rules: {
+          fname : {
+            required: true,
+            minlength: 4
+          },
+          lname: {
+            required: true,
+            minlength: 4
+          },
+          email: {
+            required: true,
+            email: true
+          },
+          password: {
+            required: true,
+            minlength: 8
+          }
+        }
+      });
+    });
     //jQuery script to prevent PHP page redirect on form submission
     //Also displays a success or error message depending on if account creation worked or not
-    $("#vetregister").submit(function(event) {
+    $("#ownerregister").submit(function(event) {
       event.preventDefault();
       var $form = $(this),
       url = $form.attr('action');
@@ -128,7 +174,7 @@
       });
       posting.done(function(data) {
         alert("Account successfully created");
-        header("location:ownerlogin.php");
+        location.reload();
       });
       posting.fail(function() {
         alert("Error: Account not created");

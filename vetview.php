@@ -50,7 +50,7 @@
        <form id="retrieveform" class="formentry" action="" method="post">
         <fieldset>
           <label class="form-label">Pet ID</label>
-          <input type="text" id="petid" name="petid">
+          <input type="number" id="petid" name="petid">
           <br>
           <br>
           <hr>

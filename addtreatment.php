@@ -44,10 +44,10 @@
    </nav>
   <div class="card-img-overlay">
    <div id="form-header">
-    <input id="showTreat" type="button" onClick="document.getElementById('treatadd').style.display='block';document.getElementById('dietadd').style.display='none';document.getElementById('exerciseadd').style.display='none';document.getElementById('diagnosisadd').style.display='none';" value="Treatment" />
-    <input id="showDiet" type="button" onClick="document.getElementById('treatadd').style.display='none';document.getElementById('dietadd').style.display='block';document.getElementById('exerciseadd').style.display='none';document.getElementById('diagnosisadd').style.display='none';" value="Diet" />
-    <input id="showExercise" type="button" onClick="document.getElementById('treatadd').style.display='none';document.getElementById('dietadd').style.display='none';document.getElementById('exerciseadd').style.display='block';document.getElementById('diagnosisadd').style.display='none';" value="Exercise" />
-    <input id="showDiagnosis" type="button" onClick="document.getElementById('treatadd').style.display='none';document.getElementById('dietadd').style.display='none';document.getElementById('exerciseadd').style.display='none';document.getElementById('diagnosisadd').style.display='block';" value="Diagnosis" />
+    <input id="showTreat" type="button" onClick="document.getElementById('treatadd').style.display='block';document.getElementById('dietadd').style.display='none';document.getElementById('exerciseadd').style.display='none';document.getElementById('diagnosisadd').style.display='none';" value=" Add Treatment" />
+    <input id="showDiet" type="button" onClick="document.getElementById('treatadd').style.display='none';document.getElementById('dietadd').style.display='block';document.getElementById('exerciseadd').style.display='none';document.getElementById('diagnosisadd').style.display='none';" value="Add Diet" />
+    <input id="showExercise" type="button" onClick="document.getElementById('treatadd').style.display='none';document.getElementById('dietadd').style.display='none';document.getElementById('exerciseadd').style.display='block';document.getElementById('diagnosisadd').style.display='none';" value="Add Exercise" />
+    <input id="showDiagnosis" type="button" onClick="document.getElementById('treatadd').style.display='none';document.getElementById('dietadd').style.display='none';document.getElementById('exerciseadd').style.display='none';document.getElementById('diagnosisadd').style.display='block';" value="Add Diagnosis" />
    </div>
    <div id="form-container">
     <div class="container">
@@ -58,11 +58,11 @@
         <div class="main-card-title">Add a Treatment</div>
         <fieldset>
           <label class="form-label">Treatment Name</label>
-          <input type="text" id="treatmentname" name="treatmentname">
+          <input type="text" id="treatmentname" name="treatmentname" minlength="4" required>
           <br>
           <br>
           <label class="form-label">Treatment Date</label>
-          <input type="date" id="treatdate" name="treatdate">
+          <input type="date" id="treatdate" name="treatdate" required>
           <br>
           <br>
           <label class="form-label">Treatment Notes</label>
@@ -71,7 +71,7 @@
           <br>
           <!--A treatment can be one of the following types-->
           <label class="form-label">Treatment Type</label>
-          <select id="treatmenttype" name="treatmenttype">
+          <select id="treatmenttype" name="treatmenttype" required>
             <option value="Follow up">Follow-up</option>
             <option value="Surgery">Surgery</option>
             <option value="Blood test">Blood test</option>
@@ -81,21 +81,10 @@
           <br>
           <!--Retrieves fixed costs for all treatment types-->
           <label class="form-label">Treatment Cost</label>
-          <select id="treatmentcost" name="treatmentcost">
-            <?php
-              $sql = "SELECT * FROM Treatment_Cost";
-              $result = mysqli_query($conn, $sql);
-              $resultnum = mysqli_num_rows($result);
-              if ($resultnum > 0){
-                while ($row = mysqli_fetch_assoc($result)){
-                echo "<option value=",$row['Treatment_Cost_ID'],">" . $row['Treatment_Cost'] . "</option>";
-                }
-              }
-              ?>
-          </select>
+          <input type="text" id="treatmentcost" name="treatmentcost" required>
           <br>
           <br>
-          <label class="form-label">Treatment Performed By</label>
+          <label class="form-label">Treatment Performed By</label required>
           <select id="treatmentvet" name="treatmentvet">
             <?php
              //Retrieves the current vet from their login email
@@ -130,6 +119,25 @@
       </form>
       <!--jQuery script to prevent redirection on form submission-->
       <script>
+      $(document).ready(function() {
+        $("#treatadd").validate({
+         rules: {
+           treatname: {
+             required: true,
+             minlength: 4
+           },
+           treatdate: {
+             required: true
+           },
+           treatcost: {
+             required: true
+           },
+           treatvet: {
+             required: true
+           }
+         }
+       });
+     });
         $("#treatadd").submit(function(event) {
           event.preventDefault(); /*Stops redirect*/
           var $form = $(this),
@@ -158,11 +166,11 @@
         <div class="main-card-title">Add Diet Prescription</div>
         <fieldset>
           <label class="form-label">Diet Name</label>
-          <input type="text" id="dietname" name="dietname">
+          <input type="text" id="dietname" name="dietname" minlength="4" required>
           <br>
           <br>
           <label class="form-label">Diet Start Date</label>
-          <input type="date" id="dietstartdate" name="dietstartdate">
+          <input type="date" id="dietstartdate" name="dietstartdate" required>
           <br>
           <br>
           <label class="form-label">Diet End Date</label>
@@ -172,11 +180,57 @@
           <label class="form-label">Diet Notes</label>
           <input type="text" id="dietnotes" name="dietnotes">
           <br>
+          <br>
+          <label class="form-label">Diet Prescribed By</label>
+          <select id="dietvet" name="dietvet" required>
+            <?php
+             //Retrieves the current vet from their login email
+             $sql = "SELECT * FROM Vet WHERE Vet_Email = '$check'";
+             $result = mysqli_query($conn, $sql);
+             $resultnum = mysqli_num_rows($result);
+             if ($resultnum > 0){
+              while ($row = mysqli_fetch_assoc($result)){
+                echo "<option value=",$row['Vet_ID'],">" . $row['Vet_FName'] . " " . $row['Vet_LName'] . "</option>";
+               }
+             }
+             //Retrieves other vets from the logged-in vet's employing practice
+             $sql = "SELECT * FROM Vet
+             JOIN Practice ON Practice.Practice_ID = Vet.Vet_Practice_ID
+             WHERE Practice_ID = (SELECT Practice_ID
+             FROM Practice
+             JOIN Vet ON Vet.Vet_Practice_ID = Practice.Practice_ID
+             WHERE Vet_Email = '$check')";
+             $result = mysqli_query($conn, $sql);
+             $resultnum = mysqli_num_rows($result);
+             if ($resultnum > 0){
+              while ($row = mysqli_fetch_assoc($result)){
+                echo "<option value=",$row['Vet_ID'],">" . $row['Vet_FName'] . " " . $row['Vet_LName'] . "</option>";
+               }
+             }
+             ?>
+          </select>
+          <br>
           <button type="submit" id="submit" class="btn btn-success">Submit</button>
         </fieldset>
       </form>
       <!--jQuery form to prevent default PHP navigation-->
       <script>
+      $(document).ready(function() {
+        $("#dietadd").validate({
+         rules: {
+           dietname: {
+             required: true,
+             minlength: 4
+           },
+           dietstartdate: {
+             required: true
+           },
+           dietvet: {
+             required: true
+           }
+         }
+       });
+     });
         $("#dietadd").submit(function(event) {
           event.preventDefault(); /*Stops redirect*/
           var $form = $(this),
@@ -185,7 +239,8 @@
             dietname: $('#dietname').val(),
             dietstartdate: $('#dietstartdate').val(),
             dietenddate: $('#dietenddate').val(),
-            dietnotes: $('#dietnotes').val()
+            dietnotes: $('#dietnotes').val(),
+            dietvet: $('#dietvet').val()
           });
           //Form error checking
           posting.done(function(data) {
@@ -202,11 +257,11 @@
         <div class="main-card-title">Add Exercise Plan</div>
         <fieldset>
           <label class="form-label">Exercise Name</label>
-          <input type="text" id="exercisename" name="exercisename">
+          <input type="text" id="exercisename" name="exercisename" minlength="4" required>
           <br>
           <br>
           <label class="form-label">Exercise Start Date</label>
-          <input type="date" id="exercisestartdate" name="exercisestartdate">
+          <input type="date" id="exercisestartdate" name="exercisestartdate" required>
           <br>
           <br>
           <label class="form-label">Exercise End Date</label>
@@ -216,11 +271,57 @@
           <label class="form-label">Exercise Notes</label>
           <input type="text" id="exercisenotes" name="exercisenotes">
           <br>
+          <br>
+          <label class="form-label">Exercise Plan Set By</label>
+          <select id="exercisevet" name="exercisevet" required>
+            <?php
+             //Retrieves the current vet from their login email
+             $sql = "SELECT * FROM Vet WHERE Vet_Email = '$check'";
+             $result = mysqli_query($conn, $sql);
+             $resultnum = mysqli_num_rows($result);
+             if ($resultnum > 0){
+              while ($row = mysqli_fetch_assoc($result)){
+                echo "<option value=",$row['Vet_ID'],">" . $row['Vet_FName'] . " " . $row['Vet_LName'] . "</option>";
+               }
+             }
+             //Retrieves other vets from the logged-in vet's employing practice
+             $sql = "SELECT * FROM Vet
+             JOIN Practice ON Practice.Practice_ID = Vet.Vet_Practice_ID
+             WHERE Practice_ID = (SELECT Practice_ID
+             FROM Practice
+             JOIN Vet ON Vet.Vet_Practice_ID = Practice.Practice_ID
+             WHERE Vet_Email = '$check')";
+             $result = mysqli_query($conn, $sql);
+             $resultnum = mysqli_num_rows($result);
+             if ($resultnum > 0){
+              while ($row = mysqli_fetch_assoc($result)){
+                echo "<option value=",$row['Vet_ID'],">" . $row['Vet_FName'] . " " . $row['Vet_LName'] . "</option>";
+               }
+             }
+             ?>
+          </select>
+          <br>
           <button type="submit" id="submit" class="btn btn-success">Submit</button>
         </fieldset>
       </form>
       <!--jQuery script to prevent default navigation on form submission-->
       <script>
+      $(document).ready(function() {
+        $("#exerciseadd").validate({
+         rules: {
+           exercisename: {
+             required: true,
+             minlength: 4
+           },
+           exercisestartdate: {
+             required: true
+           },
+           exercisevet: {
+             required: true
+           }
+         }
+       });
+     });
         $("#exerciseadd").submit(function(event) {
           event.preventDefault(); /*Stops redirect*/
           var $form = $(this),
@@ -229,7 +330,8 @@
             exercisename: $('#exercisename').val(),
             exercisestartdate: $('#exercisestartdate').val(),
             exerciseenddate: $('#exerciseenddate').val(),
-            exercisenotes: $('#exercisenotes').val()
+            exercisenotes: $('#exercisenotes').val(),
+            exercisevet: $('#exercisevet').val()
           });
           //Form error checking
           posting.done(function(data) {
@@ -246,20 +348,20 @@
         <div class="main-card-title">Add Diagnosis</div>
         <fieldset>
           <label class="form-label">Diagnosis Name</label>
-          <input type="text" id="diagnosisname" name="diagnosisname">
+          <input type="text" id="diagnosisname" name="diagnosisname" minlength="4" required>
           <br>
           <br>
           <label class="form-label">Diagnosis Type</label>
-          <input type="text" id="diagnosistype" name="diagnosistype">
+          <input type="text" id="diagnosistype" name="diagnosistype" required>
           <br>
           <br>
           <label class="form-label">Diagnosis Date</label>
-          <input type="date" id="diagnosisdate" name="diagnosisdate">
+          <input type="date" id="diagnosisdate" name="diagnosisdate" required>
           <br>
           <br>
           <label class="form-label">Diagnosed By (Vet)</label>
           <!--Retrieves the current vet's name from their login information-->
-          <select id="diagnosisvet" name="diagnosisvet">
+          <select id="diagnosisvet" name="diagnosisvet" required>
             <?php
               $sql = "SELECT DISTINCT Vet_ID, Vet_FName, Vet_LName FROM Vet
                JOIN Practice ON Practice.Practice_ID = Vet.Vet_Practice_ID
@@ -284,6 +386,25 @@
       <input id="goBack2" type="button" onClick="document.location.href='addmodify.php'" value="Go to add/modify form" />
       <!--jQuery script to prevent default PHP navigation on form submission-->
       <script>
+        $(document).ready(function() {
+          $("#diagnosisadd").validate({
+           rules: {
+             diagnosisname : {
+               required: true,
+               minlength: 4
+             },
+             diagnosistype: {
+               required: true
+             },
+             diagnosisdate: {
+               required: true
+             },
+             diagnosisvet: {
+               required: true
+             }
+           }
+         });
+       });
         $("#diagnosisadd").submit(function(event) {
           event.preventDefault(); /*Stops redirect*/
           var $form = $(this),

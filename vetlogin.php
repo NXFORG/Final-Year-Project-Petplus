@@ -113,8 +113,11 @@
     <br>
     <br>
     <label class="form-label">Password</label>
-    <input label="Password" type = "password" id="regpassword" name = "password" minlength="8" required/><br/><br />
-    <input label="submit" type = "submit" id="regbtn" value = " Submit "/><br />
+    <input label="Password" type = "password" id="regpassword" name = "password" minlength="8" required/>
+    <br>
+    <br>
+    <input label="submit" type = "submit" id="regbtn" value = " Submit "/>
+    <br>
   </form>
   <script>
   //Checks all required field have been completed correctly
@@ -123,10 +126,12 @@
       rules: {
         email: {
           required: true,
+          //forces email format
           email: true
         },
         password: {
           required: true,
+          //password must be a minimum of 8 characters
           minlength: 8
         }
       }

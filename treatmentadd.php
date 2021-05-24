@@ -13,7 +13,7 @@ if($conn->connect_error){
     die('connection failed: '.$conn->connect_error);
   }else{
   $sql = $conn->prepare("INSERT INTO Treatment(Treatment_Name,Treatment_Date,Treatment_Notes,Treatment_Type,Treatment_Cost_ID,Treatment_Vet) VALUES(?,?,?,?,?,?)");
-  $sql->bind_param("ssssii",$_POST['treatmentname'], $_POST['treatdate'], $_POST['treatmentnotes'], $_POST['treatmenttype'], $_POST['treatmentcost'], $_POST['treatmentvet']);
+  $sql->bind_param("sssssi",$_POST['treatmentname'], $_POST['treatdate'], $_POST['treatmentnotes'], $_POST['treatmenttype'], $_POST['treatmentcost'], $_POST['treatmentvet']);
   $success = $sql->execute();
   if($success){
       echo "success";
